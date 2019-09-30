@@ -1,0 +1,18 @@
+Key,EN,RS
+menu_game1_title,Plants Needs,Potrebe Biljaka
+menu_game2_title,Power Of Fruits,Struja iz voća
+menu_game3_title,Swinging Pendulum,Ljuljajuće klatno
+menu_game1_description,In this game we will learn about what plants need to grow and why they wither.,U ovoj igri ćemo naučiti šta je potrebno za rast biljaka i zašto venu.
+menu_game2_description,Learn how to produce the highest voltage and light up the light using fruits.,Naučiti kako proizvesti najveći napon i uključiti sijalicu pomoću voća.
+menu_game3_description,This game shows how potential energy can be converted to kinetic energy and back again.,Ova igra pokazuje kako se potencijalna energija može biti promenjena u kinetičku energiju i obrnuto.
+plantneeds_step1_info,Grab the plant and move it in the dark place to see what happens when they don`t have enough sunlight.,Uzmi biljku i premesti je na tamno mesto da bi video šta će se desiti kada nema dovoljno sunčeve svetlosti.
+plantneeds_step2_info,The plant has withered because it didn`t have enough sunlight. Move it back into the sunlight so it can recover.,Biljka je uvenula zato što nije imala dovoljno sunčeve svetlosti. Vrati je nazad na osvetljeno mesto da bi se oporavila.
+plantneeds_step3_info,Use watering can and water the plant.,Uzmi kantu za zalivanje i zalij biljku.
+plantneeds_step4_info,Plant has grown. If the plant has enough water it will start growing.,Biljka je porasla. Ako biljka ima dovoljno vode počeće da raste.
+plantneeds_ingame_ text,Sun,Svetlost
+plantneeds_ingame_ text1,Dark,Tama
+pendulum_step1_info,Grab the pendulum and swing it.,Uhvati klatno i zaljuljaj ga.
+pendulum_step2_info,This bar graphs shows how potential energy increases while kinetic energy decreases and back again.,Ovaj grafikon pokazuje kako se potencijalna energija povećava dok se kinetička smanjuje i obrnuto.
+pendulum_ingame_text,Potencial energy,Potencijalna energija
+pendulum_ingame_text1,Kinetic energy,Kinetička energija
+fruits_step1_text1,"Connect copper wire from one cable and steel wire from another cable with fruits, and the other parts of cables with lightbulb. For higher voltage connect more fruits. ","Povežite bakarnu žicu jednog i čeličnu žicu drugog kabla sa voćem, a preostale krajeve kablova sa sijalicom. Za veći napon povežite više voća."
