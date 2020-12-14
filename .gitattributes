@@ -1,2 +1,0 @@
-*.resS filter=lfs diff=lfs merge=lfs -text
-unity_builtin_extra filter=lfs diff=lfs merge=lfs -text

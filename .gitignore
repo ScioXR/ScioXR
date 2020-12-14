@@ -1,7 +1,11 @@
-/obj
-/Logs
-/Library
-/*.csproj
-/*.sln
 /.vs
+/Library
+/obj
 /Temp
+/TestVR.sln
+/Assembly-CSharp.csproj
+*.csproj
+/*.csproj
+/ScioXRDevelopment.sln
+/*.sln
+/Build

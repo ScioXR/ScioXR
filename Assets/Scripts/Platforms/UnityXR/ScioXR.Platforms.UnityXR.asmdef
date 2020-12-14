@@ -1,0 +1,20 @@
+{
+    "name": "ScioXR.Platforms.UnityXR",
+    "references": [
+        "GUID:fe685ec1767f73d42b749ea8045bfe43",
+        "GUID:e40ba710768534012815d3193fa296cb",
+        "GUID:be295a95ac050cd45bcb7587fe41e482"
+    ],
+    "includePlatforms": [
+        "WindowsStandalone32",
+        "WindowsStandalone64"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

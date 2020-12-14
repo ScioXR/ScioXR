@@ -1,0 +1,95 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
+
+public class SaveFile : MonoBehaviour
+{
+    public string dataPath;
+    public string filename;
+    public string saveDirectory = "SaveData";
+    public static SaveFile instance;
+
+
+    // global lookup of IDs to Components - we can esnure at edit time that no two 
+    // components which are loaded at the same time have the same ID. 
+    public Dictionary<string, Saveable> allGuids = new Dictionary<string, Saveable>();
+
+   
+
+    public List<SaveData> saveDataList = new List<SaveData>();
+
+    void Awake()
+    {
+        if (!instance)
+        {
+            instance = this;
+        }
+        else
+        {
+            throw new Exception("SaveFile: only 1 instance is allowed");
+        }
+    }
+    void Start()
+    {
+        dataPath = Path.Combine(Application.persistentDataPath, saveDirectory);
+        if (!Directory.Exists(dataPath))
+        {
+            Directory.CreateDirectory(dataPath);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    //add save data for every object in scene that has Saveable component
+    public void GetSaveData()
+    {
+        Saveable[] saveableObjects = ObjectFinder.FindEvenInactiveComponents<Saveable>();
+        for (int i = 0; i < saveableObjects.Length; i++)
+        {
+            allGuids.Add(saveableObjects[i].uniqueId, saveableObjects[i]);
+            SaveData dataStore = new SaveData()
+            {
+                id = saveableObjects[i].uniqueId,
+                name = saveableObjects[i].gameObject.name,
+                position = saveableObjects[i].transform.position,
+                rotation = saveableObjects[i].transform.rotation,
+                scale = saveableObjects[i].transform.localScale,
+                isVisible = 1
+
+            };
+            saveDataList.Add(dataStore);
+        }
+    }
+
+    public void SaveToJson()
+    {
+        GetSaveData();
+        string filePath = Path.Combine(dataPath, "saveData.json");
+        using (var writer = new BinaryWriter(File.Open(filePath, FileMode.Create)))
+        {
+            SaveData[] saveData = saveDataList.ToArray();
+            SaveCollection saveCollection = new SaveCollection() { saveData = saveData };
+
+            var jsonString = JsonUtility.ToJson(saveCollection, true);
+            writer.Write(jsonString);
+            Debug.Log("SaveToJson " + jsonString);
+        }      
+    }
+
+    public void LoadFromJson()
+    {
+        string filePath = Path.Combine(dataPath, "saveData.json");
+   
+        SaveCollection storedData = JsonUtility.FromJson<SaveCollection>(File.ReadAllText(dataPath));
+        foreach (var data in storedData.saveData)
+        {
+            Debug.Log("Data: " + data.id);
+        }
+    }
+}

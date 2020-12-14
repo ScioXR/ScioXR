@@ -3,20 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - ExcludeTeleport
-  - projectile
-  - FxTemporaire
-  - Plant
-  - Staff
-  - TeleportIgnore
-  - CopperWire
-  - SteelWire
-  - Dioda
-  - Dark
-  - Light
-  - Leaf
-  - Guide
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -26,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - Menu
+  - 
   - 
   - 
   - 

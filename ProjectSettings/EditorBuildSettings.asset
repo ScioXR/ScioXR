@@ -6,15 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Games/Menu/Scenes/Menu.unity
-    guid: ddc4133114f040241a3bdfedca55e1f5
+    path: Assets/Scenes/Main.unity
+    guid: a2011a936f3fadb47ae00f53c1c355e8
   - enabled: 1
-    path: Assets/Games/PlantsNeeds/Scenes/PlantNeeds.unity
-    guid: 4db11fb8656ca804c862ed16b5d9327f
+    path: Assets/Scenes/Player.unity
+    guid: f0b5efb027e9f37428e2e1e03d36b29e
   - enabled: 1
-    path: Assets/Games/PowerOfFruits/Scenes/PowerOfFruits.unity
-    guid: 337150712bfc55147ae1a65249fc009c
-  - enabled: 1
-    path: Assets/Games/SwingingPendulum/Scene/SwingingPendulum.unity
-    guid: f4847f9bb9e88dc4ea0802962d05d60e
-  m_configObjects: {}
+    path: Assets/Scenes/Editor.unity
+    guid: 4905c25d74aad8943b96559304e70061
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 46f20e10402563d4a86a121bb92c46c2, type: 2}
+    Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 85064f40e42256a4d843081c66ddd0a9, type: 2}
+    WebXR.Settings: {fileID: 11400000, guid: 1afab6adc454e9b4d992ddc3793f26c0, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 5ec23c9ea2618c34e902ed65d1a64fa7, type: 2}
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 159c6c3fbde80a84792e0a91578e7f59, type: 2}
