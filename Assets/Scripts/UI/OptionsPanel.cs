@@ -12,7 +12,7 @@ public class OptionsPanel : XRPanel
     {
         base.Show();
         sceneName.text = AppManager.instance.currentSceneName != "" ? AppManager.instance.currentSceneName : "<UNTITLED SCENE>";
-        saveButton.enabled = AppManager.instance.currentSceneName != "";
+        saveButton.GetComponent<Button>().interactable = AppManager.instance.currentSceneName != "";
     }
 
     public void GoToMainMenu()
