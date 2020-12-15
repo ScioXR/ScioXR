@@ -29,7 +29,12 @@ public class BlocksBoard : MonoBehaviour
     List<GameObject> messages =  new List<GameObject>();
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
+    {
+        InitBlocks();
+    }
+
+    public void InitBlocks()
     {
         Vector3 spawnPostion = startPosition.position;
         foreach (var blockPrefab in blocksPrefabs)

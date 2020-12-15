@@ -90,6 +90,14 @@ public class CodeController : MonoBehaviour
         {
             result = gameObject.AddComponent<DestroyControl>();
         }
+        if (blockData.blockType == "ReceiveEvent")
+        {
+            result = gameObject.AddComponent<ReceiveEvent>();
+        }
+        if (blockData.blockType == "BroadcastEvent")
+        {
+            result = gameObject.AddComponent<BroadcastEvent>();
+        }
         result.Resolve(blockData);
         result.codeController = this;
 
