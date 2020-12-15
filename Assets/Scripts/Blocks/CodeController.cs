@@ -78,6 +78,14 @@ public class CodeController : MonoBehaviour
         {
             result = gameObject.AddComponent<PointsTowardMotion>();
         }
+        if (blockData.blockType == "ShowLook")
+        {
+            result = gameObject.AddComponent<ShowLook>();
+        }
+        if (blockData.blockType == "HideLook")
+        {
+            result = gameObject.AddComponent<HideLook>();
+        }
         result.Resolve(blockData);
         result.codeController = this;
 

@@ -21,7 +21,6 @@ public static class RectTransformExtensions
         float rectTransformHeight = rectTransform.rect.height * rectTransform.lossyScale.y;
 
         Vector3 position = rectTransform.position;
-        Debug.Log("" + rectTransform.gameObject.name + ", " + new Rect(position.x - rectTransformWidth * rectTransform.pivot.x, position.y - rectTransformHeight * rectTransform.pivot.y, rectTransformWidth, rectTransformHeight));
         return new Rect(position.x - rectTransformWidth * rectTransform.pivot.x, position.y - rectTransformHeight * rectTransform.pivot.y, rectTransformWidth, rectTransformHeight);
     }
 }
