@@ -7,6 +7,4 @@ using UnityEngine;
 public class CodeData
 {
     public BlockData[] blocks;
-    public string[] variables;
-    public string[] messages;
 }
