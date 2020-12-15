@@ -74,6 +74,10 @@ public class CodeController : MonoBehaviour
         {
             result = gameObject.AddComponent<MoveMotion>();
         }
+        if (blockData.blockType == "PointsTowardMotion")
+        {
+            result = gameObject.AddComponent<PointsTowardMotion>();
+        }
         result.Resolve(blockData);
         result.codeController = this;
 
