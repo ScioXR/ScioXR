@@ -117,7 +117,7 @@ public class CodeBlockEditor : BlockEditor
         }
         if (variableAttachPoint)
         {
-            if (blockData.paramString != null)
+            if (blockData.paramString != null && blockData.paramString != "")
             {
                 variableReference.GetComponentInChildren<TextMeshProUGUI>().text = blockData.paramString;
             } else

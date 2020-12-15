@@ -59,7 +59,7 @@ public class BlocksBoard : MonoBehaviour
                 if (blockEditor is CodeBlockEditor)
                 {
                     CodeBlockEditor codeBlock = blockEditor as CodeBlockEditor;
-                    if (codeBlock.variableAttachPoint && blockData.paramString != null)
+                    if (codeBlock.variableAttachPoint && blockData.paramString != null && blockData.paramString != "")
                     {
                         GameObject variableObject = Instantiate(variablePrefab, newBlock.transform);
                         variableObject.GetComponentInChildren<TextMeshProUGUI>().text = blockData.paramString;

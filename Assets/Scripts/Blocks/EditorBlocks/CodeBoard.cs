@@ -89,8 +89,7 @@ public class CodeBoard : MonoBehaviour
 
     public static bool IsInRect(GameObject sourceObject, RectTransform destinationObject)
     {
-        Vector3 diff = sourceObject.transform.position - destinationObject.position;
-        return destinationObject.rect.Contains(diff);
+        return destinationObject.Overlaps(sourceObject.GetComponent<RectTransform>());
     }
 
     public void RefreshBlockReferences()
