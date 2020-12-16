@@ -6,6 +6,7 @@
         "GUID:be295a95ac050cd45bcb7587fe41e482"
     ],
     "includePlatforms": [
+        "Editor",
         "WindowsStandalone32",
         "WindowsStandalone64"
     ],

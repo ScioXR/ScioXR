@@ -600,6 +600,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7539c38784bc9984ab58edeb32d8d618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2809766388821636877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6018998285091776853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a2a9c34df4095f47b9ca8f975175f5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Device: 1
+  m_PoseSource: 4
+  m_PoseProviderComponent: {fileID: 0}
+  m_TrackingType: 0
+  m_UpdateType: 0
+  m_UseRelativeTransform: 0
+--- !u!114 &3066018786681847799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6018689079145576719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a2a9c34df4095f47b9ca8f975175f5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Device: 1
+  m_PoseSource: 5
+  m_PoseProviderComponent: {fileID: 0}
+  m_TrackingType: 0
+  m_UpdateType: 0
+  m_UseRelativeTransform: 0
 --- !u!114 &1429297403500943058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,6 +684,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkingSpeed: 2
+--- !u!114 &6498596282625577332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6018838704700419677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a2a9c34df4095f47b9ca8f975175f5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Device: 0
+  m_PoseSource: 2
+  m_PoseProviderComponent: {fileID: 0}
+  m_TrackingType: 0
+  m_UpdateType: 0
+  m_UseRelativeTransform: 0
 --- !u!114 &8486708827060778351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -820,6 +874,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea7c0165e16afe349a301abf9c89f74d, type: 3}
+--- !u!1 &9123422268906320163 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3250837035476248814, guid: ea7c0165e16afe349a301abf9c89f74d, type: 3}
+  m_PrefabInstance: {fileID: 6017270039402666445}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6018472987809818021 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1207760918314088, guid: ea7c0165e16afe349a301abf9c89f74d, type: 3}
@@ -830,9 +889,9 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1854678450583440, guid: ea7c0165e16afe349a301abf9c89f74d, type: 3}
   m_PrefabInstance: {fileID: 6017270039402666445}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6021742069658113269 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4545079059221816, guid: ea7c0165e16afe349a301abf9c89f74d, type: 3}
+--- !u!1 &6018689079145576719 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1986733487743170, guid: ea7c0165e16afe349a301abf9c89f74d, type: 3}
   m_PrefabInstance: {fileID: 6017270039402666445}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6017964406338496921 stripped
@@ -840,8 +899,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1611361787474004, guid: ea7c0165e16afe349a301abf9c89f74d, type: 3}
   m_PrefabInstance: {fileID: 6017270039402666445}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &9123422268906320163 stripped
+--- !u!1 &6018998285091776853 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 3250837035476248814, guid: ea7c0165e16afe349a301abf9c89f74d, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1799026754646168, guid: ea7c0165e16afe349a301abf9c89f74d, type: 3}
+  m_PrefabInstance: {fileID: 6017270039402666445}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6021742069658113269 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4545079059221816, guid: ea7c0165e16afe349a301abf9c89f74d, type: 3}
   m_PrefabInstance: {fileID: 6017270039402666445}
   m_PrefabAsset: {fileID: 0}
