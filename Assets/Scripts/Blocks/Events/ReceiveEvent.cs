@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractEvent : Event
+public class ReceiveEvent : Event
 {
+    public string messageName;
     bool trigger;
 
     public override void Poll()
@@ -20,4 +21,9 @@ public class InteractEvent : Event
         trigger = true;
     }
 
+    public override void Resolve(BlockData blockData)
+    {
+        messageName = blockData.paramString;
+        MessagesManager.instance.AddMessageReceiver(this);
+    }
 }

@@ -88,6 +88,13 @@ public class ScioXRSceneManager : MonoBehaviour
     public void CreateLoadedObjects(SaveCollection dataJson, bool editor)
     {
         int objectToLoad = dataJson.saveData.Length;
+
+        //creat variables and messages
+        if (editor)
+        {
+            EditorManager.instance.globalData = dataJson.globalData;
+        }
+
         for (int i = 0; i < dataJson.saveData.Length; i++)
         {
             if (AssetsLoader.CheckIfModelExist(dataJson.saveData[i].model))
@@ -159,11 +166,10 @@ public class ScioXRSceneManager : MonoBehaviour
         using (var writer = new StreamWriter(File.Open(filePath, FileMode.Create)))
         {
             SaveData[] saveData = saveDataList.ToArray();
-            SaveCollection saveCollection = new SaveCollection() { saveData = saveData };
+            SaveCollection saveCollection = new SaveCollection() { saveData = saveData, globalData = EditorManager.instance.globalData };
 
             string jsonString = JsonUtility.ToJson(saveCollection, true);
             writer.Write(jsonString);
-            //Debug.Log("SaveToJson " + jsonString);
         }
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {

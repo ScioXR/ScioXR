@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class SaveCollection 
+public class GlobalData
 {
-    public SaveData[] saveData;
-    public GlobalData globalData;
-    
+    public string[] variables;
+    public string[] messages;
 }

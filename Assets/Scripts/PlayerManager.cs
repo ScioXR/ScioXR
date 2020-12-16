@@ -34,15 +34,9 @@ public class PlayerManager : MonoBehaviour
             AppManager.instance.loaded = false;
             //Debug.Log("Loading: " + AppManager.instance.currentSceneName);
             SaveCollection dataJson = ScioXRSceneManager.instance.LoadFromJson(AppManager.instance.GetScenePath());
+            MessagesManager.instance.InitMessages(dataJson.globalData.messages);
+            
             ScioXRSceneManager.instance.CreateLoadedObjects(dataJson, false);
-
-
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

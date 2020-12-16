@@ -10,9 +10,6 @@ public class CodeBoard : MonoBehaviour
 
     public bool shouldSave;
 
-    //public List<string> variables = new List<string>();
-    //public List<string> messages = new List<string>();
-
     public void UpdateHighlights(GameObject dragObject)
     {
         if (dragObject.GetComponent<VariableEditor>())
@@ -89,8 +86,7 @@ public class CodeBoard : MonoBehaviour
 
     public static bool IsInRect(GameObject sourceObject, RectTransform destinationObject)
     {
-        Vector3 diff = sourceObject.transform.position - destinationObject.position;
-        return destinationObject.rect.Contains(diff);
+        return destinationObject.Overlaps(sourceObject.GetComponent<RectTransform>());
     }
 
     public void RefreshBlockReferences()
@@ -150,8 +146,6 @@ public class CodeBoard : MonoBehaviour
             }
         }
         codeData.blocks = blocksList.ToArray();
-        codeData.variables = blockBoard.GetVariables().ToArray();
-        codeData.messages = blockBoard.GetMessages().ToArray();
 
         return codeData;
     }
@@ -168,7 +162,7 @@ public class CodeBoard : MonoBehaviour
 
         //clean all code
         blockBoard.EmptyVariables();
-        blockBoard.EmptyVariables();
+        blockBoard.EmptyMessages();
         BlockEditor[] blocks = GetComponentsInChildren<BlockEditor>();
         foreach (var block in blocks)
         {
@@ -178,20 +172,20 @@ public class CodeBoard : MonoBehaviour
             }
         }
 
+        foreach (var variableString in EditorManager.instance.globalData.variables)
+        {
+            blockBoard.variableName.text = variableString;
+            blockBoard.CreateVariable();
+        }
+
+        foreach (var messageString in EditorManager.instance.globalData.messages)
+        {
+            blockBoard.messageName.text = messageString;
+            blockBoard.CreateMessage();
+        }
+
         if (data != null)
         {
-            foreach (var variableString in data.variables)
-            {
-                blockBoard.variableName.text = variableString;
-                blockBoard.CreateVariable();
-            }
-
-            foreach (var messageString in data.messages)
-            {
-                blockBoard.messageName.text = messageString;
-                blockBoard.CreateMessage();
-            }
-
             foreach (var rootBlockData in data.blocks)
             {
                 GameObject rootBlock = blockBoard.CreateBlock(rootBlockData);

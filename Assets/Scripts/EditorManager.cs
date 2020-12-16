@@ -16,6 +16,8 @@ public class EditorManager : MonoBehaviour
 
     public static EditorManager instance;
 
+    public GlobalData globalData;
+
     public GameObject selectedObject;
 
     void Awake()

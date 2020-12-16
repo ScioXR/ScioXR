@@ -29,7 +29,12 @@ public class BlocksBoard : MonoBehaviour
     List<GameObject> messages =  new List<GameObject>();
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
+    {
+        InitBlocks();
+    }
+
+    public void InitBlocks()
     {
         Vector3 spawnPostion = startPosition.position;
         foreach (var blockPrefab in blocksPrefabs)
@@ -59,7 +64,7 @@ public class BlocksBoard : MonoBehaviour
                 if (blockEditor is CodeBlockEditor)
                 {
                     CodeBlockEditor codeBlock = blockEditor as CodeBlockEditor;
-                    if (codeBlock.variableAttachPoint && blockData.paramString != null)
+                    if (codeBlock.variableAttachPoint && blockData.paramString != null && blockData.paramString != "")
                     {
                         GameObject variableObject = Instantiate(variablePrefab, newBlock.transform);
                         variableObject.GetComponentInChildren<TextMeshProUGUI>().text = blockData.paramString;

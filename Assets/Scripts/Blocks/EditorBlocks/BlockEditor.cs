@@ -72,7 +72,6 @@ public class BlockEditor : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //Debug.Log("OnEndDrag: " + codePanel.rect);
         if (CodeBoard.IsInRect(gameObject, codePanel.GetComponent<RectTransform>()))
         {
             codePanel.DropBlock(this);

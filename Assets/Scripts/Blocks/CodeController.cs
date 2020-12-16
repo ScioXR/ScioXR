@@ -74,6 +74,34 @@ public class CodeController : MonoBehaviour
         {
             result = gameObject.AddComponent<MoveMotion>();
         }
+        if (blockData.blockType == "PointsTowardMotion")
+        {
+            result = gameObject.AddComponent<PointsTowardMotion>();
+        }
+        if (blockData.blockType == "ShowLook")
+        {
+            result = gameObject.AddComponent<ShowLook>();
+        }
+        if (blockData.blockType == "HideLook")
+        {
+            result = gameObject.AddComponent<HideLook>();
+        }
+        if (blockData.blockType == "DestroyControl")
+        {
+            result = gameObject.AddComponent<DestroyControl>();
+        }
+        if (blockData.blockType == "ReceiveEvent")
+        {
+            result = gameObject.AddComponent<ReceiveEvent>();
+        }
+        if (blockData.blockType == "BroadcastEvent")
+        {
+            result = gameObject.AddComponent<BroadcastEvent>();
+        }
+        if (blockData.blockType == "InteractEvent")
+        {
+            result = gameObject.AddComponent<InteractEvent>();
+        }
         result.Resolve(blockData);
         result.codeController = this;
 
@@ -87,5 +115,14 @@ public class CodeController : MonoBehaviour
         }
 
         return result;
+    }
+
+    public void Interact()
+    {
+        InteractEvent[] interactEvents = GetComponents<InteractEvent>();
+        foreach (var interactEvent in interactEvents)
+        {
+            interactEvent.Trigger();
+        }
     }
 }
