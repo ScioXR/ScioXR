@@ -98,6 +98,10 @@ public class CodeController : MonoBehaviour
         {
             result = gameObject.AddComponent<BroadcastEvent>();
         }
+        if (blockData.blockType == "InteractEvent")
+        {
+            result = gameObject.AddComponent<InteractEvent>();
+        }
         result.Resolve(blockData);
         result.codeController = this;
 
@@ -111,5 +115,14 @@ public class CodeController : MonoBehaviour
         }
 
         return result;
+    }
+
+    public void Interact()
+    {
+        InteractEvent[] interactEvents = GetComponents<InteractEvent>();
+        foreach (var interactEvent in interactEvents)
+        {
+            interactEvent.Trigger();
+        }
     }
 }
