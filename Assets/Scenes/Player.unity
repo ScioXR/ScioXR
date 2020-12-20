@@ -727,17 +727,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1626710785 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2884643875143485408, guid: 1b04e119a23ace2499600cc8e6cb9d32, type: 3}
-  m_PrefabInstance: {fileID: 4307612046728200793}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1795186820
 GameObject:
   m_ObjectHideFlags: 0
@@ -1852,21 +1841,17 @@ PrefabInstance:
     - target: {fileID: 4046561978718515426, guid: 1b04e119a23ace2499600cc8e6cb9d32, type: 3}
       propertyPath: modeText
       value: 
-      objectReference: {fileID: 1626710785}
+      objectReference: {fileID: 0}
     - target: {fileID: 4046561978718515426, guid: 1b04e119a23ace2499600cc8e6cb9d32, type: 3}
       propertyPath: transformModeTextMeshPro
       value: 
-      objectReference: {fileID: 1626710785}
+      objectReference: {fileID: 0}
     - target: {fileID: 4307612045099588519, guid: 1b04e119a23ace2499600cc8e6cb9d32, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4307612045936342473, guid: 1b04e119a23ace2499600cc8e6cb9d32, type: 3}
       propertyPath: force3D
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4307612045936342473, guid: 1b04e119a23ace2499600cc8e6cb9d32, type: 3}
-      propertyPath: currentPlatfrom
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4696541789716941313, guid: 1b04e119a23ace2499600cc8e6cb9d32, type: 3}

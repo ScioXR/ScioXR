@@ -43,13 +43,13 @@ public class WebXRUIInteractor : MonoBehaviour
         eventData.rayPoints[1] = (transform.position + transform.forward * 100);
         raycasts.Clear();
         EventSystem.current.RaycastAll(eventData, raycasts);
-        lineRenderer.enabled = raycasts.Count > 0;
+        RaycastResult hitTest = new RaycastResult();
         if (raycasts.Count > 0)
         {
             if (selectedObject != null)
             {
-                bool isSame = raycasts.Any(x => x.gameObject == selectedObject);
-                if (!isSame)
+                hitTest = raycasts.Find(x => x.gameObject == selectedObject);
+                if (!hitTest.gameObject)
                 {
                     ExecuteEvents.Execute(selectedObject, eventData, ExecuteEvents.pointerExitHandler);
                     selectedObject = null;
@@ -58,30 +58,40 @@ public class WebXRUIInteractor : MonoBehaviour
 
             if (selectedObject == null)
             {
+                int uiLayer = LayerMask.NameToLayer("UI");
                 foreach (var raycast in raycasts)
                 {
-                    bool success = ExecuteEvents.Execute(raycast.gameObject, eventData, ExecuteEvents.pointerEnterHandler);
-                    if (success)
+                    if (raycast.gameObject.layer == uiLayer)
                     {
-                        selectedObject = raycast.gameObject;
-                        break;
+                        hitTest = raycast;
+                        bool success = ExecuteEvents.Execute(raycast.gameObject, eventData, ExecuteEvents.pointerEnterHandler);
+                        if (success)
+                        {
+                            selectedObject = raycast.gameObject;
+                            break;
+                        }
                     }
                 }
             }
 
             if (selectedObject != null)
             {
-                if (controllerDevice.primaryButton.wasPressedThisFrame)
+                if (controllerDevice.triggerPressed.wasPressedThisFrame)
                 {
                     bool success = ExecuteEvents.Execute(selectedObject, eventData, ExecuteEvents.pointerClickHandler);
                 }
             }
 
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, raycasts[0].worldPosition);
+            lineRenderer.enabled = hitTest.gameObject != null;
+            if (hitTest.gameObject != null)
+            {
+                lineRenderer.SetPosition(0, transform.position);
+                lineRenderer.SetPosition(1, hitTest.worldPosition);
+            }
         }
         else
         {
+            lineRenderer.enabled = false;
             if (selectedObject != null)
             {
                 ExecuteEvents.Execute(selectedObject, eventData, ExecuteEvents.pointerExitHandler);

@@ -17,6 +17,7 @@ public class WebXRContollerVirtualDevice : MonoBehaviour
 
     private WebXRController controller;
 
+    private WebXRControllerDeviceState prevCachedDeviceState = new WebXRControllerDeviceState();
     private WebXRControllerDeviceState cachedDeviceState = new WebXRControllerDeviceState();
 
     private void Awake()
@@ -52,22 +53,18 @@ public class WebXRContollerVirtualDevice : MonoBehaviour
     {
         controller.TryUpdateButtons();
 
-        bool trigger = controller.GetButton(WebXRController.ButtonTypes.Trigger);
-        bool triggerDown = controller.GetButtonDown(WebXRController.ButtonTypes.Trigger);
-        bool triggerUp = controller.GetButtonUp(WebXRController.ButtonTypes.Trigger);
-        bool grip = controller.GetButton(WebXRController.ButtonTypes.Grip);
-        bool gripDown = controller.GetButtonDown(WebXRController.ButtonTypes.Grip);
-        bool gripUp = controller.GetButtonUp(WebXRController.ButtonTypes.Grip);
-        //bool aButtonDown = controller.GetButtonDown(WebXRController.ButtonTypes.ButtonA);
+        cachedDeviceState.trigger = controller.GetAxis(WebXRController.AxisTypes.Trigger);
+        cachedDeviceState.buttons = (controller.GetButton(WebXRController.ButtonTypes.Trigger) ? 1 : 0) |
+                                    (controller.GetButton(WebXRController.ButtonTypes.Grip) ? 1 : 0) << 1 |
+                                    (controller.GetButton(WebXRController.ButtonTypes.ButtonA) ? 1 : 0) << 2 |
+                                    (controller.GetButton(WebXRController.ButtonTypes.ButtonB) ? 1 : 0) << 3;
 
-        float triggerValue = controller.GetAxis(WebXRController.AxisTypes.Trigger);
-        cachedDeviceState.trigger = triggerValue;
-
-        if (triggerDown || triggerUp || gripDown || gripUp)
+        if (cachedDeviceState != prevCachedDeviceState)
         {
-            int buttons = (trigger ? 1 : 0) | (grip ? 1 << 1 : 0);
-            cachedDeviceState.buttons = buttons;
+            InputSystem.QueueStateEvent(device, cachedDeviceState);
         }
-        InputSystem.QueueStateEvent(device, cachedDeviceState);
+        
+
+        prevCachedDeviceState.CopyFrom(cachedDeviceState);
     }
 }
