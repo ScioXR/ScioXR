@@ -107,6 +107,7 @@ public class ImportModelMenu : XRPanel
 
     public void PrepareModel(GameObject loadedModel, string modelName)
     {
+        loadedModel.layer = LayerMask.NameToLayer("UI");
         loadedModel.AddComponent<BoxCollider>();
 
         loadedModel.AddComponent<ModelSelecter>();

@@ -4890,12 +4890,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 6164262065493094139}
-        m_TargetAssemblyTypeName: UIButtonGroup, Assembly-CSharp
+        m_TargetAssemblyTypeName: UIButtonGroup, ScioXR
         m_MethodName: Select
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 7649633117573582678}
-          m_ObjectArgumentAssemblyTypeName: UIButtonToggle, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UIButtonToggle, ScioXR
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -10024,12 +10024,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 6164262065493094139}
-        m_TargetAssemblyTypeName: UIButtonGroup, Assembly-CSharp
+        m_TargetAssemblyTypeName: UIButtonGroup, ScioXR
         m_MethodName: Select
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 8324456171292678719}
-          m_ObjectArgumentAssemblyTypeName: UIButtonToggle, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UIButtonToggle, ScioXR
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -11508,12 +11508,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 6164262065493094139}
-        m_TargetAssemblyTypeName: UIButtonGroup, Assembly-CSharp
+        m_TargetAssemblyTypeName: UIButtonGroup, ScioXR
         m_MethodName: Select
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 4836466226585763336}
-          m_ObjectArgumentAssemblyTypeName: UIButtonToggle, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UIButtonToggle, ScioXR
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -11668,12 +11668,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 6164262065493094139}
-        m_TargetAssemblyTypeName: UIButtonGroup, Assembly-CSharp
+        m_TargetAssemblyTypeName: UIButtonGroup, ScioXR
         m_MethodName: Select
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 4701261350082408320}
-          m_ObjectArgumentAssemblyTypeName: UIButtonToggle, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UIButtonToggle, ScioXR
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

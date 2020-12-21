@@ -533,7 +533,7 @@
                     "name": "",
                     "id": "fe53b6a6-b3af-4826-9028-5ef8116ee7a1",
                     "path": "<XRController>{LeftHand}/secondaryButton",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": "XR",
                     "action": "Menu",
@@ -542,11 +542,22 @@
                 },
                 {
                     "name": "",
-                    "id": "b6def9c9-b316-4a94-83ef-4fec9789ef86",
+                    "id": "03f83492-292e-4f3a-9ed4-7147631a5c7e",
                     "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7d119977-e7be-472d-b888-f13067984f43",
+                    "path": "<WebXRControllerDevice>{LeftHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XR",
                     "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -580,6 +591,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
+                    "action": "Properties",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "47dcac7b-2766-47e0-8c22-4176bb6591c2",
+                    "path": "<WebXRControllerDevice>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XR",
                     "action": "Properties",
                     "isComposite": false,
                     "isPartOfComposite": false
