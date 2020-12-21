@@ -60,6 +60,11 @@ public class ImportModelMenu : XRPanel
                     model.transform.parent = modelCard.transform;
                     PrepareModel(model, modelName);
 
+                    ModelSelecter modelSelecter = modelCard.AddComponent<ModelSelecter>();
+                    modelSelecter.modelObject = model;
+
+                    modelCard.GetComponent<Button>().onClick.AddListener(modelSelecter.CreateModel);
+
                     Vector3 size = Vector3.Scale(model.transform.localScale, model.GetComponentInChildren<MeshFilter>().mesh.bounds.size);
                     float modelSize = Math.Max(size.x, Math.Max(size.y, size.z));
 
@@ -107,18 +112,6 @@ public class ImportModelMenu : XRPanel
 
     public void PrepareModel(GameObject loadedModel, string modelName)
     {
-        loadedModel.layer = LayerMask.NameToLayer("UI");
-        loadedModel.AddComponent<BoxCollider>();
-
-        loadedModel.AddComponent<ModelSelecter>();
-
-#if UNITY_WEBGL
-        loadedModel.AddComponent<Rigidbody>();
-#endif
-        Rigidbody rb = loadedModel.GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeAll;
-        rb.isKinematic = true;
-
         loadedModel.AddComponent<Saveable>();
         loadedModel.GetComponent<Saveable>().model = modelName;
         loadedModel.GetComponent<Saveable>().shouldSave = false;
