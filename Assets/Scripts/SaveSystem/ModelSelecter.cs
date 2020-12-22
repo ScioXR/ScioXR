@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 #if !UNITY_WEBGL
 using UnityEngine.XR.Interaction.Toolkit;
 #endif
@@ -30,6 +31,18 @@ public class ModelSelecter : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             loadedModel.AddComponent<Saveable>();
             loadedModel.GetComponent<Saveable>().model = modelObject.GetComponent<Saveable>().model;
             loadedModel.GetComponent<Saveable>().GenerateUniqueId();
+            loadedModel.AddComponent<WebXRInteractable>();
+
+
+            WebXRInteractor[] interactors = FindObjectsOfType<WebXRInteractor>();
+            foreach (var interactor in interactors)
+            {
+                if (interactor.controller.trigger.IsPressed())
+                {
+                    loadedModel.transform.position = interactor.transform.position;
+                    break;
+                }
+            }
 
             EditorManager.instance.mainMenu.Toggle();
         }));

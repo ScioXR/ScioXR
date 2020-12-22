@@ -16,6 +16,7 @@ public class WebXRPlatform : Platform
         base.SetupEditorObject(loadedModel, modelName);
 
         loadedModel.AddComponent<EditorTransform3D>();
+        loadedModel.AddComponent<WebXRInteractable>();
     }
 
     private void onXRChange(WebXRState state, int viewsCount, Rect leftRect, Rect rightRect)
