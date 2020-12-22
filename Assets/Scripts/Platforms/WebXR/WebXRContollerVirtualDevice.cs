@@ -53,6 +53,7 @@ public class WebXRContollerVirtualDevice : MonoBehaviour
     {
         controller.TryUpdateButtons();
 
+        cachedDeviceState.thumbstick = controller.GetAxis2D(WebXRController.Axis2DTypes.Thumbstick);
         cachedDeviceState.trigger = controller.GetAxis(WebXRController.AxisTypes.Trigger);
         cachedDeviceState.buttons = (controller.GetButton(WebXRController.ButtonTypes.Trigger) ? 1 : 0) |
                                     (controller.GetButton(WebXRController.ButtonTypes.Grip) ? 1 : 0) << 1 |

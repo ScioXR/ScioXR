@@ -36,6 +36,7 @@ public struct WebXRControllerDeviceState : IInputStateTypeInfo
         trigger = copyState.trigger;
         grip = copyState.grip;
         buttons = copyState.buttons;
+        thumbstick = copyState.thumbstick;
     }
 
     public static bool operator ==(WebXRControllerDeviceState c1, WebXRControllerDeviceState c2)
@@ -51,7 +52,7 @@ public struct WebXRControllerDeviceState : IInputStateTypeInfo
     public override bool Equals(object obj)
     {
         WebXRControllerDeviceState otherState = (WebXRControllerDeviceState)obj;
-        return thumbstick == otherState.thumbstick && trigger == otherState.trigger && grip == otherState.grip && buttons == otherState.buttons;
+        return thumbstick == otherState.thumbstick && trigger == otherState.trigger && grip == otherState.grip && buttons == otherState.buttons && thumbstick == otherState.thumbstick;
     }
 
     public override int GetHashCode()
