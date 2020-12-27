@@ -4,15 +4,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 using WebXR;
+using static UnityEngine.InputSystem.InputAction;
 
 public class WebXRInteractor : MonoBehaviour
 {
-    private FixedJoint attachJoint = null;
-    private Rigidbody currentRigidBody = null;
+    public FixedJoint attachJoint = null;
     private List<Rigidbody> contactRigidBodies = new List<Rigidbody>();
 
     private Animator anim;
     public WebXRControllerDevice controller;
+
+    private Rigidbody highlightedRigidbody;
 
     void Awake()
     {
@@ -31,55 +33,95 @@ public class WebXRInteractor : MonoBehaviour
     {
         if (controller.triggerPressed.wasPressedThisFrame)
         {
-            Pickup();
+            if (highlightedRigidbody)
+            {
+                IWebXRInteractable[] interactables = highlightedRigidbody.GetComponents<IWebXRInteractable>();
+                foreach (var interactable in interactables)
+                {
+                    interactable.OnGrab(this);
+                }
+            }
+            //Pickup();
         }
 
         if (controller.triggerPressed.wasReleasedThisFrame)
         {
-            Drop();
+            //Drop();
+            if (highlightedRigidbody)
+            {
+                IWebXRInteractable[] interactables = highlightedRigidbody.GetComponents<IWebXRInteractable>();
+                foreach (var interactable in interactables)
+                {
+                    interactable.OnUngrab(this);
+                }
+            }
+        }
+
+        if (controller.primaryButton.wasPressedThisFrame)
+        {
+            if (highlightedRigidbody)
+            {
+                IWebXRInteractable[] interactables = highlightedRigidbody.GetComponents<IWebXRInteractable>();
+                foreach (var interactable in interactables)
+                {
+                    interactable.OnSecondaryGrab(this);
+                }
+            }
+        }
+
+        if (controller.primaryButton.wasReleasedThisFrame)
+        {
+            if (highlightedRigidbody)
+            {
+                IWebXRInteractable[] interactables = highlightedRigidbody.GetComponents<IWebXRInteractable>();
+                foreach (var interactable in interactables)
+                {
+                    interactable.OnSecondaryUngrab(this);
+                }
+            }
         }
 
         // Use the controller button or axis position to manipulate the playback time for hand model.
-        //anim.Play("Take", -1, normalizedTime);
+        anim.Play("Take", -1, controller.trigger.ReadValue());
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.GetComponent<WebXRInteractable>())
+        if (other.gameObject.GetComponent<IWebXRInteractable>() == null)
             return;
 
         contactRigidBodies.Add(other.gameObject.GetComponent<Rigidbody>());
+
+        UpdateHighlights();
         //controller.Pulse(0.5f, 250);
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (!other.gameObject.GetComponent<WebXRInteractable>())
+        if (other.gameObject.GetComponent<IWebXRInteractable>() == null)
             return;
 
         contactRigidBodies.Remove(other.gameObject.GetComponent<Rigidbody>());
+
+        UpdateHighlights();
     }
 
-    public void Pickup()
+    private void UpdateHighlights()
     {
-        currentRigidBody = GetNearestRigidBody();
+        Rigidbody nearestRigidbody = GetNearestRigidBody();
+        if (nearestRigidbody != highlightedRigidbody)
+        {
+            if (highlightedRigidbody)
+            {
+                highlightedRigidbody.gameObject.GetComponent<Outline>().enabled = false;
+            }
 
-        if (!currentRigidBody)
-            return;
-
-        currentRigidBody.MovePosition(transform.position);
-        currentRigidBody.isKinematic = false;
-        attachJoint.connectedBody = currentRigidBody;
-    }
-
-    public void Drop()
-    {
-        if (!currentRigidBody)
-            return;
-
-        attachJoint.connectedBody = null;
-        currentRigidBody.isKinematic = true;
-        currentRigidBody = null;
+            if (nearestRigidbody)
+            {
+                nearestRigidbody.gameObject.GetComponent<Outline>().enabled = true;
+            }
+            highlightedRigidbody = nearestRigidbody;
+        }
     }
 
     private Rigidbody GetNearestRigidBody()

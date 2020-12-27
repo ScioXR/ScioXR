@@ -24,4 +24,8 @@ public class Platform : MonoBehaviour
         Rigidbody rb = loadedModel.AddComponent<Rigidbody>();
         rb.isKinematic = true;
     }
+
+    public virtual bool IsEditModeSupported(TransformMode mode) {
+        return true;
+    }
 }

@@ -31,8 +31,6 @@ public class ModelSelecter : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             loadedModel.AddComponent<Saveable>();
             loadedModel.GetComponent<Saveable>().model = modelObject.GetComponent<Saveable>().model;
             loadedModel.GetComponent<Saveable>().GenerateUniqueId();
-            loadedModel.AddComponent<WebXRInteractable>();
-
 
             WebXRInteractor[] interactors = FindObjectsOfType<WebXRInteractor>();
             foreach (var interactor in interactors)
