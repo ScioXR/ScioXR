@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 399626029329489594}
   - component: {fileID: 8773896239340886084}
   - component: {fileID: 6921455834863548923}
+  - component: {fileID: 8799031870882911011}
+  - component: {fileID: 3157054744703712890}
   m_Layer: 5
   m_Name: StartEvent
   m_TagString: Untagged
@@ -61,8 +63,11 @@ MonoBehaviour:
   previousBlock: {fileID: 0}
   nextBlock: {fileID: 0}
   variableAttachPoint: {fileID: 0}
+  variableReference: {fileID: 0}
   variableEditText: {fileID: 0}
   objectReferenceDropDown: {fileID: 0}
+  variableReferenceDropDown: {fileID: 0}
+  messageReferenceDropDown: {fileID: 0}
 --- !u!114 &6921455834863548923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +83,44 @@ MonoBehaviour:
   stickPoint: {fileID: 3426048721934861451}
   hoverRect: {fileID: 3426048721934861451}
   heighlight: {fileID: 2859856774090895534}
+--- !u!222 &8799031870882911011
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763750355060740440}
+  m_CullTransparentMesh: 0
+--- !u!114 &3157054744703712890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763750355060740440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &848145860523760846
 GameObject:
   m_ObjectHideFlags: 0

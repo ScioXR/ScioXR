@@ -35,6 +35,9 @@ public class WebXRUIInteractor : MonoBehaviour
         controllerDevice = InputSystem.GetDevice<WebXRControllerDevice>(usage);
     }
 
+    private GameObject draggingObject;
+    private Vector3 dragStart;
+
     // Update is called once per frame
     void Update()
     {
@@ -49,7 +52,8 @@ public class WebXRUIInteractor : MonoBehaviour
             if (selectedObject != null)
             {
                 hitTest = raycasts.Find(x => x.gameObject == selectedObject);
-                if (!hitTest.gameObject)
+                eventData.pointerCurrentRaycast = hitTest;
+                if (!hitTest.gameObject && !controllerDevice.triggerPressed.isPressed)
                 {
                     ExecuteEvents.Execute(selectedObject, eventData, ExecuteEvents.pointerExitHandler);
                     selectedObject = null;
@@ -64,6 +68,7 @@ public class WebXRUIInteractor : MonoBehaviour
                     if (raycast.gameObject.layer == uiLayer)
                     {
                         hitTest = raycast;
+                        eventData.pointerCurrentRaycast = hitTest;
                         bool success = ExecuteEvents.Execute(raycast.gameObject, eventData, ExecuteEvents.pointerEnterHandler);
                         if (success)
                         {
@@ -78,7 +83,30 @@ public class WebXRUIInteractor : MonoBehaviour
             {
                 if (controllerDevice.triggerPressed.wasPressedThisFrame)
                 {
+                    dragStart = hitTest.worldPosition;
+                    ExecuteEvents.Execute(selectedObject, eventData, ExecuteEvents.pointerDownHandler);
                     bool success = ExecuteEvents.Execute(selectedObject, eventData, ExecuteEvents.pointerClickHandler);
+                }
+
+                if (controllerDevice.triggerPressed.isPressed)
+                {
+                    if (draggingObject)
+                    {
+                        ExecuteEvents.Execute(selectedObject, eventData, ExecuteEvents.dragHandler);
+                    } else
+                    {
+                        draggingObject = selectedObject;
+                        ExecuteEvents.Execute(selectedObject, eventData, ExecuteEvents.beginDragHandler);
+                    }
+                }
+
+                if (controllerDevice.triggerPressed.wasReleasedThisFrame) {
+                    if (draggingObject)
+                    {
+                        ExecuteEvents.Execute(draggingObject, eventData, ExecuteEvents.endDragHandler);
+                        draggingObject = null;
+                    }
+                    ExecuteEvents.Execute(selectedObject, eventData, ExecuteEvents.pointerUpHandler);
                 }
             }
 
