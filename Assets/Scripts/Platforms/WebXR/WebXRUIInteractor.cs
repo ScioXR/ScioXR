@@ -11,14 +11,21 @@ using WebXR;
 public class WebXRUIInteractor : MonoBehaviour
 {
     public LayerMask layerMask;
-    private List<RaycastResult> raycasts;
 
     private TrackedDeviceEventData eventData;
 
     private LineRenderer lineRenderer;
-    private GameObject selectedObject;
 
     WebXRControllerDevice controllerDevice;
+
+    public enum ButtonDeltaState
+    {
+        NoChange = 0,
+        Pressed = 1,
+        Released = 2
+    }
+
+    private ButtonDeltaState buttonDeltaState;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +35,6 @@ public class WebXRUIInteractor : MonoBehaviour
         eventData.rayPoints.Add(Vector3.zero);
         eventData.rayPoints.Add(Vector3.zero);
 
-        raycasts = new List<RaycastResult>();
         lineRenderer = GetComponent<LineRenderer>();
 
         InternedString usage = GetComponent<WebXRController>().hand == WebXRControllerHand.LEFT ? CommonUsages.LeftHand : CommonUsages.RightHand;
@@ -38,93 +44,35 @@ public class WebXRUIInteractor : MonoBehaviour
     private GameObject draggingObject;
     private Vector3 dragStart;
 
-    // Update is called once per frame
-    void Update()
+    public TrackedDeviceEventData GetTrackedDeviceData()
     {
         eventData.layerMask = layerMask;
         eventData.rayPoints[0] = transform.position;
         eventData.rayPoints[1] = (transform.position + transform.forward * 100);
-        raycasts.Clear();
-        EventSystem.current.RaycastAll(eventData, raycasts);
-        RaycastResult hitTest = new RaycastResult();
-        if (raycasts.Count > 0)
+        return eventData;
+    }
+
+    public ButtonDeltaState GetButtonDeltaState()
+    {
+        buttonDeltaState = ButtonDeltaState.NoChange;
+        if (controllerDevice.triggerPressed.wasPressedThisFrame)
         {
-            if (selectedObject != null)
-            {
-                hitTest = raycasts.Find(x => x.gameObject == selectedObject);
-                eventData.pointerCurrentRaycast = hitTest;
-                if (!hitTest.gameObject && !controllerDevice.triggerPressed.isPressed)
-                {
-                    ExecuteEvents.Execute(selectedObject, eventData, ExecuteEvents.pointerExitHandler);
-                    selectedObject = null;
-                }
-            }
-
-            if (selectedObject == null)
-            {
-                int uiLayer = LayerMask.NameToLayer("UI");
-                foreach (var raycast in raycasts)
-                {
-                    if (raycast.gameObject.layer == uiLayer)
-                    {
-                        hitTest = raycast;
-                        eventData.pointerCurrentRaycast = hitTest;
-                        bool success = ExecuteEvents.Execute(raycast.gameObject, eventData, ExecuteEvents.pointerEnterHandler);
-                        if (success)
-                        {
-                            selectedObject = raycast.gameObject;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            if (selectedObject != null)
-            {
-                if (controllerDevice.triggerPressed.wasPressedThisFrame)
-                {
-                    dragStart = hitTest.worldPosition;
-                    ExecuteEvents.Execute(selectedObject, eventData, ExecuteEvents.pointerDownHandler);
-                    bool success = ExecuteEvents.Execute(selectedObject, eventData, ExecuteEvents.pointerClickHandler);
-                }
-
-                if (controllerDevice.triggerPressed.isPressed)
-                {
-                    if (draggingObject)
-                    {
-                        ExecuteEvents.Execute(selectedObject, eventData, ExecuteEvents.dragHandler);
-                    } else
-                    {
-                        draggingObject = selectedObject;
-                        ExecuteEvents.Execute(selectedObject, eventData, ExecuteEvents.beginDragHandler);
-                    }
-                }
-
-                if (controllerDevice.triggerPressed.wasReleasedThisFrame) {
-                    if (draggingObject)
-                    {
-                        ExecuteEvents.Execute(draggingObject, eventData, ExecuteEvents.endDragHandler);
-                        draggingObject = null;
-                    }
-                    ExecuteEvents.Execute(selectedObject, eventData, ExecuteEvents.pointerUpHandler);
-                }
-            }
-
-            lineRenderer.enabled = hitTest.gameObject != null;
-            if (hitTest.gameObject != null)
-            {
-                lineRenderer.SetPosition(0, transform.position);
-                lineRenderer.SetPosition(1, hitTest.worldPosition);
-            }
+            buttonDeltaState |= ButtonDeltaState.Pressed;
         }
-        else
+        if (controllerDevice.triggerPressed.wasReleasedThisFrame)
         {
-            lineRenderer.enabled = false;
-            if (selectedObject != null)
-            {
-                ExecuteEvents.Execute(selectedObject, eventData, ExecuteEvents.pointerExitHandler);
-                selectedObject = null;
-            }
+            buttonDeltaState |= ButtonDeltaState.Released;
+        }
+        return buttonDeltaState;
+    }
+
+    public void UpdateRay(RaycastResult hitResult)
+    {
+        lineRenderer.enabled = hitResult.isValid;
+        if (hitResult.isValid)
+        {
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, hitResult.worldPosition);
         }
     }
 }
