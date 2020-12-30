@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BlockSpawner : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class BlockSpawner : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private BlockEditor movingObject;
     public GameObject blockPrefab;
@@ -38,5 +38,15 @@ public class BlockSpawner : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
             movingObject.OnEndDrag(data);
             movingObject = null;
         }
+    }
+
+    void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("Pointer enter: " + gameObject.name, gameObject);
+    }
+
+    void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+    {
+        Debug.Log("Pointer exit: " + gameObject.name, gameObject);
     }
 }

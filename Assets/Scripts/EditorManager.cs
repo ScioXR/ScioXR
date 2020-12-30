@@ -68,7 +68,15 @@ public class EditorManager : MonoBehaviour
         {
             newTransformMode = 0;
         }
-        SetTransformMode((TransformMode)newTransformMode);
+
+        if (PlatformLoader.instance.platform.IsEditModeSupported((TransformMode)newTransformMode))
+        {
+            SetTransformMode((TransformMode)newTransformMode);
+        } else
+        {
+            EditorManager.mode = (TransformMode)newTransformMode;
+            NextTransformMode();
+        }
     }
 
     public void SetTransformMode(TransformMode mode)
@@ -76,6 +84,8 @@ public class EditorManager : MonoBehaviour
         EditorManager.mode = mode;
         OnTransformModeChanged(mode);
     }
+
+
 
     public void ToggleProperties(GameObject editObject)
     {
