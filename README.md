@@ -8,13 +8,13 @@ ScioXR is a platform for created content in VR. The visual programming language 
 
 ### Prerequirements
 
-* Download and install Unity 2020.1.15 (throught [Unity Hub](https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup.exe) or as a [Unity Standalone](https://download.unity3d.com/download_unity/97d0ae02d19d/Windows64EditorInstaller/UnitySetup64-2020.1.15f1.exe))
+* Download and install Unity 2020.2.1 (throught [Unity Hub](https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup.exe) or as a [Unity Standalone](https://download.unity3d.com/download_unity/270dd8c3da1c/Windows64EditorInstaller/UnitySetup64-2020.2.1f1.exe))
 
 ### Downloading the project
 
 * Download this project repository to your local machine using *one* of the following methods:
-  * Git clone the repository with `git clone https://github.com/FlatHillGames/scioxr-dev.git`
-  * Download the zip file at `https://github.com/FlatHillGames/scioxr-dev/archive/ScioXRDevelopment.zip` and extract it.
+  * Git clone the repository with `git clone https://github.com/FlatHillGames/ScioXR.git`
+  * Download the zip file at `https://github.com/FlatHillGames/ScioXR/archive/master.zip` and extract it.
   
 ### Opening the project in the Unity game engine
 
