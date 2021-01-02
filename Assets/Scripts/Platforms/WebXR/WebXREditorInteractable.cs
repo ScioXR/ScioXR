@@ -50,4 +50,12 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
             Dragging();
         }
     }
+
+    void IWebXRInteractable.OnTouch(WebXRInteractor interactor)
+    {
+    }
+
+    void IWebXRInteractable.OnUntouch(WebXRInteractor interactor)
+    {
+    }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BlockEditor : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+public class BlockEditor : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public string blockType;
     public CodeBoard codePanel;
@@ -84,18 +84,13 @@ public class BlockEditor : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         }
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        Debug.Log("Pointer down: " + gameObject.name, gameObject);
-    }
-
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Pointer enter: " + gameObject.name, gameObject);
+        //Debug.Log("Pointer enter: " + gameObject.name, gameObject);
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("Pointer exit: " + gameObject.name, gameObject);
+        //Debug.Log("Pointer exit: " + gameObject.name, gameObject);
     }
 }

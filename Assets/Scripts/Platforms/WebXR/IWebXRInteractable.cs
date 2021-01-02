@@ -8,5 +8,8 @@ public interface IWebXRInteractable
     void OnUngrab(WebXRInteractor interactor);
     void OnSecondaryGrab(WebXRInteractor interactor);
     void OnSecondaryUngrab(WebXRInteractor interactor);
+
+    void OnTouch(WebXRInteractor interactor);
+    void OnUntouch(WebXRInteractor interactor);
 }
 

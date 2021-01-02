@@ -19,8 +19,6 @@ public class BlocksBoard : MonoBehaviour
     public GameObject[] blocksPrefabs;
     public Transform startPosition;
 
-    public float blockOffset;
-
     public CodeBoard codeBoard;
 
     public Transform contentHolder;
@@ -45,7 +43,6 @@ public class BlocksBoard : MonoBehaviour
             Destroy(blockSpawnerObject.GetComponent<BlockEditor>());
             blockSpawner.codePanel = codeBoard;
             blockSpawner.blockPrefab = blockPrefab;
-            spawnPostion -= transform.up * blockOffset;
         }
 
         variablePanel.transform.SetAsLastSibling();
@@ -105,7 +102,7 @@ public class BlocksBoard : MonoBehaviour
 
         //add delete button
         GameObject deleteButton = Instantiate(deleteButtonPrefab, blockSpawner.transform.position, Quaternion.identity, blockSpawner.transform);
-        deleteButton.transform.localPosition += deleteButton.transform.right * 80f;
+        deleteButton.transform.localPosition += deleteButton.transform.right * 120f;
         string variableNameStr = variableName.text;
         deleteButton.GetComponent<Button>().onClick.AddListener(delegate { DeleteVariable(variableNameStr); });
 
@@ -155,7 +152,7 @@ public class BlocksBoard : MonoBehaviour
 
         //add delete button
         GameObject deleteButton = Instantiate(deleteButtonPrefab, variableObject.transform.position, Quaternion.identity, variableObject.transform);
-        deleteButton.transform.localPosition += deleteButton.transform.right * 80f;
+        deleteButton.transform.localPosition += deleteButton.transform.right * 120f;
         string messageNameStr = messageName.text;
         deleteButton.GetComponent<Button>().onClick.AddListener(delegate { DeleteMessage(messageNameStr); });
 

@@ -42,11 +42,11 @@ public class BlockSpawner : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Pointer enter: " + gameObject.name, gameObject);
+        //Debug.Log("Pointer enter: " + gameObject.name, gameObject);
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("Pointer exit: " + gameObject.name, gameObject);
+        //Debug.Log("Pointer exit: " + gameObject.name, gameObject);
     }
 }

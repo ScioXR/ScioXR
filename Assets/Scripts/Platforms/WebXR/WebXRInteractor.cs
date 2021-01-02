@@ -92,7 +92,7 @@ public class WebXRInteractor : MonoBehaviour
 
         contactRigidBodies.Add(other.gameObject.GetComponent<Rigidbody>());
 
-        UpdateHighlights();
+        UpdateTouch();
         //controller.Pulse(0.5f, 250);
     }
 
@@ -103,22 +103,30 @@ public class WebXRInteractor : MonoBehaviour
 
         contactRigidBodies.Remove(other.gameObject.GetComponent<Rigidbody>());
 
-        UpdateHighlights();
+        UpdateTouch();
     }
 
-    private void UpdateHighlights()
+    private void UpdateTouch()
     {
         Rigidbody nearestRigidbody = GetNearestRigidBody();
         if (nearestRigidbody != highlightedRigidbody)
         {
             if (highlightedRigidbody)
             {
-                highlightedRigidbody.gameObject.GetComponent<Outline>().enabled = false;
+                IWebXRInteractable[] interactables = highlightedRigidbody.GetComponents<IWebXRInteractable>();
+                foreach (var interactable in interactables)
+                {
+                    interactable.OnUntouch(this);
+                }
             }
 
             if (nearestRigidbody)
             {
-                nearestRigidbody.gameObject.GetComponent<Outline>().enabled = true;
+                IWebXRInteractable[] interactables = nearestRigidbody.GetComponents<IWebXRInteractable>();
+                foreach (var interactable in interactables)
+                {
+                    interactable.OnTouch(this);
+                }
             }
             highlightedRigidbody = nearestRigidbody;
         }
@@ -142,5 +150,10 @@ public class WebXRInteractor : MonoBehaviour
         }
 
         return nearestRigidBody;
+    }
+
+    public void ForceUntouchObject(Rigidbody rb)
+    {
+        contactRigidBodies.Remove(rb);
     }
 }
