@@ -872,6 +872,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: XRMainMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 7622622301167494487, guid: 0650ebfead76ed643a49d8fb32e24abf, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0650ebfead76ed643a49d8fb32e24abf, type: 3}
 --- !u!1 &1913284614

@@ -62,7 +62,9 @@ public struct WebXRControllerDeviceState : IInputStateTypeInfo
 }
 
 [InputControlLayout(displayName = "WebXR Controller", stateType = typeof(WebXRControllerDeviceState), commonUsages = new[] { "LeftHand", "RightHand" })]
+#if UNITY_EDITOR
 [InitializeOnLoad]
+#endif
 public class WebXRControllerDevice : InputDevice
 {
 

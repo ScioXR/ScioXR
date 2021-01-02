@@ -8,7 +8,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem.Utilities;
-using UnityEngine.XR.Interaction.Toolkit.UI;
 using WebXR;
 
 public class WebXRContollerVirtualDevice : MonoBehaviour
