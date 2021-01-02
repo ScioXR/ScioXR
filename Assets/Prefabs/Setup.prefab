@@ -382,6 +382,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &1908694690797129402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -836,6 +837,10 @@ PrefabInstance:
       value: WebXRCameraSet
       objectReference: {fileID: 0}
     - target: {fileID: 6021742069658113269, guid: a043b3f08cb28654c9fa50877826f4ad, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021742069658113269, guid: a043b3f08cb28654c9fa50877826f4ad, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -848,6 +853,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6021742069658113269, guid: a043b3f08cb28654c9fa50877826f4ad, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021742069658113269, guid: a043b3f08cb28654c9fa50877826f4ad, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -858,14 +867,6 @@ PrefabInstance:
     - target: {fileID: 6021742069658113269, guid: a043b3f08cb28654c9fa50877826f4ad, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6021742069658113269, guid: a043b3f08cb28654c9fa50877826f4ad, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6021742069658113269, guid: a043b3f08cb28654c9fa50877826f4ad, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6021742069658113269, guid: a043b3f08cb28654c9fa50877826f4ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

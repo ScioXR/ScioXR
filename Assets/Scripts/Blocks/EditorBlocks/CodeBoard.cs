@@ -190,9 +190,11 @@ public class CodeBoard : MonoBehaviour
             {
                 GameObject rootBlock = blockBoard.CreateBlock(rootBlockData);
                 rootBlock.transform.localPosition = rootBlockData.editorPosition;
+                rootBlock.transform.localRotation = Quaternion.identity;
                 foreach (var childBlockData in rootBlockData.blocks)
                 {
                     GameObject childBlock = blockBoard.CreateBlock(childBlockData);
+                    childBlock.transform.localRotation = Quaternion.identity;
                     rootBlock.GetComponent<BlockEditor>().AttachBlock(childBlock);
                     rootBlock = childBlock;
                 }

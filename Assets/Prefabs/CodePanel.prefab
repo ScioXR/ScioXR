@@ -127,6 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -571,6 +572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -599,8 +601,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5803837994506010131}
   m_HandleRect: {fileID: 5803837994506010128}
   m_Direction: 0
-  m_Value: 0.47961125
-  m_Size: 0.9979728
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1035,6 +1037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1167,6 +1170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1196,7 +1200,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 5803837994195554119}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9991646
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1447,6 +1451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1629,7 +1634,6 @@ MonoBehaviour:
   - {fileID: 3326211016583801192, guid: 7e0ecb5c4a1accd40bff6bafb357704c, type: 3}
   - {fileID: 3283820060698248495, guid: a87fa4ece7479084c9d1d95296598d74, type: 3}
   startPosition: {fileID: 5803837994752759144}
-  blockOffset: 62
   codeBoard: {fileID: 5803837994796651363}
   contentHolder: {fileID: 5803837994593399962}
 --- !u!1 &5803837994195554116
@@ -2306,10 +2310,10 @@ RectTransform:
   m_Father: {fileID: 5803837994786885100}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -181.98497, y: 275.56204}
-  m_SizeDelta: {x: 364, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &5803837994593399957
 MonoBehaviour:
@@ -2721,6 +2725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockBoard: {fileID: 5803837993880369793}
+  shouldSave: 0
 --- !u!1 &5803837994833893127
 GameObject:
   m_ObjectHideFlags: 0
@@ -2812,6 +2817,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}

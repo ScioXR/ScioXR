@@ -12,7 +12,13 @@ public class XRTabGroup : XRPanel
         base.Show();
         SelectTab(selectedTab);
     }
-  
+
+    public override void Hide()
+    {
+        base.Hide();
+        tabs[selectedTab].Hide();
+    }
+
 
     public void SelectTab(int index)
     {
