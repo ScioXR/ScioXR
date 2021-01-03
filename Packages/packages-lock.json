@@ -7,16 +7,16 @@
       "dependencies": {
         "com.unity.xr.management": "3.2.13"
       },
-      "hash": "adf7bc0ae87323f72a9fb3d74e83cbd9c3e58b3f"
+      "hash": "8006dbb536b80fec0cc9e9ad08832be2db585fd5"
     },
     "com.de-panther.webxr-interactions": {
       "version": "https://github.com/De-Panther/unity-webxr-export.git?path=/Packages/webxr-interactions",
       "depth": 0,
       "source": "git",
       "dependencies": {
-        "com.de-panther.webxr": "0.4.1-preview"
+        "com.de-panther.webxr": "0.5.1-preview"
       },
-      "hash": "adf7bc0ae87323f72a9fb3d74e83cbd9c3e58b3f"
+      "hash": "8006dbb536b80fec0cc9e9ad08832be2db585fd5"
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
@@ -117,17 +117,6 @@
       "source": "registry",
       "dependencies": {
         "com.unity.subsystemregistration": "1.0.6"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.xr.interaction.toolkit": {
-      "version": "0.10.0-preview.7",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.inputsystem": "1.0.0",
-        "com.unity.ugui": "1.0.0",
-        "com.unity.xr.legacyinputhelpers": "2.1.4"
       },
       "url": "https://packages.unity.com"
     },
