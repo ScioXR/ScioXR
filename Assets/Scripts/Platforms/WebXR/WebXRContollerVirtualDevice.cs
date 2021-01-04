@@ -8,7 +8,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem.Utilities;
-using UnityEngine.XR.Interaction.Toolkit.UI;
 using WebXR;
 
 public class WebXRContollerVirtualDevice : MonoBehaviour
@@ -51,8 +50,6 @@ public class WebXRContollerVirtualDevice : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        controller.TryUpdateButtons();
-
         cachedDeviceState.thumbstick = controller.GetAxis2D(WebXRController.Axis2DTypes.Thumbstick);
         cachedDeviceState.trigger = controller.GetAxis(WebXRController.AxisTypes.Trigger);
         cachedDeviceState.buttons = (controller.GetButton(WebXRController.ButtonTypes.Trigger) ? 1 : 0) |

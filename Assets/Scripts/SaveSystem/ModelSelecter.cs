@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-#if !UNITY_WEBGL
-using UnityEngine.XR.Interaction.Toolkit;
-#endif
 
 public class ModelSelecter : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {

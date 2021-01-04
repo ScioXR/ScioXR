@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
-using UnityEngine.XR.Interaction.Toolkit.UI;
 
 public class WebXRUIInputModule : BaseInputModule
 {

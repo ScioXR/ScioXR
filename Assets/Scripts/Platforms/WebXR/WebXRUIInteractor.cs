@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
-using UnityEngine.XR.Interaction.Toolkit.UI;
 using WebXR;
 
 public class WebXRUIInteractor : MonoBehaviour
