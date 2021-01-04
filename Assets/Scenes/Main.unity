@@ -265,7 +265,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &319363070
 Canvas:
   m_ObjectHideFlags: 0
@@ -2289,7 +2289,7 @@ MonoBehaviour:
   handle: {fileID: 0}
   panel: {fileID: 1159331651}
   alwaysOn: 1
-  rightOffset: 0
+  offset: {x: 0, y: 0, z: 0}
   isActive: 0
 --- !u!4 &1597021052
 Transform:
@@ -2299,7 +2299,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1597021050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.24, z: 4}
+  m_LocalPosition: {x: 0, y: 0.89, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 319363071}

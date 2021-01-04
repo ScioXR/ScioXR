@@ -5,6 +5,9 @@ using WebXR;
 
 public class WebXRPlatform : Platform
 {
+    public Camera trackCameraMain;
+    public Camera trackCameraVR;
+    public Camera trackCameraAR;
 
     private void Start()
     {
@@ -35,5 +38,13 @@ public class WebXRPlatform : Platform
     private void onXRChange(WebXRState state, int viewsCount, Rect leftRect, Rect rightRect)
     {
         CameraHelper.Reset();
+        if (state == WebXRState.VR)
+        {
+            CameraHelper.SetCamera(trackCameraVR);
+        }
+        else if (state == WebXRState.AR)
+        {
+            CameraHelper.SetCamera(trackCameraAR);
+        }
     }
 }

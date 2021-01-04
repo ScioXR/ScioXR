@@ -11,7 +11,7 @@ public class XRCanvas : MonoBehaviour
     public XRPanel panel;
     public bool alwaysOn;
     
-    public float rightOffset;
+    public Vector3 offset;
 
     public bool isActive;
     private bool isGrabbed;
@@ -104,8 +104,8 @@ public class XRCanvas : MonoBehaviour
     {
         GameObject cameraObject = CameraHelper.main.gameObject;
         Vector3 viewVector = new Vector3(cameraObject.transform.forward.x, 0, cameraObject.transform.forward.z).normalized;
-        Vector3 newPosition = cameraObject.transform.position + viewVector * 0.6f;
-        transform.position = new Vector3(newPosition.x, newPosition.y, newPosition.z) + cameraObject.transform.right * rightOffset;
+        Vector3 newPosition = cameraObject.transform.position + viewVector * offset.z + Vector3.up * offset.y + cameraObject.transform.right * offset.x;
+        transform.position = newPosition;
         transform.LookAt(new Vector3(cameraObject.transform.position.x, transform.position.y, cameraObject.transform.position.z));
 
     }

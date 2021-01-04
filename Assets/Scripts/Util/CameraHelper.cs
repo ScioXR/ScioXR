@@ -16,10 +16,13 @@ public class CameraHelper
                 {
                     _camera = Camera.main;
                 }
-                Camera camera = FindCamera();
-                if (camera)
+                if (_camera == null)
                 {
-                    _camera = camera;
+                    Camera camera = FindCamera();
+                    if (camera)
+                    {
+                        _camera = camera;
+                    }
                 }
             }
             return _camera;
@@ -29,6 +32,11 @@ public class CameraHelper
     public static void Reset()
     {
         _camera = null;
+    }
+
+    public static void SetCamera(Camera newCamera)
+    {
+        _camera = newCamera;
     }
 
     protected static Camera FindCamera()
