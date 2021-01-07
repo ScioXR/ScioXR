@@ -15,6 +15,7 @@ public class WebXRInteractor : MonoBehaviour
     public WebXRControllerDevice controller;
 
     private Rigidbody highlightedRigidbody;
+    private Rigidbody grabedRigidbody;
 
     void Awake()
     {
@@ -31,10 +32,12 @@ public class WebXRInteractor : MonoBehaviour
 
     void Update()
     {
+        //Debug.Log(controller.triggerPressed.IsPressed() + ", " + controller.triggerPressed.wasPressedThisFrame + ", " + controller.triggerPressed.wasReleasedThisFrame);
         if (controller.triggerPressed.wasPressedThisFrame)
         {
             if (highlightedRigidbody)
             {
+                grabedRigidbody = highlightedRigidbody;
                 IWebXRInteractable[] interactables = highlightedRigidbody.GetComponents<IWebXRInteractable>();
                 foreach (var interactable in interactables)
                 {
@@ -47,13 +50,14 @@ public class WebXRInteractor : MonoBehaviour
         if (controller.triggerPressed.wasReleasedThisFrame)
         {
             //Drop();
-            if (highlightedRigidbody)
+            if (grabedRigidbody)
             {
-                IWebXRInteractable[] interactables = highlightedRigidbody.GetComponents<IWebXRInteractable>();
+                IWebXRInteractable[] interactables = grabedRigidbody.GetComponents<IWebXRInteractable>();
                 foreach (var interactable in interactables)
                 {
                     interactable.OnUngrab(this);
                 }
+                grabedRigidbody = null;
             }
         }
 
@@ -154,6 +158,14 @@ public class WebXRInteractor : MonoBehaviour
 
     public void ForceUntouchObject(Rigidbody rb)
     {
+        if (highlightedRigidbody == rb)
+        {
+            highlightedRigidbody = null;
+        }
+        if (grabedRigidbody == rb)
+        {
+            grabedRigidbody = null;
+        }
         contactRigidBodies.Remove(rb);
     }
 }

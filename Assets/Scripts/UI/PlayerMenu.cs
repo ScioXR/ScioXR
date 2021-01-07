@@ -12,7 +12,10 @@ public class PlayerMenu : XRPanel
     {
         base.Show();
 
-        sceneNameText.text = AppManager.instance.currentSceneName;
+        if (sceneNameText)
+        {
+            sceneNameText.text = AppManager.instance.currentSceneName;
+        }
     }
 
     public void GoToMainMenu()
@@ -31,5 +34,11 @@ public class PlayerMenu : XRPanel
     {
         //AppManager.instance.currentSceneName = selectedExperience;
         SceneManager.LoadScene("Player");
+    }
+
+    public void PlayGame(string game)
+    {
+        //AppManager.instance.currentSceneName = selectedExperience;
+        SceneManager.LoadScene(game);
     }
 }
