@@ -3,7 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - plastic
+  - paper
+  - glass
+  - metal
+  - molecule_h
+  - molecule_o
+  - molecule_other
+  - laser
   layers:
   - Default
   - TransparentFX
