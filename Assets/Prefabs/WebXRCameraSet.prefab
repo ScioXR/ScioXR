@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4974700127051642}
   - component: {fileID: 137037042967364456}
-  - component: {fileID: 577910227837277613}
+  - component: {fileID: 5258211609326583762}
   m_Layer: 0
   m_Name: model
   m_TagString: Untagged
@@ -191,8 +191,8 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.008486092, y: 0.07785222, z: 0.018433996}
     m_Extent: {x: 0.05023212, y: 0.12092428, z: 0.08558848}
   m_DirtyAABB: 0
---- !u!135 &577910227837277613
-SphereCollider:
+--- !u!65 &5258211609326583762
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -202,8 +202,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.13
-  m_Center: {x: 0, y: 0.01, z: 0.02}
+  m_Size: {x: 0.067730896, y: 0.27586797, z: 0.14047691}
+  m_Center: {x: 0.003445443, y: 0.028367182, z: 0.020121552}
 --- !u!1 &1105671963348452
 GameObject:
   m_ObjectHideFlags: 0
@@ -1177,7 +1177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4925627231713262}
   - component: {fileID: 137859123971994456}
-  - component: {fileID: 4744529936429859944}
+  - component: {fileID: 2470736381234654496}
   m_Layer: 0
   m_Name: model
   m_TagString: Untagged
@@ -1267,8 +1267,8 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.008465625, y: 0.07335146, z: 0.018426947}
     m_Extent: {x: 0.050279543, y: 0.12551184, z: 0.08560432}
   m_DirtyAABB: 0
---- !u!135 &4744529936429859944
-SphereCollider:
+--- !u!65 &2470736381234654496
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1278,8 +1278,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.13
-  m_Center: {x: 0, y: 0.01, z: 0.02}
+  m_Size: {x: 0.067730896, y: 0.27586797, z: 0.14047691}
+  m_Center: {x: 0.003445443, y: 0.028367182, z: 0.020121552}
 --- !u!1 &1700223032786422
 GameObject:
   m_ObjectHideFlags: 0
@@ -2328,7 +2328,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3819867499605581648}
-  - component: {fileID: 8744463562255408498}
+  - component: {fileID: 36318976291131514}
   m_Layer: 0
   m_Name: InputModel
   m_TagString: Untagged
@@ -2350,8 +2350,8 @@ Transform:
   m_Father: {fileID: 4446684710817404}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &8744463562255408498
-SphereCollider:
+--- !u!65 &36318976291131514
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2361,8 +2361,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.15
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.067730896, y: 0.13881707, z: 0.20314671}
+  m_Center: {x: 0.0034454418, y: 0.014911711, z: -0.011213363}
 --- !u!1 &729272463889479920
 GameObject:
   m_ObjectHideFlags: 0
@@ -2541,7 +2541,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1218315907877956796}
-  - component: {fileID: 2889454397435254994}
+  - component: {fileID: 3050239350700165952}
   m_Layer: 0
   m_Name: InputModel
   m_TagString: Untagged
@@ -2563,8 +2563,8 @@ Transform:
   m_Father: {fileID: 4427160273819458}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &2889454397435254994
-SphereCollider:
+--- !u!65 &3050239350700165952
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2574,8 +2574,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.15
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.067730896, y: 0.13881707, z: 0.20314671}
+  m_Center: {x: 0.0034454418, y: 0.014911711, z: -0.011213363}
 --- !u!1 &3250837035476248814
 GameObject:
   m_ObjectHideFlags: 0
