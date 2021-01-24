@@ -1448,9 +1448,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: 1
-  simulate3dof: 0
-  eyesToElbow: {x: 0.1, y: -0.4, z: 0.15}
-  elbowHand: {x: 0, y: 0, z: 0.25}
 --- !u!114 &114589835210473740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2125,9 +2122,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: 2
-  simulate3dof: 0
-  eyesToElbow: {x: 0.1, y: -0.4, z: 0.15}
-  elbowHand: {x: 0, y: 0, z: 0.25}
 --- !u!114 &114372649503696970
 MonoBehaviour:
   m_ObjectHideFlags: 0

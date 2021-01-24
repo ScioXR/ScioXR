@@ -31,7 +31,7 @@ public class WebXRContollerVirtualDevice : MonoBehaviour
 
     private void OnDestroy()
     {
-        InputSystem.RemoveDevice(device);
+        //InputSystem.RemoveDevice(device);
     }
 
     private void SetupDevice()
