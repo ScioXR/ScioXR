@@ -957,6 +957,7 @@ GameObject:
   - component: {fileID: 4545079059221816}
   - component: {fileID: 114038308936181916}
   - component: {fileID: -7703819760109253730}
+  - component: {fileID: 6550237990314167101}
   - component: {fileID: -6993708346785279070}
   m_Layer: 0
   m_Name: WebXRCameraSet
@@ -1008,7 +1009,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkingSpeed: 1
-  cameraObject: {fileID: 6018838704700419677, guid: a043b3f08cb28654c9fa50877826f4ad, type: 3}
+  forwardMoveType: 1
+  horizontalMoveType: 1
+  rotateSpeed: 45
+  hand: 1
+--- !u!114 &6550237990314167101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611361787474004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9c3e1e78f137fe499a334e644445e77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkingSpeed: 1
+  forwardMoveType: 0
+  horizontalMoveType: 2
+  rotateSpeed: 45
   hand: 2
 --- !u!114 &-6993708346785279070
 MonoBehaviour:
