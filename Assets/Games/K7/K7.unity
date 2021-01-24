@@ -7720,7 +7720,7 @@ MonoBehaviour:
   moleculeModel: {fileID: 7423379762072066011}
   winMark: {fileID: 1821616254}
   infoText: {fileID: 380522786}
-  createButton: {fileID: 0}
+  createButton: {fileID: 6583826}
   cage: {fileID: 7423379762072066004}
 --- !u!65 &7423379762072066021
 BoxCollider:
