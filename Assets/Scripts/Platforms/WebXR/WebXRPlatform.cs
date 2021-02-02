@@ -14,9 +14,9 @@ public class WebXRPlatform : Platform
         WebXRManager.OnXRChange += onXRChange;
     }
 
-    public override void SetupEditorObject(GameObject loadedModel, string modelName)
+    public override void SetupEditorObject(GameObject loadedModel, SaveData data)
     {
-        base.SetupEditorObject(loadedModel, modelName);
+        base.SetupEditorObject(loadedModel, data);
 
         loadedModel.AddComponent<EditorTransform3D>();
         loadedModel.AddComponent<WebXREditorInteractable>();

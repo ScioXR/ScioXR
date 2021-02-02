@@ -9,20 +9,35 @@ public class Platform : MonoBehaviour
         return true;
     }
 
-    public virtual void SetupPlayerObject(GameObject loadedModel)
+    protected virtual void SetupGraphics(GameObject loadedModel, SaveData data)
     {
-        loadedModel.AddComponent<BoxCollider>();
-
-        Rigidbody rb = loadedModel.AddComponent<Rigidbody>();
-        rb.isKinematic = true;
+        if (data.texture != "")
+        {
+            StartCoroutine(AssetsLoader.ImportTexture(data.texture, texture =>
+            {
+                loadedModel.GetComponent<MeshRenderer>().material.mainTexture = texture;
+            }));
+        }
     }
 
-    public virtual void SetupEditorObject(GameObject loadedModel, string modelName)
+    public virtual void SetupPlayerObject(GameObject loadedModel, SaveData data)
     {
         loadedModel.AddComponent<BoxCollider>();
 
         Rigidbody rb = loadedModel.AddComponent<Rigidbody>();
         rb.isKinematic = true;
+
+        SetupGraphics(loadedModel, data);
+    }
+
+    public virtual void SetupEditorObject(GameObject loadedModel, SaveData data)
+    {
+        loadedModel.AddComponent<BoxCollider>();
+
+        Rigidbody rb = loadedModel.AddComponent<Rigidbody>();
+        rb.isKinematic = true;
+
+        SetupGraphics(loadedModel, data);
     }
 
     public virtual bool IsEditModeSupported(TransformMode mode) {

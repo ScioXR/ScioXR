@@ -112,15 +112,17 @@ public class ScioXRSceneManager : MonoBehaviour
 
                     if (editor)
                     {
-                        PlatformLoader.instance.platform.SetupEditorObject(loadedObject, currentData.model);
+                        PlatformLoader.instance.platform.SetupEditorObject(loadedObject, currentData);
 
                         loadedObject.AddComponent<Saveable>();
                         loadedObject.GetComponent<Saveable>().model = currentData.model;
+                        loadedObject.GetComponent<Saveable>().texture = currentData.texture;
+                        loadedObject.GetComponent<Saveable>().color = currentData.color;
                         loadedObject.GetComponent<Saveable>().codeData = currentData.code;
                         loadedObject.GetComponent<Saveable>().id = currentData.id;
                     } else
                     {
-                        PlatformLoader.instance.platform.SetupPlayerObject(loadedObject);
+                        PlatformLoader.instance.platform.SetupPlayerObject(loadedObject, currentData);
 
                         loadedObject.AddComponent<CodeController>();
                         loadedObject.GetComponent<CodeController>().id = currentData.id;
@@ -190,6 +192,8 @@ public class ScioXRSceneManager : MonoBehaviour
                     id = saveableObjects[i].id,
                     name = saveableObjects[i].gameObject.name,
                     model = saveableObjects[i].model,
+                    texture = saveableObjects[i].texture,
+                    color = saveableObjects[i].color,
                     position = saveableObjects[i].transform.position,
                     rotation = saveableObjects[i].transform.rotation,
                     scale = saveableObjects[i].transform.localScale,

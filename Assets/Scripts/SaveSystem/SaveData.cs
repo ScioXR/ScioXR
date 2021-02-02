@@ -9,6 +9,8 @@ public class SaveData
     public int id;
     public string name;
     public string model;
+    public string texture;
+    public string color;
     public Vector3 position;
     public Quaternion rotation;
     public Vector3 scale;

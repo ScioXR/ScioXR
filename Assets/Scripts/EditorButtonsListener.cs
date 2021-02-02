@@ -10,12 +10,12 @@ public class EditorButtonsListener : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (WebXRControllerDevice.leftHand.secondaryButton.wasPressedThisFrame || Keyboard.current.tabKey.wasPressedThisFrame)
+        if ((WebXRControllerDevice.leftHand != null && WebXRControllerDevice.leftHand.secondaryButton.wasPressedThisFrame) || Keyboard.current.tabKey.wasPressedThisFrame)
         {
             toggleCanvas.Toggle();
         }
 
-        if (WebXRControllerDevice.rightHand.secondaryButton.wasPressedThisFrame || Keyboard.current.ctrlKey.wasPressedThisFrame)
+        if ((WebXRControllerDevice.rightHand != null && WebXRControllerDevice.rightHand.secondaryButton.wasPressedThisFrame) || Keyboard.current.ctrlKey.wasPressedThisFrame)
         {
             EditorManager.instance.NextTransformMode();
         }

@@ -12,9 +12,6 @@ public class PropertiesPanel : XRPanel
     public TextMeshProUGUI modelRotationText;
     public TextMeshProUGUI modelScaleText;
 
-    public Material[] materials;
-    private int selectedMaterial;
-
     public override void Show()
     {
         base.Show();
@@ -56,19 +53,7 @@ public class PropertiesPanel : XRPanel
             modelScaleText.GetComponent<TextMeshProUGUI>().text = ObjectScale;
         }
     }
-    public void CodeButton()
-    {
-    }
-    public void MaterialsButton(int index)
-    {
 
-        selectedMaterial = index;
-        selectedObject.GetComponent<MeshRenderer>().material = materials[selectedMaterial];
-    }
-    public void RevertToDeafultMaterial()
-    {
-        //selectedObject.gameObject.GetComponent<MeshRenderer>().material = EditorTransformXR.originalMaterial;
-    }
     public void SetObject(GameObject selectedObj)
     {
         selectedObject = selectedObj;
