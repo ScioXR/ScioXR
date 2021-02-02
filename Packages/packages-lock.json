@@ -1,22 +1,22 @@
 {
   "dependencies": {
     "com.de-panther.webxr": {
-      "version": "https://github.com/De-Panther/unity-webxr-export.git?path=/Packages/webxr",
+      "version": "https://github.com/De-Panther/unity-webxr-export.git?path=/Packages/webxr#webxr/0.6.0-preview",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.xr.management": "3.2.13"
       },
-      "hash": "8006dbb536b80fec0cc9e9ad08832be2db585fd5"
+      "hash": "803e390e10fd14cfbec720be89feae0e6c9a8c27"
     },
     "com.de-panther.webxr-interactions": {
-      "version": "https://github.com/De-Panther/unity-webxr-export.git?path=/Packages/webxr-interactions",
+      "version": "https://github.com/De-Panther/unity-webxr-export.git?path=/Packages/webxr-interactions#webxr-interactions/0.6.0-preview",
       "depth": 0,
       "source": "git",
       "dependencies": {
-        "com.de-panther.webxr": "0.5.1-preview"
+        "com.de-panther.webxr": "0.6.0-preview"
       },
-      "hash": "8006dbb536b80fec0cc9e9ad08832be2db585fd5"
+      "hash": "803e390e10fd14cfbec720be89feae0e6c9a8c27"
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
