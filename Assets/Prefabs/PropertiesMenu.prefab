@@ -629,6 +629,8 @@ MonoBehaviour:
   modelPositionText: {fileID: 9150974588959181766}
   modelRotationText: {fileID: 9150974589065589993}
   modelScaleText: {fileID: 9150974589262786725}
+  parentText: {fileID: 0}
+  parentButton: {fileID: 0}
   interactableToggle: {fileID: 7526907016848344170}
 --- !u!1 &282934904423818849
 GameObject:
@@ -10715,7 +10717,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3656686785363274915
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10733,8 +10735,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.31099, y: -0.193}
-  m_SizeDelta: {x: 198.4937, y: 149.8589}
+  m_AnchoredPosition: {x: -0.324, y: -0.17211}
+  m_SizeDelta: {x: 198.4937, y: 78.55766}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3656686785363274912
 CanvasRenderer:

@@ -12,6 +12,8 @@ public class PropertiesPanel : XRPanel
     public TextMeshProUGUI modelPositionText;
     public TextMeshProUGUI modelRotationText;
     public TextMeshProUGUI modelScaleText;
+    public TextMeshProUGUI parentText;
+    public Button parentButton;
     public Toggle interactableToggle;
 
     public override void Show()

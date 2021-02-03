@@ -91,13 +91,19 @@ public class EditorManager : MonoBehaviour
     {
         selectedObject = editObject;
         propertiesMenu.Toggle();
-        if (propertiesMenu.IsActive())
+        if (IsPropertiesOpen())
         {
             
             //propertiesMenu.GetComponentInChildren<CodePanel>().LoadState();
             //load all data from game object
         }
     }
+
+    public bool IsPropertiesOpen()
+    {
+        return propertiesMenu.IsActive();
+    }
+
     public void DuplicateObject(GameObject cloneObject)
     {
         propertiesMenu.GetComponentInChildren<PropertiesPanel>().DuplicateButton(cloneObject);

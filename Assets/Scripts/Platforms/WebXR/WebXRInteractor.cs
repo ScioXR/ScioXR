@@ -70,6 +70,12 @@ public class WebXRInteractor : MonoBehaviour
                 {
                     interactable.OnSecondaryGrab(this);
                 }
+            } else
+            {
+                if (EditorManager.mode == TransformMode.PROPERTIES && EditorManager.instance.IsPropertiesOpen())
+                {
+                    EditorManager.instance.ToggleProperties(null);
+                }
             }
         }
 
