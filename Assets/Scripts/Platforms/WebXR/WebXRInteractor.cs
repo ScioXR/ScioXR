@@ -72,7 +72,7 @@ public class WebXRInteractor : MonoBehaviour
                 }
             } else
             {
-                if (EditorManager.mode == TransformMode.PROPERTIES && EditorManager.instance.IsPropertiesOpen())
+                if (EditorManager.instance && EditorManager.mode == TransformMode.PROPERTIES && EditorManager.instance.IsPropertiesOpen())
                 {
                     EditorManager.instance.ToggleProperties(null);
                 }

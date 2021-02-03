@@ -24,10 +24,7 @@ public class Platform : MonoBehaviour
     {
         loadedModel.AddComponent<BoxCollider>();
 
-        if (data.isInteractable)
-        {
-            Rigidbody rb = loadedModel.AddComponent<Rigidbody>();
-        }
+        SetInteractable(loadedModel, data.isInteractable);
 
         SetupGraphics(loadedModel, data);
     }
@@ -40,6 +37,24 @@ public class Platform : MonoBehaviour
         rb.isKinematic = true;
 
         SetupGraphics(loadedModel, data);
+    }
+
+    public virtual void SetInteractable(GameObject gameObject, bool interactable)
+    {
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        if (interactable)
+        {
+            if (!rb)
+            {
+                gameObject.AddComponent<Rigidbody>();
+            }
+        } else
+        {
+            if (rb)
+            {
+                Destroy(rb);
+            }
+        }
     }
 
     public virtual bool IsEditModeSupported(TransformMode mode) {

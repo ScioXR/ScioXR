@@ -102,6 +102,10 @@ public class CodeController : MonoBehaviour
         {
             result = gameObject.AddComponent<InteractEvent>();
         }
+        if (blockData.blockType == "SetInteractableSensing")
+        {
+            result = gameObject.AddComponent<InteractEvent>();
+        }
         result.Resolve(blockData);
         result.codeController = this;
 

@@ -14,6 +14,16 @@ public class WebXRPlatform : Platform
         WebXRManager.OnXRChange += onXRChange;
     }
 
+    public override void SetupPlayerObject(GameObject loadedModel, SaveData data)
+    {
+        base.SetupPlayerObject(loadedModel, data);
+
+        if (data.isInteractable)
+        {
+            loadedModel.AddComponent<WebXRGrabInteractable>();
+        }
+    }
+
     public override void SetupEditorObject(GameObject loadedModel, SaveData data)
     {
         base.SetupEditorObject(loadedModel, data);
@@ -28,6 +38,27 @@ public class WebXRPlatform : Platform
         outline.OutlineColor = Color.yellow;
         outline.OutlineWidth = 5f;
         outline.enabled = false;
+    }
+
+    public override void SetInteractable(GameObject gameObject, bool interactable)
+    {
+        base.SetInteractable(gameObject, interactable);
+
+        WebXRGrabInteractable grab = gameObject.GetComponent<WebXRGrabInteractable>();
+        if (interactable)
+        {
+            if (!grab)
+            {
+                gameObject.AddComponent<WebXRGrabInteractable>();
+            }
+        }
+        else
+        {
+            if (grab)
+            {
+                Destroy(grab);
+            }
+        }
     }
 
     public override bool IsEditModeSupported(TransformMode mode)
