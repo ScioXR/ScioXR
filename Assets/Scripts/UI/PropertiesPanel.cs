@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PropertiesPanel : XRPanel
 {
@@ -11,6 +12,7 @@ public class PropertiesPanel : XRPanel
     public TextMeshProUGUI modelPositionText;
     public TextMeshProUGUI modelRotationText;
     public TextMeshProUGUI modelScaleText;
+    public Toggle interactableToggle;
 
     public override void Show()
     {
@@ -51,6 +53,8 @@ public class PropertiesPanel : XRPanel
             modelRotationText.GetComponent<TextMeshProUGUI>().text = ObjectRotation;
             string ObjectScale = selectedObject.transform.localScale.ToString();
             modelScaleText.GetComponent<TextMeshProUGUI>().text = ObjectScale;
+
+            interactableToggle.isOn = selectedObject.GetComponent<Saveable>().isInteractable;
         }
     }
 
@@ -62,5 +66,10 @@ public class PropertiesPanel : XRPanel
     public void SaveState()
     {
 
+    }
+
+    public void SetInteractable(bool interactable)
+    {
+        selectedObject.GetComponent<Saveable>().isInteractable = interactable;
     }
 }

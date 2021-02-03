@@ -24,8 +24,10 @@ public class Platform : MonoBehaviour
     {
         loadedModel.AddComponent<BoxCollider>();
 
-        Rigidbody rb = loadedModel.AddComponent<Rigidbody>();
-        rb.isKinematic = true;
+        if (data.isInteractable)
+        {
+            Rigidbody rb = loadedModel.AddComponent<Rigidbody>();
+        }
 
         SetupGraphics(loadedModel, data);
     }

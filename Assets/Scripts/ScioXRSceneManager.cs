@@ -119,6 +119,7 @@ public class ScioXRSceneManager : MonoBehaviour
                         loadedObject.GetComponent<Saveable>().texture = currentData.texture;
                         loadedObject.GetComponent<Saveable>().color = currentData.color;
                         loadedObject.GetComponent<Saveable>().codeData = currentData.code;
+                        loadedObject.GetComponent<Saveable>().isInteractable = currentData.isInteractable;
                         loadedObject.GetComponent<Saveable>().id = currentData.id;
                     } else
                     {
@@ -198,6 +199,7 @@ public class ScioXRSceneManager : MonoBehaviour
                     rotation = saveableObjects[i].transform.rotation,
                     scale = saveableObjects[i].transform.localScale,
                     isVisible = saveableObjects[i].gameObject.activeInHierarchy ? 1 : 0,
+                    isInteractable = saveableObjects[i].isInteractable,
                     code = saveableObjects[i].codeData
 
                 };

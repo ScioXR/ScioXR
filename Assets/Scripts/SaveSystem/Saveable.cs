@@ -10,6 +10,7 @@ public class Saveable : MonoBehaviour
     public string model;
     public string texture;
     public string color = "FFFFFF";
+    public bool isInteractable;
 
     public bool shouldSave = true;
 
