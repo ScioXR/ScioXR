@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class EditorManager : MonoBehaviour
 {
+    public KeyboardWebXR keyboard;
+
     public XRCanvas propertiesMenu;
     public XRCanvas mainMenu;
 
@@ -106,6 +109,22 @@ public class EditorManager : MonoBehaviour
 
     public void DuplicateObject(GameObject cloneObject)
     {
+
         propertiesMenu.GetComponentInChildren<PropertiesPanel>().DuplicateButton(cloneObject);
+    }
+
+    public void ShowKeyboard(bool show, InputField textInput)
+    {
+        if (show)
+        {
+            keyboard.textInput = textInput;
+            keyboard.SetText(textInput.text);
+            keyboard.Enable();
+            keyboard.UpdatePosition();
+        } else
+        {
+            keyboard.Disable();
+            keyboard.textInput = null;
+        }
     }
 }
