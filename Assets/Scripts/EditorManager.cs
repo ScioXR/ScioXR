@@ -23,6 +23,8 @@ public class EditorManager : MonoBehaviour
 
     public GameObject selectedObject;
 
+    public GameObject gizmoScalePrefab;
+
     void Awake()
     {
         if (!instance)

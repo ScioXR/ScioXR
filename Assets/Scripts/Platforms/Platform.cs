@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Siccity.GLTFUtility;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,6 +33,8 @@ public class Platform : MonoBehaviour
     public virtual void SetupEditorObject(GameObject loadedModel, SaveData data)
     {
         loadedModel.AddComponent<BoxCollider>();
+
+        loadedModel.GetComponent<MeshRenderer>().material.shader = new ShaderSettings().GetDefaultMetallicBlend();
 
         Rigidbody rb = loadedModel.AddComponent<Rigidbody>();
         rb.isKinematic = true;

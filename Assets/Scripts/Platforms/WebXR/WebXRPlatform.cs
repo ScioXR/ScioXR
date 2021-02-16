@@ -32,6 +32,8 @@ public class WebXRPlatform : Platform
         loadedModel.AddComponent<WebXREditorInteractable>();
         loadedModel.AddComponent<WebXRGrabInteractable>();
 
+        loadedModel.GetComponent<WebXREditorInteractable>().gizmoScale = Instantiate(EditorManager.instance.gizmoScalePrefab, loadedModel.transform);
+
         var outline = loadedModel.AddComponent<Outline>();
 
         outline.OutlineMode = Outline.Mode.OutlineAll;

@@ -896,6 +896,7 @@ MonoBehaviour:
     variables: []
     messages: []
   selectedObject: {fileID: 0}
+  gizmoScalePrefab: {fileID: 3661724555475135357, guid: fa33e45b3fce9b043a8480664f526299, type: 3}
 --- !u!4 &1913284616
 Transform:
   m_ObjectHideFlags: 0
