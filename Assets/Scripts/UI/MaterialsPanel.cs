@@ -1,3 +1,4 @@
+using HSVPicker;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,6 +10,8 @@ public class MaterialsPanel : XRPanel
     public TextMeshProUGUI loadingText;
     public GameObject textureCardPrefab;
     public TextMeshProUGUI pageText;
+
+    public ColorPicker colorPicker;
 
     public Transform cardStartPosition;
 
@@ -31,6 +34,10 @@ public class MaterialsPanel : XRPanel
 
         if (!isListCreated)
         {
+            Color color = Color.white;
+            ColorUtility.TryParseHtmlString("#" + EditorManager.instance.selectedObject.GetComponent<Saveable>().color, out color);
+            colorPicker.CurrentColor = color;
+
             PopulateMaterialTextures();
             isListCreated = true;
         }
@@ -73,6 +80,11 @@ public class MaterialsPanel : XRPanel
     private void SelectMaterial(string textureName, Texture2D tex)
     {
         EditorManager.instance.selectedObject.GetComponent<Saveable>().SetTexture(textureName, tex);
+    }
+
+    public void SelectColor(Color color)
+    {
+        EditorManager.instance.selectedObject.GetComponent<Saveable>().SetColor(color);
     }
 
     public void SetPage(int pageIndex)

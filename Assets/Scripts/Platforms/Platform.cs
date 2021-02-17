@@ -12,6 +12,9 @@ public class Platform : MonoBehaviour
 
     protected virtual void SetupGraphics(GameObject loadedModel, SaveData data)
     {
+        Color color = Color.white;
+        bool colorParse = ColorUtility.TryParseHtmlString("#" + data.color, out color);
+        loadedModel.GetComponent<MeshRenderer>().material.color = color;
         if (data.texture != "")
         {
             StartCoroutine(AssetsLoader.ImportTexture(data.texture, texture =>
