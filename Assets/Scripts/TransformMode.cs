@@ -10,5 +10,6 @@ public enum TransformMode
     ROTATE_XY,
     ROTATE_XZ,
     SCALE,
-    CLONE
+    CLONE,
+    SET_PARENT
 }

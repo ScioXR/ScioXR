@@ -35,6 +35,17 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
             startDistanceFromCenter = (transform.position - interactor.transform.position).magnitude;
             startScale = transform.localScale;
         }
+        if (EditorManager.mode == TransformMode.SET_PARENT)
+        {
+            if (EditorManager.instance.selectedObject == gameObject)
+            {
+                EditorManager.instance.selectedObject.transform.SetParent(null);
+            }
+            else
+            {
+                EditorManager.instance.selectedObject.transform.SetParent(transform);
+            }
+        }
     }
 
     void IWebXRInteractable.OnSecondaryUngrab(WebXRInteractor interactor)

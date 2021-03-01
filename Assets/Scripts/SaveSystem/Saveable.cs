@@ -32,5 +32,4 @@ public class Saveable : MonoBehaviour
         this.color = ColorUtility.ToHtmlStringRGBA(color);
         GetComponent<MeshRenderer>().material.color = color;
     }
-
 }

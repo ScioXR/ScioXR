@@ -7,6 +7,7 @@ using UnityEngine;
 public class SaveData 
 {
     public int id;
+    public int parent;
     public string name;
     public string model = "";
     public string texture = "";
@@ -14,7 +15,6 @@ public class SaveData
     public Vector3 position;
     public Quaternion rotation;
     public Vector3 scale;
-    public string[] children;
     public int isVisible;
     public bool isInteractable;
     public CodeData code;

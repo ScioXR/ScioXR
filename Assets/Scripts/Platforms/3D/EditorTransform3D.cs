@@ -59,5 +59,16 @@ public class EditorTransform3D : MonoBehaviour, IBeginDragHandler, IDragHandler,
         {
             EditorManager.instance.ToggleProperties(gameObject);
         }
+        if (EditorManager.mode == TransformMode.SET_PARENT)
+        {
+            if (EditorManager.instance.selectedObject == gameObject)
+            {
+                EditorManager.instance.selectedObject.transform.SetParent(null);
+            }
+            else
+            {
+                EditorManager.instance.selectedObject.transform.SetParent(transform);
+            }
+        }
     }
 }

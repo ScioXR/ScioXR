@@ -70,6 +70,11 @@ public class PropertiesPanel : XRPanel
 
     }
 
+    public void EnterSetParentMode()
+    {
+        EditorManager.instance.SetTransformMode(TransformMode.SET_PARENT);
+    }
+
     public void SetInteractable(bool interactable)
     {
         selectedObject.GetComponent<Saveable>().isInteractable = interactable;

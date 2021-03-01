@@ -65,7 +65,10 @@ public class WebXRPlatform : Platform
 
     public override bool IsEditModeSupported(TransformMode mode)
     {
-        return mode == TransformMode.NONE || mode == TransformMode.PROPERTIES || mode == TransformMode.SCALE || mode == TransformMode.CLONE;
+        return mode == TransformMode.NONE 
+            || mode == TransformMode.PROPERTIES 
+            || mode == TransformMode.SCALE 
+            || mode == TransformMode.CLONE;
     }
 
     private void onXRChange(WebXRState state, int viewsCount, Rect leftRect, Rect rightRect)

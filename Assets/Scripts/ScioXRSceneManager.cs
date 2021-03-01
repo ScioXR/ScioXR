@@ -129,6 +129,28 @@ public class ScioXRSceneManager : MonoBehaviour
                         loadedObject.GetComponent<CodeController>().id = currentData.id;
                         loadedObject.GetComponent<CodeController>().LoadCode(currentData.code);
                     }
+
+                    //link parent
+                    if (currentData.parent > 0)
+                    {
+                        bool parentFound = false;
+                        Saveable[] allObjects = GameObject.FindObjectsOfType<Saveable>();
+                        foreach (var sceneObjects in allObjects)
+                        {
+                            if (sceneObjects.id == currentData.parent)
+                            {
+                                parentFound = true;
+                                loadedObject.transform.SetParent(sceneObjects.gameObject.transform);
+                                loadedObject.transform.localScale = currentData.scale;
+                                break;
+                            }
+                        }
+                        if (!parentFound)
+                        {
+                            Debug.LogError("Cannot find parent for " + currentData.id);
+                        }
+                    }
+
                     objectToLoad--;
                     if (objectToLoad == 0)
                     {
@@ -191,6 +213,7 @@ public class ScioXRSceneManager : MonoBehaviour
                 SaveData dataStore = new SaveData()
                 {
                     id = saveableObjects[i].id,
+                    parent = saveableObjects[i].gameObject.transform.parent ? saveableObjects[i].gameObject.transform.parent.gameObject.GetComponent<Saveable>().id : 0,
                     name = saveableObjects[i].gameObject.name,
                     model = saveableObjects[i].model,
                     texture = saveableObjects[i].texture,
@@ -200,8 +223,7 @@ public class ScioXRSceneManager : MonoBehaviour
                     scale = saveableObjects[i].transform.localScale,
                     isVisible = saveableObjects[i].gameObject.activeInHierarchy ? 1 : 0,
                     isInteractable = saveableObjects[i].isInteractable,
-                    code = saveableObjects[i].codeData
-
+                    code = saveableObjects[i].codeData,
                 };
                 saveDataList.Add(dataStore);
             }
