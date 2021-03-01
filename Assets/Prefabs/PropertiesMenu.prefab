@@ -629,8 +629,8 @@ MonoBehaviour:
   modelPositionText: {fileID: 9150974588959181766}
   modelRotationText: {fileID: 9150974589065589993}
   modelScaleText: {fileID: 9150974589262786725}
-  parentText: {fileID: 0}
-  parentButton: {fileID: 0}
+  parentText: {fileID: 2366510641662612384}
+  parentButton: {fileID: 2494526483579198146}
   interactableToggle: {fileID: 7526907016848344170}
 --- !u!1 &282934904423818849
 GameObject:
@@ -15325,7 +15325,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 61, y: -89.89992}
+  m_AnchoredPosition: {x: 32, y: -149}
   m_SizeDelta: {x: 148.12616, y: 37.57}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1498736670240789785
@@ -15356,7 +15356,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: <NONE>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

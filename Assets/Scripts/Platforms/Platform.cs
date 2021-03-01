@@ -42,6 +42,12 @@ public class Platform : MonoBehaviour
         Rigidbody rb = loadedModel.AddComponent<Rigidbody>();
         rb.isKinematic = true;
 
+        var outline = loadedModel.AddComponent<Outline>();
+        outline.OutlineMode = Outline.Mode.OutlineAll;
+        outline.OutlineColor = Color.yellow;
+        outline.OutlineWidth = 5f;
+        outline.enabled = false;
+
         SetupGraphics(loadedModel, data);
     }
 

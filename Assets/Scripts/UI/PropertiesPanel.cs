@@ -57,6 +57,9 @@ public class PropertiesPanel : XRPanel
             modelScaleText.GetComponent<TextMeshProUGUI>().text = ObjectScale;
 
             interactableToggle.isOn = selectedObject.GetComponent<Saveable>().isInteractable;
+
+            //update parent info
+            parentText.text = selectedObject.transform.parent ? "" + selectedObject.transform.parent.GetComponent<Saveable>().id : "<NONE>";
         }
     }
 

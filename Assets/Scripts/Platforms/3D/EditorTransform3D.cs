@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class EditorTransform3D : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
+public class EditorTransform3D : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     //void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     //{
@@ -70,5 +70,15 @@ public class EditorTransform3D : MonoBehaviour, IBeginDragHandler, IDragHandler,
                 EditorManager.instance.selectedObject.transform.SetParent(transform);
             }
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        GetComponent<Outline>().enabled = true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        GetComponent<Outline>().enabled = false;
     }
 }

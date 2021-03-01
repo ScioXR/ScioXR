@@ -33,13 +33,6 @@ public class WebXRPlatform : Platform
         loadedModel.AddComponent<WebXRGrabInteractable>();
 
         loadedModel.GetComponent<WebXREditorInteractable>().gizmoScale = Instantiate(EditorManager.instance.gizmoScalePrefab, loadedModel.transform);
-
-        var outline = loadedModel.AddComponent<Outline>();
-
-        outline.OutlineMode = Outline.Mode.OutlineAll;
-        outline.OutlineColor = Color.yellow;
-        outline.OutlineWidth = 5f;
-        outline.enabled = false;
     }
 
     public override void SetInteractable(GameObject gameObject, bool interactable)
