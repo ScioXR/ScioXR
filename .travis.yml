@@ -1,0 +1,8 @@
+# .travis.yml
+os: windows
+install:
+  - choco install unity
+cache:
+  directories:
+    - $UNITY_DOWNLOAD_CACHE
+
