@@ -7,4 +7,4 @@ cache:
   directories:
     - $UNITY_DOWNLOAD_CACHE
 scripts:
-    - $UNITY_PATH\Editor\Unity.exe -batchmode -executeMethod CIBuildScript.PerformBuild -quit
+    - %UNITY_PATH%\Editor\Unity.exe -batchmode -executeMethod CIBuildScript.PerformBuild -quit
