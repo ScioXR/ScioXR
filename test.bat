@@ -1,0 +1,1 @@
+%UNITY_PATH%\Editor\Unity.exe -batchmode -runTests -quit
