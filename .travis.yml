@@ -1,4 +1,5 @@
 # .travis.yml
+language: shell
 os: windows
 install:
   - choco install unity
