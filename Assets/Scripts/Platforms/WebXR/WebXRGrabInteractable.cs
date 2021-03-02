@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WebXRGrabInteractable : MonoBehaviour, IWebXRInteractable
@@ -59,12 +60,14 @@ public class WebXRGrabInteractable : MonoBehaviour, IWebXRInteractable
     void IWebXRInteractable.OnTouch(WebXRInteractor interactor)
     {
         GetComponent<Outline>().enabled = true;
+        GetComponentsInChildren<Outline>().ToList().ForEach(outline => outline.enabled = true);
         currentInteractor = interactor;
     }
 
     void IWebXRInteractable.OnUntouch(WebXRInteractor interactor)
     {
         GetComponent<Outline>().enabled = false;
+        GetComponentsInChildren<Outline>().ToList().ForEach(outline => outline.enabled = false);
         currentInteractor = null;
     }
 }
