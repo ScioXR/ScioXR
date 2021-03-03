@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class EditorManager : MonoBehaviour
 {
+    public KeyboardWebXR keyboard;
+
     public XRCanvas propertiesMenu;
     public XRCanvas mainMenu;
 
@@ -19,6 +22,8 @@ public class EditorManager : MonoBehaviour
     public GlobalData globalData;
 
     public GameObject selectedObject;
+
+    public GameObject gizmoScalePrefab;
 
     void Awake()
     {
@@ -91,15 +96,37 @@ public class EditorManager : MonoBehaviour
     {
         selectedObject = editObject;
         propertiesMenu.Toggle();
-        if (propertiesMenu.IsActive())
+        if (IsPropertiesOpen())
         {
             
             //propertiesMenu.GetComponentInChildren<CodePanel>().LoadState();
             //load all data from game object
         }
     }
+
+    public bool IsPropertiesOpen()
+    {
+        return propertiesMenu.IsActive();
+    }
+
     public void DuplicateObject(GameObject cloneObject)
     {
+
         propertiesMenu.GetComponentInChildren<PropertiesPanel>().DuplicateButton(cloneObject);
+    }
+
+    public void ShowKeyboard(bool show, InputField textInput)
+    {
+        if (show)
+        {
+            keyboard.textInput = textInput;
+            keyboard.SetText(textInput.text);
+            keyboard.Enable();
+            keyboard.UpdatePosition();
+        } else
+        {
+            keyboard.Disable();
+            keyboard.textInput = null;
+        }
     }
 }

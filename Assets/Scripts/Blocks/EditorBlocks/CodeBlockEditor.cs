@@ -19,6 +19,7 @@ public class CodeBlockEditor : BlockEditor
     public TMP_Dropdown objectReferenceDropDown;
     public TMP_Dropdown variableReferenceDropDown;
     public TMP_Dropdown messageReferenceDropDown;
+    public TMP_Dropdown selectionDropDown;
 
     private void Start()
     {
@@ -40,7 +41,6 @@ public class CodeBlockEditor : BlockEditor
         {
             messageReferenceDropDown.AddOptions(codePanel.blockBoard.GetMessages());
         }
-
     }
 
     public override void RefreshReferences()
@@ -130,6 +130,10 @@ public class CodeBlockEditor : BlockEditor
             TMP_Dropdown.OptionData selected = messageReferenceDropDown.options.Find(it => it.text == blockData.paramString);
             messageReferenceDropDown.value = messageReferenceDropDown.options.IndexOf(selected);
         }
+        if (selectionDropDown)
+        {
+            selectionDropDown.value = blockData.paramInt;
+        }
     }
 
     public override void ExportData(ref BlockData blockData)
@@ -153,6 +157,10 @@ public class CodeBlockEditor : BlockEditor
         if (messageReferenceDropDown)
         {
             blockData.paramString = messageReferenceDropDown.options[messageReferenceDropDown.value].text;
+        }
+        if (selectionDropDown)
+        {
+            blockData.paramInt = selectionDropDown.value;
         }
     }
 

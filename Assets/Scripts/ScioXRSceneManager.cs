@@ -112,20 +112,45 @@ public class ScioXRSceneManager : MonoBehaviour
 
                     if (editor)
                     {
-                        PlatformLoader.instance.platform.SetupEditorObject(loadedObject, currentData.model);
+                        PlatformLoader.instance.platform.SetupEditorObject(loadedObject, currentData);
 
                         loadedObject.AddComponent<Saveable>();
                         loadedObject.GetComponent<Saveable>().model = currentData.model;
+                        loadedObject.GetComponent<Saveable>().texture = currentData.texture;
+                        loadedObject.GetComponent<Saveable>().color = currentData.color;
                         loadedObject.GetComponent<Saveable>().codeData = currentData.code;
+                        loadedObject.GetComponent<Saveable>().isInteractable = currentData.isInteractable;
                         loadedObject.GetComponent<Saveable>().id = currentData.id;
                     } else
                     {
-                        PlatformLoader.instance.platform.SetupPlayerObject(loadedObject);
+                        PlatformLoader.instance.platform.SetupPlayerObject(loadedObject, currentData);
 
                         loadedObject.AddComponent<CodeController>();
                         loadedObject.GetComponent<CodeController>().id = currentData.id;
                         loadedObject.GetComponent<CodeController>().LoadCode(currentData.code);
                     }
+
+                    //link parent
+                    if (currentData.parent > 0)
+                    {
+                        bool parentFound = false;
+                        Saveable[] allObjects = GameObject.FindObjectsOfType<Saveable>();
+                        foreach (var sceneObjects in allObjects)
+                        {
+                            if (sceneObjects.id == currentData.parent)
+                            {
+                                parentFound = true;
+                                loadedObject.transform.SetParent(sceneObjects.gameObject.transform);
+                                loadedObject.transform.localScale = currentData.scale;
+                                break;
+                            }
+                        }
+                        if (!parentFound)
+                        {
+                            Debug.LogError("Cannot find parent for " + currentData.id);
+                        }
+                    }
+
                     objectToLoad--;
                     if (objectToLoad == 0)
                     {
@@ -188,14 +213,17 @@ public class ScioXRSceneManager : MonoBehaviour
                 SaveData dataStore = new SaveData()
                 {
                     id = saveableObjects[i].id,
+                    parent = saveableObjects[i].gameObject.transform.parent ? saveableObjects[i].gameObject.transform.parent.gameObject.GetComponent<Saveable>().id : 0,
                     name = saveableObjects[i].gameObject.name,
                     model = saveableObjects[i].model,
+                    texture = saveableObjects[i].texture,
+                    color = saveableObjects[i].color,
                     position = saveableObjects[i].transform.position,
                     rotation = saveableObjects[i].transform.rotation,
                     scale = saveableObjects[i].transform.localScale,
                     isVisible = saveableObjects[i].gameObject.activeInHierarchy ? 1 : 0,
-                    code = saveableObjects[i].codeData
-
+                    isInteractable = saveableObjects[i].isInteractable,
+                    code = saveableObjects[i].codeData,
                 };
                 saveDataList.Add(dataStore);
             }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WebXRGrabInteractable : MonoBehaviour, IWebXRInteractable
@@ -8,9 +9,12 @@ public class WebXRGrabInteractable : MonoBehaviour, IWebXRInteractable
 
     private WebXRInteractor currentInteractor;
 
+    private bool baseKinematic;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        baseKinematic = rb.isKinematic;
     }
 
     private void OnDestroy()
@@ -18,6 +22,20 @@ public class WebXRGrabInteractable : MonoBehaviour, IWebXRInteractable
         if (currentInteractor)
         {
             currentInteractor.ForceUntouchObject(rb);
+        }
+    }
+
+    public void ForceUngrab()
+    {
+        if (currentInteractor)
+        {
+            currentInteractor.attachJoint.connectedBody = null;
+            rb.isKinematic = baseKinematic;
+
+            currentInteractor.ForceUntouchObject(rb);
+
+            GetComponent<Outline>().enabled = false;
+            currentInteractor = null;
         }
     }
 
@@ -30,8 +48,9 @@ public class WebXRGrabInteractable : MonoBehaviour, IWebXRInteractable
 
     void IWebXRInteractable.OnUngrab(WebXRInteractor interactor)
     {
+        //Debug.Log("OnUngrab");
         interactor.attachJoint.connectedBody = null;
-        rb.isKinematic = true;
+        rb.isKinematic = baseKinematic;
     }
 
     void IWebXRInteractable.OnSecondaryGrab(WebXRInteractor interactor) {}
@@ -41,12 +60,14 @@ public class WebXRGrabInteractable : MonoBehaviour, IWebXRInteractable
     void IWebXRInteractable.OnTouch(WebXRInteractor interactor)
     {
         GetComponent<Outline>().enabled = true;
+        GetComponentsInChildren<Outline>().ToList().ForEach(outline => outline.enabled = true);
         currentInteractor = interactor;
     }
 
     void IWebXRInteractable.OnUntouch(WebXRInteractor interactor)
     {
         GetComponent<Outline>().enabled = false;
+        GetComponentsInChildren<Outline>().ToList().ForEach(outline => outline.enabled = false);
         currentInteractor = null;
     }
 }

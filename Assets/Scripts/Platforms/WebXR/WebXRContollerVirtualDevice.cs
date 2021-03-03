@@ -31,7 +31,7 @@ public class WebXRContollerVirtualDevice : MonoBehaviour
 
     private void OnDestroy()
     {
-        InputSystem.RemoveDevice(device);
+        //InputSystem.RemoveDevice(device);
     }
 
     private void SetupDevice()
@@ -57,7 +57,8 @@ public class WebXRContollerVirtualDevice : MonoBehaviour
                                     (controller.GetButton(WebXRController.ButtonTypes.ButtonA) ? 1 : 0) << 2 |
                                     (controller.GetButton(WebXRController.ButtonTypes.ButtonB) ? 1 : 0) << 3;
 
-        if (cachedDeviceState != prevCachedDeviceState)
+        //TODO: need to send 2 same events to register was pressed event
+        //if (cachedDeviceState != prevCachedDeviceState)
         {
             InputSystem.QueueStateEvent(device, cachedDeviceState);
         }

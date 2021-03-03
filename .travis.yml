@@ -1,0 +1,16 @@
+# .travis.yml
+language: shell
+os: windows
+install:
+  - choco install unity
+cache:
+  directories:
+    - $UNITY_DOWNLOAD_CACHE
+jobs:
+  include:
+    - stage: build
+    script:
+        - build.bat
+    - stage: test
+    script:
+        - test.bat

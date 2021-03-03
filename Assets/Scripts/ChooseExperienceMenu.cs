@@ -85,5 +85,10 @@ public class ChooseExperienceMenu : MonoBehaviour
         infoPanel.SetActive(false);
     }
 
+    public void PlayGame(string game)
+    {
+        SceneManager.LoadScene(game);
+    }
+
     
 }

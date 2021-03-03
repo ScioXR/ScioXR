@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PropertiesPanel : XRPanel
 {
@@ -11,9 +12,9 @@ public class PropertiesPanel : XRPanel
     public TextMeshProUGUI modelPositionText;
     public TextMeshProUGUI modelRotationText;
     public TextMeshProUGUI modelScaleText;
-
-    public Material[] materials;
-    private int selectedMaterial;
+    public TextMeshProUGUI parentText;
+    public Button parentButton;
+    public Toggle interactableToggle;
 
     public override void Show()
     {
@@ -54,21 +55,14 @@ public class PropertiesPanel : XRPanel
             modelRotationText.GetComponent<TextMeshProUGUI>().text = ObjectRotation;
             string ObjectScale = selectedObject.transform.localScale.ToString();
             modelScaleText.GetComponent<TextMeshProUGUI>().text = ObjectScale;
+
+            interactableToggle.isOn = selectedObject.GetComponent<Saveable>().isInteractable;
+
+            //update parent info
+            parentText.text = selectedObject.transform.parent ? "" + selectedObject.transform.parent.GetComponent<Saveable>().id : "<NONE>";
         }
     }
-    public void CodeButton()
-    {
-    }
-    public void MaterialsButton(int index)
-    {
 
-        selectedMaterial = index;
-        selectedObject.GetComponent<MeshRenderer>().material = materials[selectedMaterial];
-    }
-    public void RevertToDeafultMaterial()
-    {
-        //selectedObject.gameObject.GetComponent<MeshRenderer>().material = EditorTransformXR.originalMaterial;
-    }
     public void SetObject(GameObject selectedObj)
     {
         selectedObject = selectedObj;
@@ -77,5 +71,15 @@ public class PropertiesPanel : XRPanel
     public void SaveState()
     {
 
+    }
+
+    public void EnterSetParentMode()
+    {
+        EditorManager.instance.SetTransformMode(TransformMode.SET_PARENT);
+    }
+
+    public void SetInteractable(bool interactable)
+    {
+        selectedObject.GetComponent<Saveable>().isInteractable = interactable;
     }
 }
