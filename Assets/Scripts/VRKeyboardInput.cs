@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,7 +9,6 @@ public class VRKeyboardInput : MonoBehaviour, ISelectHandler, IDeselectHandler
 { 
     public void CloseKeybaord()
     {
-        Debug.Log("CloseKeybaord");
         if (EditorManager.instance)
         {
             EditorManager.instance.ShowKeyboard(false, null);
@@ -17,13 +17,18 @@ public class VRKeyboardInput : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     void ISelectHandler.OnSelect(BaseEventData eventData)
     {
-        Debug.Log("OnSelect");
-        EditorManager.instance.ShowKeyboard(true, GetComponent<InputField>());
+        if (GetComponent<InputField>())
+        {
+            EditorManager.instance.ShowKeyboard(true, GetComponent<InputField>());
+        }
+        else if (GetComponent<TMP_InputField>())
+        {
+            EditorManager.instance.ShowKeyboardTMP(true, GetComponent<TMP_InputField>());
+        }
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        Debug.Log("OnDeselect");
         EditorManager.instance.ShowKeyboard(false, null);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -117,16 +118,31 @@ public class EditorManager : MonoBehaviour
 
     public void ShowKeyboard(bool show, InputField textInput)
     {
+        keyboard.textInput = textInput;
+        string text = textInput ? textInput.text : "";
+        ShowKeyboard(show, text);
+    }
+
+    public void ShowKeyboardTMP(bool show, TMP_InputField textInput)
+    {
+        keyboard.textInputTMP = textInput;
+        string text = textInput ? textInput.text : "";
+        ShowKeyboard(show, text);
+    }
+
+    private void ShowKeyboard(bool show, string text)
+    {
         if (show)
         {
-            keyboard.textInput = textInput;
-            keyboard.SetText(textInput.text);
+            keyboard.SetText(text);
             keyboard.Enable();
             keyboard.UpdatePosition();
-        } else
+        }
+        else
         {
             keyboard.Disable();
             keyboard.textInput = null;
+            keyboard.textInputTMP = null;
         }
     }
 }

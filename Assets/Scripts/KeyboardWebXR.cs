@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using WebXR;
@@ -10,6 +11,7 @@ public class KeyboardWebXR : VRKeys.Keyboard
     private WebXRController rightHandDevice;
 
     public InputField textInput;
+    public TMP_InputField textInputTMP;
 
     private void OnEnable()
     {
@@ -27,19 +29,38 @@ public class KeyboardWebXR : VRKeys.Keyboard
 
     public void HandleUpdate(string text)
     {
-        textInput.text = text;
+        if (textInput)
+        {
+            textInput.text = text;
+        } else if (textInputTMP)
+        {
+            textInputTMP.text = text;
+        }
     }
 
     public void HandleSubmit(string text)
     {
-        textInput.DeactivateInputField();
+        if (textInput)
+        {
+            textInput.DeactivateInputField();
+        }
+        else if (textInputTMP)
+        {
+            textInputTMP.DeactivateInputField();
+        }
         Disable();
     }
 
     public void HandleCancel()
     {
-        textInput.DeactivateInputField();
-        Debug.Log("Cancelled keyboard input!");
+        if (textInput)
+        {
+            textInput.DeactivateInputField();
+        }
+        else if (textInputTMP)
+        {
+            textInputTMP.DeactivateInputField();
+        }
     }
 
     // Update is called once per frame
