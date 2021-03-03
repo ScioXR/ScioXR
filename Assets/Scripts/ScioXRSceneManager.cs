@@ -11,6 +11,9 @@ public class ScioXRSceneManager : MonoBehaviour
 
     public static ScioXRSceneManager instance;
 
+    public GameObject environment;
+    public GameObject defaultEnvironment;
+
     [DllImport("__Internal")]
     private static extern void SyncFiles();
 
@@ -230,5 +233,23 @@ public class ScioXRSceneManager : MonoBehaviour
 
         }
         return saveDataList;
+    }
+
+    public void SetEnvironment(string environmentName)
+    {
+        defaultEnvironment.SetActive(true);
+        if (environment)
+        {
+            Destroy(environment);
+            environment = null;
+        }
+        if (environmentName != "")
+        {
+            StartCoroutine(AssetsLoader.ImportEnvironment(environmentName, importedObject =>
+            {
+                defaultEnvironment.SetActive(false);
+                environment = importedObject;
+            }));
+        }
     }
 }
