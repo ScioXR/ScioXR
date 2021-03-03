@@ -532,6 +532,7 @@ MonoBehaviour:
   objectReferenceDropDown: {fileID: 2498760033823843561}
   variableReferenceDropDown: {fileID: 0}
   messageReferenceDropDown: {fileID: 0}
+  selectionDropDown: {fileID: 0}
 --- !u!114 &741899065987654716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1544,6 +1545,7 @@ GameObject:
   - component: {fileID: 8483094891671190576}
   - component: {fileID: 3862184171472748133}
   - component: {fileID: 2942401826029037449}
+  - component: {fileID: 9018834751531964936}
   m_Layer: 5
   m_Name: InputField (TMP)
   m_TagString: Untagged
@@ -1707,6 +1709,18 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
+--- !u!114 &9018834751531964936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655616534653275216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20bcc73e32ebba04faca8a5ee67f96fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8012266909390004567
 GameObject:
   m_ObjectHideFlags: 0
