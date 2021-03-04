@@ -9,6 +9,8 @@ cache:
 jobs:
   include:
     - stage: build
-      script: build.bat
+      script: 
+      - powershell
+      - build.bat
     - stage: test
-      script: test.bat
+      script: powershell test.bat
