@@ -11,6 +11,7 @@ public class ScioXRSceneManager : MonoBehaviour
 
     public static ScioXRSceneManager instance;
 
+    public string environmentName;
     public GameObject environment;
     public GameObject defaultEnvironment;
 
@@ -194,7 +195,7 @@ public class ScioXRSceneManager : MonoBehaviour
         using (var writer = new StreamWriter(File.Open(filePath, FileMode.Create)))
         {
             SaveData[] saveData = saveDataList.ToArray();
-            SaveCollection saveCollection = new SaveCollection() { saveData = saveData, globalData = EditorManager.instance.globalData };
+            SaveCollection saveCollection = new SaveCollection() { saveData = saveData, globalData = EditorManager.instance.globalData, environment = environmentName };
 
             string jsonString = JsonUtility.ToJson(saveCollection, true);
             writer.Write(jsonString);
@@ -237,6 +238,7 @@ public class ScioXRSceneManager : MonoBehaviour
 
     public void SetEnvironment(string environmentName)
     {
+        this.environmentName = environmentName;
         defaultEnvironment.SetActive(true);
         if (environment)
         {
