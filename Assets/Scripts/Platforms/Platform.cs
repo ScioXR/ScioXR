@@ -17,7 +17,7 @@ public class Platform : MonoBehaviour
         loadedModel.GetComponent<MeshRenderer>().material.color = color;
         if (data.texture != "")
         {
-            StartCoroutine(AssetsLoader.ImportTexture(data.texture, texture =>
+            StartCoroutine(AssetsLoader.ImportMaterial(data.texture, texture =>
             {
                 loadedModel.GetComponent<MeshRenderer>().material.mainTexture = texture;
             }));

@@ -54,6 +54,7 @@ public class EditorManager : MonoBehaviour
         {
             //Debug.Log("Loading: " + AppManager.instance.currentSceneName);
             SaveCollection dataJson = ScioXRSceneManager.instance.LoadFromJson(AppManager.instance.GetScenePath());
+            ScioXRSceneManager.instance.SetEnvironment(dataJson.environment);
             ScioXRSceneManager.instance.CreateLoadedObjects(dataJson, true);
         }
     }

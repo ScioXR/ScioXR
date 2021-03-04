@@ -14,11 +14,5 @@ public class DebugController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.sKey.wasPressedThisFrame)
-        {
-            ScioXRSceneManager.instance.SaveScene(AppManager.instance.GetScenePath());
-        }
     }
-
-
 }

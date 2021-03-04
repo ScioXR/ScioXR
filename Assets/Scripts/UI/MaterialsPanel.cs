@@ -61,7 +61,7 @@ public class MaterialsPanel : XRPanel
 
                 //Debug.Log("Card: " + textureName + ", " + gridX + ", " + gridY);
 
-                StartCoroutine(AssetsLoader.ImportTexture(textureName, importedObject =>
+                StartCoroutine(AssetsLoader.ImportMaterial(textureName, importedObject =>
                 {
                     Texture2D tex = importedObject;
                     
