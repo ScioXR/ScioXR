@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class SaveData 
+public class ObjectData 
 {
     public int id;
     public int parent;
@@ -17,5 +17,8 @@ public class SaveData
     public Vector3 scale;
     public int isVisible;
     public bool isInteractable;
+    public PhysicsData physics;
+    public TextData text;
     public CodeData code;
+
 }

@@ -1417,6 +1417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23e92c25056ccc54ebd6bd1118009cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  environmentName: 
   environment: {fileID: 0}
   defaultEnvironment: {fileID: 1795186820}
 --- !u!4 &1463671533

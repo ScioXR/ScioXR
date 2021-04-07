@@ -40,11 +40,12 @@ public class ImportModelMenu : XRPanel
 
         StartCoroutine(AssetsLoader.GetModelsList(result => {
             loadingText.gameObject.SetActive(false);
+
             for (int i = 0; i < result.Count; i++)
             {
                 string modelName = result[i];
-                int gridX = i % modelsInRow;
-                int gridY = (i % modelsPerPage) / modelsInRow;
+                int gridX = models.Count % modelsInRow;
+                int gridY = (models.Count % modelsPerPage) / modelsInRow;
 
                 GameObject modelCard = Instantiate(modelCardPrefab, transform);
                 modelCard.name = modelName;
@@ -113,7 +114,7 @@ public class ImportModelMenu : XRPanel
     public void PrepareModel(GameObject loadedModel, string modelName)
     {
         loadedModel.AddComponent<Saveable>();
-        loadedModel.GetComponent<Saveable>().model = modelName;
+        loadedModel.GetComponent<Saveable>().data.model = modelName;
         loadedModel.GetComponent<Saveable>().shouldSave = false;
     }
 

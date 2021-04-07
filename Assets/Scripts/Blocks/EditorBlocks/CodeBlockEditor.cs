@@ -30,7 +30,7 @@ public class CodeBlockEditor : BlockEditor
             objectReferenceDropDown.options.Clear();
             foreach (Saveable saveable in allObjects)
             {
-                objectReferenceDropDown.options.Add(new TMP_Dropdown.OptionData() { text = saveable.id.ToString() });
+                objectReferenceDropDown.options.Add(new TMP_Dropdown.OptionData() { text = saveable.data.id.ToString() });
             }
         }
         if (variableReferenceDropDown && messageReferenceDropDown.options.Count == 0)
@@ -55,7 +55,7 @@ public class CodeBlockEditor : BlockEditor
                 objectReferenceDropDown.options.Clear();
                 foreach (Saveable saveable in allObjects)
                 {
-                    objectReferenceDropDown.options.Add(new TMP_Dropdown.OptionData() { text = saveable.id.ToString() });
+                    objectReferenceDropDown.options.Add(new TMP_Dropdown.OptionData() { text = saveable.data.id.ToString() });
                 }
 
                 TMP_Dropdown.OptionData selected = objectReferenceDropDown.options.Find(it => it.text == selectedText);
@@ -66,7 +66,7 @@ public class CodeBlockEditor : BlockEditor
                 objectReferenceDropDown.options.Clear();
                 foreach (Saveable saveable in allObjects)
                 {
-                    objectReferenceDropDown.options.Add(new TMP_Dropdown.OptionData() { text = saveable.id.ToString() });
+                    objectReferenceDropDown.options.Add(new TMP_Dropdown.OptionData() { text = saveable.data.id.ToString() });
                 }
             }
         }

@@ -7,7 +7,7 @@ using UnityEngine;
 public class SaveCollection 
 {
     public string environment;
-    public SaveData[] saveData;
+    public ObjectData[] saveData;
     public GlobalData globalData;
     
 }
