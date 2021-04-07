@@ -34,8 +34,15 @@ public class Saveable : MonoBehaviour
             }));
         }
 
-        
         UpdateText();
+
+        if (GetComponent<Rigidbody>())
+        {
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.mass = data.physics.mass;
+            rb.drag = data.physics.drag;
+            rb.angularDrag = data.physics.angularDrag;
+        }
     }
 
     public void UpdateText()

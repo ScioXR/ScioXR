@@ -6,5 +6,7 @@ using UnityEngine;
 [Serializable]
 public class PhysicsData
 {
-    public float mass;
+    public float mass = 1;
+    public float drag = 0;
+    public float angularDrag = 0.05f;
 }
