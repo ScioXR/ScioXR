@@ -1,5 +1,5 @@
 # .travis.yml
-language: shell
+language: cpp
 os: windows
 install:
   - choco install unity
@@ -10,6 +10,6 @@ jobs:
   include:
     - stage: build
       script: 
-      - build.bat
+      - cmd.exe /C build.bat
     - stage: test
       script: test.bat
