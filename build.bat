@@ -1,2 +1,2 @@
 echo Building
-"%UNITY_PATH%\Editor\Unity.exe" -batchmode -executeMethod CIBuildScript.PerformBuild -quit
+"C:\Program Files\Unity\Editor\Unity.exe" -batchmode -executeMethod CIBuildScript.PerformBuild -quit
