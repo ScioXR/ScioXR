@@ -10,7 +10,6 @@ jobs:
   include:
     - stage: build
       script: 
-      - powershell
       - build.bat
     - stage: test
-      script: powershell test.bat
+      script: test.bat
