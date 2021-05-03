@@ -17,8 +17,8 @@ public class ObjectData
     public Vector3 scale;
     public int isVisible;
     public bool isInteractable;
-    public PhysicsData physics;
-    public TextData text;
-    public CodeData code;
+    public PhysicsData physics = new PhysicsData();
+    public TextData text = new TextData();
+    public CodeData code = new CodeData();
 
 }

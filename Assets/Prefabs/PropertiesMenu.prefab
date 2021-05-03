@@ -144,7 +144,6 @@ GameObject:
   - component: {fileID: 3727014364529774879}
   - component: {fileID: 9150974589942090091}
   - component: {fileID: 9150974589942090090}
-  - component: {fileID: 7875220174071641224}
   m_Layer: 5
   m_Name: PropertiesPanel
   m_TagString: Untagged
@@ -213,26 +212,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7875220174071641224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214603992399473993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22df44e2965d6334588fb67aa4023e90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  modelIdText: {fileID: 7823501841900416497}
-  modelNameText: {fileID: 9150974588630253657}
-  modelPositionText: {fileID: 9150974588959181766}
-  modelRotationText: {fileID: 9150974589065589993}
-  modelScaleText: {fileID: 9150974589262786725}
-  parentText: {fileID: 2366510641662612384}
-  parentButton: {fileID: 2494526483579198146}
-  interactableToggle: {fileID: 7526907016848344170}
 --- !u!1 &328816072599888496
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +547,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 664214469319978334}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.04699999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7361078199740507158}
@@ -1160,7 +1139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tabs:
-  - {fileID: 7875220174071641224}
+  - {fileID: 619986244175263355}
   - {fileID: 5564910425570382318}
   - {fileID: 763821178380076221}
 --- !u!1 &1069426530292205977
@@ -1227,6 +1206,7 @@ GameObject:
   - component: {fileID: 429602025034566624}
   - component: {fileID: 370247260720095655}
   - component: {fileID: 3535310084464904768}
+  - component: {fileID: 5705728142317758838}
   m_Layer: 5
   m_Name: InputField (2)
   m_TagString: Untagged
@@ -1370,6 +1350,18 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
+--- !u!114 &5705728142317758838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184026809684384155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20bcc73e32ebba04faca8a5ee67f96fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1260068205201211526
 GameObject:
   m_ObjectHideFlags: 0
@@ -1525,7 +1517,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1578557553571338254}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.04699999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5969501401930252594}
@@ -1914,7 +1906,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7875220174071641224}
+      - m_Target: {fileID: 8364185184962533123}
         m_TargetAssemblyTypeName: PropertiesPanel, ScioXR
         m_MethodName: EnterSetParentMode
         m_Mode: 1
@@ -2210,7 +2202,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7875220174071641224}
+      - m_Target: {fileID: 8364185184962533123}
         m_TargetAssemblyTypeName: PropertiesPanel, ScioXR
         m_MethodName: SetInteractable
         m_Mode: 0
@@ -3195,7 +3187,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3232004860414308162}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.047}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1293359989572153780}
@@ -4122,7 +4114,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7875220174071641224}
+      - m_Target: {fileID: 8364185184962533123}
         m_TargetAssemblyTypeName: PropertiesPanel, ScioXR
         m_MethodName: DestroyButton
         m_Mode: 1
@@ -4818,6 +4810,7 @@ GameObject:
   - component: {fileID: 5069277812763399312}
   - component: {fileID: 1430810897767947550}
   - component: {fileID: 5615909265760978432}
+  - component: {fileID: 1617422888826933683}
   m_Layer: 5
   m_Name: TextInputField
   m_TagString: Untagged
@@ -4961,6 +4954,18 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
+--- !u!114 &1617422888826933683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4309332688588483488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20bcc73e32ebba04faca8a5ee67f96fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4825775715637900162
 GameObject:
   m_ObjectHideFlags: 0
@@ -6719,6 +6724,7 @@ GameObject:
   - component: {fileID: 3015511506150786145}
   - component: {fileID: 3329802466070700724}
   - component: {fileID: 763875381025067554}
+  - component: {fileID: 9009154712465273781}
   m_Layer: 5
   m_Name: SizeInputField
   m_TagString: Untagged
@@ -6862,6 +6868,18 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
+--- !u!114 &9009154712465273781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6831472951904664188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20bcc73e32ebba04faca8a5ee67f96fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6867646086704679625
 GameObject:
   m_ObjectHideFlags: 0
@@ -7694,6 +7712,7 @@ GameObject:
   - component: {fileID: 2272676953854750503}
   - component: {fileID: 1451663353252722756}
   - component: {fileID: 2778001754332082561}
+  - component: {fileID: 6905500098879460338}
   m_Layer: 5
   m_Name: InputField (1)
   m_TagString: Untagged
@@ -7837,6 +7856,18 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
+--- !u!114 &6905500098879460338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7710813836106617632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20bcc73e32ebba04faca8a5ee67f96fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7721204168810926869
 GameObject:
   m_ObjectHideFlags: 0
@@ -7849,6 +7880,7 @@ GameObject:
   - component: {fileID: 2665483872264530372}
   - component: {fileID: 1967018239307636637}
   - component: {fileID: 8433611969589256203}
+  - component: {fileID: 6447483317292062655}
   m_Layer: 5
   m_Name: InputField
   m_TagString: Untagged
@@ -7992,6 +8024,18 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
+--- !u!114 &6447483317292062655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7721204168810926869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20bcc73e32ebba04faca8a5ee67f96fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7725907532539711382
 GameObject:
   m_ObjectHideFlags: 0

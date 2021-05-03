@@ -24,10 +24,10 @@ public class ModelSelecter : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             loadedModel.transform.position = new Vector3(modelObject.transform.position.x, modelObject.transform.position.y, modelObject.transform.position.z + 1f);
             loadedModel.transform.localScale = loadedModel.transform.localScale / 10;
-            PlatformLoader.instance.platform.SetupEditorObject(loadedModel, new ObjectData());
             loadedModel.AddComponent<Saveable>();
             loadedModel.GetComponent<Saveable>().data.model = modelObject.GetComponent<Saveable>().data.model;
             loadedModel.GetComponent<Saveable>().GenerateUniqueId();
+            PlatformLoader.instance.platform.SetupEditorObject(loadedModel, new ObjectData());
 
             WebXRInteractor[] interactors = FindObjectsOfType<WebXRInteractor>();
             foreach (var interactor in interactors)

@@ -54,13 +54,15 @@ public class Saveable : MonoBehaviour
                 //Create text object
                 GameObject textObject = new GameObject("Text");
                 textObject.transform.parent = gameObject.transform;
-                textObject.transform.localPosition = Vector3.zero;
+                textObject.transform.localPosition = new Vector3(0, 0.1f, 0);
                 textObject.transform.localEulerAngles = new Vector3(90, 0, 0);
                 textModel = textObject.AddComponent<TextMeshPro>();
+                textModel.horizontalAlignment = HorizontalAlignmentOptions.Center;
+                textModel.verticalAlignment = VerticalAlignmentOptions.Middle;
 
                 Bounds bounds = gameObject.GetComponent<MeshRenderer>().bounds;
-                textObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, bounds.size.x);
-                textObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, bounds.size.y);
+                textObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, bounds.size.y);
+                textObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, bounds.size.x);
             }
             textModel.text = data.text.text;
             textModel.fontSize = data.text.size / fontScaleFactor;
