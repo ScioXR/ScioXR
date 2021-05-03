@@ -3,7 +3,7 @@
  jobs:
    build:
      docker:
-      - image: unityci/editor:editor-2020.3.6f1-0.12.0   
+      - image: unityci/editor:ubuntu-2020.3.6f1-base-0.12.0
     
      steps:
        - checkout
