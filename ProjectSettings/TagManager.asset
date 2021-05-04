@@ -12,6 +12,8 @@ TagManager:
   - molecule_o
   - molecule_other
   - laser
+  - projectile
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Hands
   - 
   - 
   - 
