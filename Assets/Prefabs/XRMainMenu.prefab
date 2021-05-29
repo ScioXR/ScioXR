@@ -2419,7 +2419,7 @@ MonoBehaviour:
   tabs:
   - {fileID: 3416864093538943227}
   - {fileID: 4229432916291804637}
-  - {fileID: 3246802374219454596}
+  - {fileID: 7800403118572762783}
 --- !u!1 &1799118295164731681
 GameObject:
   m_ObjectHideFlags: 0
@@ -2552,7 +2552,19 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7800403118572762783}
+        m_TargetAssemblyTypeName: SnappingPanel, ScioXR
+        m_MethodName: ApplyData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4592,12 +4604,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 8953360501209228706}
-        m_TargetAssemblyTypeName: UIButtonGroup, Assembly-CSharp
+        m_TargetAssemblyTypeName: UIButtonGroup, ScioXR
         m_MethodName: Select
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1881344233535873659}
-          m_ObjectArgumentAssemblyTypeName: UIButtonToggle, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UIButtonToggle, ScioXR
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6820,7 +6832,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8275312713757681941}
-  - component: {fileID: 3246802374219454596}
+  - component: {fileID: 7800403118572762783}
   m_Layer: 5
   m_Name: SnappingPanel
   m_TagString: Untagged
@@ -6854,7 +6866,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3246802374219454596
+--- !u!114 &7800403118572762783
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6863,7 +6875,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4544357935047149061}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9b81d4a6f0f68240bc49aacfbe76d0b, type: 3}
+  m_Script: {fileID: 11500000, guid: 78b93133e67ece44b81e7dbb71dd987e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4548132457311007566
@@ -8505,12 +8517,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 8953360501209228706}
-        m_TargetAssemblyTypeName: UIButtonGroup, Assembly-CSharp
+        m_TargetAssemblyTypeName: UIButtonGroup, ScioXR
         m_MethodName: Select
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 3201901379470223036}
-          m_ObjectArgumentAssemblyTypeName: UIButtonToggle, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UIButtonToggle, ScioXR
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -9950,7 +9962,19 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7800403118572762783}
+        m_TargetAssemblyTypeName: SnappingPanel, ScioXR
+        m_MethodName: ApplyData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -10058,7 +10082,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7800403118572762783}
+        m_TargetAssemblyTypeName: SnappingPanel, ScioXR
+        m_MethodName: ApplyData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &6420055093960691041
 GameObject:
@@ -12830,7 +12866,19 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7800403118572762783}
+        m_TargetAssemblyTypeName: SnappingPanel, ScioXR
+        m_MethodName: ApplyData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -14003,12 +14051,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 8953360501209228706}
-        m_TargetAssemblyTypeName: UIButtonGroup, Assembly-CSharp
+        m_TargetAssemblyTypeName: UIButtonGroup, ScioXR
         m_MethodName: Select
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 3266251258163643851}
-          m_ObjectArgumentAssemblyTypeName: UIButtonToggle, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UIButtonToggle, ScioXR
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
