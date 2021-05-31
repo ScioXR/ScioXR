@@ -21,6 +21,16 @@ public class BlockEditor : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
     }
 
+    public virtual void AttachChildBlock(GameObject attachObject)
+    {
+
+    }
+
+    public virtual void DetachChildBlock(GameObject detachObject)
+    {
+
+    }
+
     public virtual void RefreshReferences()
     {
 
@@ -38,12 +48,16 @@ public class BlockEditor : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
+        CalculateOffset(eventData.position);
+        transform.SetAsLastSibling();
+    }
+
+    public void CalculateOffset(Vector3 screenPos)
+    {
         Vector2 pointOnCanvas;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(codePanel.GetComponent<RectTransform>(), eventData.position, CameraHelper.main, out pointOnCanvas);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(codePanel.GetComponent<RectTransform>(), screenPos, CameraHelper.main, out pointOnCanvas);
 
         deltaDrag = (Vector2)transform.localPosition - pointOnCanvas;
-
-        transform.SetAsLastSibling();
     }
 
     public virtual bool IsAttached()
