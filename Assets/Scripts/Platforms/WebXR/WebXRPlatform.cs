@@ -30,7 +30,7 @@ public class WebXRPlatform : Platform
 
         loadedModel.AddComponent<EditorTransform3D>();
         loadedModel.AddComponent<WebXREditorInteractable>();
-        loadedModel.AddComponent<WebXRGrabInteractable>();
+        //loadedModel.AddComponent<WebXRGrabInteractable>();
 
         loadedModel.GetComponent<WebXREditorInteractable>().gizmoScale = Instantiate(EditorManager.instance.gizmoScalePrefab, loadedModel.transform);
     }

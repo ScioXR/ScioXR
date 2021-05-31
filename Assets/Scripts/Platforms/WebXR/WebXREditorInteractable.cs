@@ -5,6 +5,10 @@ using UnityEngine;
 public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
 {
     private WebXRInteractor currentInteractor;
+    private WebXRInteractor currentGrabInteractor;
+
+    private Vector3 grabPositionOffset;
+    private Quaternion grabRotationOffset;
 
     private float startDistanceFromCenter;
     private Vector3 startScale;
@@ -14,13 +18,21 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
 
     public GameObject gizmoScale;
 
+    public GameObject followObject;
+
     private void Start()
     {
         gizmoScale.SetActive(false);
     }
 
-    void IWebXRInteractable.OnGrab(WebXRInteractor interactor) { }
-    void IWebXRInteractable.OnUngrab(WebXRInteractor interactor) { }
+    void IWebXRInteractable.OnGrab(WebXRInteractor interactor) {
+        grabPositionOffset = interactor.gameObject.transform.position - transform.position;
+        grabRotationOffset = interactor.gameObject.transform.rotation * Quaternion.Inverse(transform.rotation);
+        currentGrabInteractor = interactor;
+    }
+    void IWebXRInteractable.OnUngrab(WebXRInteractor interactor) {
+        currentGrabInteractor = null;
+    }
 
     void IWebXRInteractable.OnSecondaryGrab(WebXRInteractor interactor)
     {
@@ -46,6 +58,11 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
                 EditorManager.instance.selectedObject.transform.SetParent(transform);
             }
         }
+        if (EditorManager.mode == TransformMode.CLONE)
+        {
+            GameObject clonedObject = Instantiate(gameObject, transform.position, transform.rotation);
+            clonedObject.GetComponent<IWebXRInteractable>().OnGrab(interactor);
+        }
     }
 
     void IWebXRInteractable.OnSecondaryUngrab(WebXRInteractor interactor)
@@ -53,9 +70,36 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
         currentInteractor = null;
         UnselectGizmo(null);
         gizmoScale.transform.SetParent(transform);
+        if (EditorManager.mode == TransformMode.CLONE)
+        {
+        }
     }
 
-    private void Dragging()
+    private void DoMove()
+    {
+        if (currentGrabInteractor)
+        {
+            transform.position = currentGrabInteractor.transform.position - grabPositionOffset;
+            if (EditorSettings.instance.enableSnap)
+            {
+                if (EditorSettings.instance.snapMoveStep != 0)
+                {
+                    transform.position = new Vector3(transform.position.x - (transform.position.x % EditorSettings.instance.snapMoveStep), transform.position.y - (transform.position.y % EditorSettings.instance.snapMoveStep), transform.position.z - (transform.position.z % EditorSettings.instance.snapMoveStep));
+                }
+            }
+
+            transform.rotation = currentGrabInteractor.transform.rotation * Quaternion.Inverse(grabRotationOffset);
+            if (EditorSettings.instance.enableSnap)
+            {
+                if (EditorSettings.instance.snapRotateStep != 0)
+                {
+                    //transform.position = new Vector3(transform.position.x - (transform.position.x % EditorSettings.instance.snapMoveStep), transform.position.y - (transform.position.y % EditorSettings.instance.snapMoveStep), transform.position.z - (transform.position.z % EditorSettings.instance.snapMoveStep));
+                }
+            }
+        }
+    }
+
+    private void DoDrag()
     {
         switch (EditorManager.mode)
         {
@@ -87,9 +131,11 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
     {
         if (currentInteractor)
         {
-            Dragging();
+            DoMove();
+            DoDrag();
         }
     }
+
 
     void IWebXRInteractable.OnTouch(WebXRInteractor interactor)
     {
