@@ -15,8 +15,10 @@ public class ScioXRSceneManager : MonoBehaviour
     public GameObject environment;
     public GameObject defaultEnvironment;
 
+#if UNITY_WEBGL
     [DllImport("__Internal")]
     private static extern void SyncFiles();
+#endif
 
     void Awake()
     {
@@ -198,7 +200,9 @@ public class ScioXRSceneManager : MonoBehaviour
         }
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
+#if UNITY_WEBGL
             SyncFiles();
+#endif
         }
     }
 

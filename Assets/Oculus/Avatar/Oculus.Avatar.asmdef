@@ -7,7 +7,12 @@
         "GUID:7eecaac3435439943af85d99a47ed51c",
         "GUID:bf7126905a54c9746b9c475d69312766"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WindowsStandalone32",
+        "WindowsStandalone64"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

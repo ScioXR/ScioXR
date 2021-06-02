@@ -21,7 +21,7 @@ public class AssetsLoader
     public static IEnumerator GetEnvironmentList(Action<List<string>> callback)
     {
 #if UNITY_WEBGL //&& !UNITY_EDITOR
-        //yield return GetModelsFromUrl(callback);
+        yield return GetModelsFromUrl(callback);
 #else
         callback(GetFilesInDir(environmentFolder, modelsSuffix));
         yield return null;
@@ -31,7 +31,7 @@ public class AssetsLoader
     public static IEnumerator GetTexturesList(Action<List<string>> callback)
     {
 #if UNITY_WEBGL //&& !UNITY_EDITOR
-        //yield return GetModelsFromUrl(callback);
+        yield return GetModelsFromUrl(callback);
 #else
         callback(GetFilesInDir(texturesFolder, texturesSuffix));
         yield return null;
@@ -145,7 +145,7 @@ public class AssetsLoader
     public static IEnumerator ImportModel(string modelName, Action<GameObject> callback)
     {
 #if UNITY_WEBGL //&& !UNITY_EDITOR
-        string modelPath = appUrl + "StreamingAssets/" + modelName + modelsSufix;
+        string modelPath = appUrl + "StreamingAssets/" + modelName + modelsSuffix;
 #else
         string modelPath = Application.dataPath + "/StreamingAssets/Models/" + modelName + modelsSuffix;
 #endif
@@ -155,7 +155,7 @@ public class AssetsLoader
     public static IEnumerator ImportEnvironment(string environmentName, Action<GameObject> callback)
     {
 #if UNITY_WEBGL //&& !UNITY_EDITOR
-        string modelPath = appUrl + "StreamingAssets/" + modelName + modelsSufix;
+        string modelPath = appUrl + "StreamingAssets/" + environmentFolder + environmentName + modelsSuffix;
 #else
         string modelPath = Application.dataPath + "/StreamingAssets/" + environmentFolder + environmentName + modelsSuffix;
 #endif

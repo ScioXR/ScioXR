@@ -1,10 +1,19 @@
 {
     "name": "Oculus.VR",
+    "rootNamespace": "",
     "references": [],
-    "optionalUnityReferences": [],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WindowsStandalone32",
+        "WindowsStandalone64"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
     "versionDefines": [
         {
             "name": "com.unity.xr.management",
@@ -21,5 +30,6 @@
             "expression": "1.4.0",
             "define": "USING_COMPATIBLE_OCULUS_XR_PLUGIN_VERSION"
         }
-    ]
+    ],
+    "noEngineReferences": false
 }

@@ -147,11 +147,21 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 3728438714963460712, guid: 85064f40e42256a4d843081c66ddd0a9, type: 2}
-  - {fileID: -4395669015973221322, guid: d1848202ac88f084ab51a6a8f2179165, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 46f20e10402563d4a86a121bb92c46c2, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: -1641421186995397128, guid: d1848202ac88f084ab51a6a8f2179165, type: 2}
   - {fileID: 11400000, guid: 1afab6adc454e9b4d992ddc3793f26c0, type: 2}
   - {fileID: 11400000, guid: 159c6c3fbde80a84792e0a91578e7f59, type: 2}
-  - {fileID: 1156900611572894028, guid: 5ec23c9ea2618c34e902ed65d1a64fa7, type: 2}
-  - {fileID: 11400000, guid: 46f20e10402563d4a86a121bb92c46c2, type: 2}
+  - {fileID: 2018422720428952113, guid: 5ec23c9ea2618c34e902ed65d1a64fa7, type: 2}
+  - {fileID: 0}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -259,7 +269,7 @@ PlayerSettings:
   useCustomBaseGradleTemplate: 0
   useCustomGradlePropertiesTemplate: 0
   useCustomProguardFile: 0
-  AndroidTargetArchitectures: 1
+  AndroidTargetArchitectures: 2
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: 
@@ -396,7 +406,7 @@ PlayerSettings:
     m_StaticBatching: 1
     m_DynamicBatching: 0
   - m_BuildTarget: WebGL
-    m_StaticBatching: 0
+    m_StaticBatching: 1
     m_DynamicBatching: 0
   m_BuildTargetGraphicsJobs:
   - m_BuildTarget: MacStandaloneSupport
@@ -442,7 +452,7 @@ PlayerSettings:
     m_Automatic: 1
   - m_BuildTarget: WebGLSupport
     m_APIs: 0b000000
-    m_Automatic: 1
+    m_Automatic: 0
   m_BuildTargetVRSettings:
   - m_BuildTarget: Standalone
     m_Enabled: 0
@@ -717,7 +727,8 @@ PlayerSettings:
     33: UNITY_POST_PROCESSING_STACK_V2
   additionalCompilerArguments: {}
   platformArchitecture: {}
-  scriptingBackend: {}
+  scriptingBackend:
+    Android: 1
   il2cppCompilerConfiguration: {}
   managedStrippingLevel: {}
   incrementalIl2cppBuild: {}
