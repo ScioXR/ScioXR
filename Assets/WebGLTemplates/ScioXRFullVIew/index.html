@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>{{{ PRODUCT_NAME }}}</title>
     <meta name="description" content="{{{ DESCRIPTION }}}">
@@ -88,13 +88,11 @@
       }, false);
 
       enterARButton.addEventListener('click', function (event) {
-        document.dispatchEvent(new CustomEvent('toggleAR', {}));
+        unityInstance.Module.WebXR.toggleAR();
       }, false);
       enterVRButton.addEventListener('click', function (event) {
-        document.dispatchEvent(new CustomEvent('toggleVR', {}));
+        unityInstance.Module.WebXR.toggleVR();
       }, false);
     </script>
-    <script src="gl-matrix-min.js"></script>
-    <script src="webxr.js"></script>
   </body>
 </html>
