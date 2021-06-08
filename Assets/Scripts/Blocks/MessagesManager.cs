@@ -1,12 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MessagesManager : MonoBehaviour
 {
-    MessagesDispatcher[] messages;
+    public MessagesDispatcher[] messages;
 
-    class MessagesDispatcher
+    [Serializable]
+    public class MessagesDispatcher
     {
         public string name;
         public List<ReceiveEvent> receiveEvents = new List<ReceiveEvent>();

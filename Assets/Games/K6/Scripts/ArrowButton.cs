@@ -6,19 +6,22 @@ using UnityEngine;
 public class ArrowButton : MonoBehaviour
 {
     public int increment;
+    public int minValue = 0;
+    public int maxValue = 10;
+    
 
     public TextMeshPro numberText;
 
     public void Change()
     {
         int newValue = int.Parse(numberText.text) + increment;
-        if (newValue >= 10)
+        if (newValue >= maxValue)
         {
-            newValue = 0;
+            newValue = minValue;
         }
-        if (newValue < 0)
+        if (newValue < minValue)
         {
-            newValue = 9;
+            newValue = maxValue - increment;
         }
         numberText.text = "" + newValue;
     }

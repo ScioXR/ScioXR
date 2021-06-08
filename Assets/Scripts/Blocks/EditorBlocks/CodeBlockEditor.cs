@@ -8,9 +8,12 @@ public class CodeBlockEditor : BlockEditor
 {
     public AttachPoint previousAttachPoint;
     public AttachPoint nextAttachPoint;
-
     public CodeBlockEditor previousBlock;
     public CodeBlockEditor nextBlock;
+
+    public AttachPoint childAttachPoint;
+    public CodeBlockEditor parentBlock;
+    public CodeBlockEditor childBlock;
 
     public VariableAttachPoint variableAttachPoint;
     public VariableEditor variableReference;
@@ -21,6 +24,10 @@ public class CodeBlockEditor : BlockEditor
     public TMP_Dropdown messageReferenceDropDown;
     public TMP_Dropdown selectionDropDown;
 
+    private float resizableStartHeight;
+    private float resizableCurrentHeight;
+    public GameObject resizableBottom;
+
     private void Start()
     {
         //RefreshReferences();
@@ -30,7 +37,7 @@ public class CodeBlockEditor : BlockEditor
             objectReferenceDropDown.options.Clear();
             foreach (Saveable saveable in allObjects)
             {
-                objectReferenceDropDown.options.Add(new TMP_Dropdown.OptionData() { text = saveable.id.ToString() });
+                objectReferenceDropDown.options.Add(new TMP_Dropdown.OptionData() { text = saveable.data.id.ToString() });
             }
         }
         if (variableReferenceDropDown && messageReferenceDropDown.options.Count == 0)
@@ -40,6 +47,12 @@ public class CodeBlockEditor : BlockEditor
         if (messageReferenceDropDown && messageReferenceDropDown.options.Count == 0)
         {
             messageReferenceDropDown.AddOptions(codePanel.blockBoard.GetMessages());
+        }
+
+        if (resizableBottom)
+        {
+            resizableStartHeight = resizableBottom.GetComponent<RectTransform>().rect.height;
+            resizableCurrentHeight = resizableStartHeight;
         }
     }
 
@@ -55,7 +68,7 @@ public class CodeBlockEditor : BlockEditor
                 objectReferenceDropDown.options.Clear();
                 foreach (Saveable saveable in allObjects)
                 {
-                    objectReferenceDropDown.options.Add(new TMP_Dropdown.OptionData() { text = saveable.id.ToString() });
+                    objectReferenceDropDown.options.Add(new TMP_Dropdown.OptionData() { text = saveable.data.id.ToString() });
                 }
 
                 TMP_Dropdown.OptionData selected = objectReferenceDropDown.options.Find(it => it.text == selectedText);
@@ -66,7 +79,7 @@ public class CodeBlockEditor : BlockEditor
                 objectReferenceDropDown.options.Clear();
                 foreach (Saveable saveable in allObjects)
                 {
-                    objectReferenceDropDown.options.Add(new TMP_Dropdown.OptionData() { text = saveable.id.ToString() });
+                    objectReferenceDropDown.options.Add(new TMP_Dropdown.OptionData() { text = saveable.data.id.ToString() });
                 }
             }
         }
@@ -216,6 +229,55 @@ public class CodeBlockEditor : BlockEditor
         }
     }
 
+    public override void AttachChildBlock(GameObject attachObject)
+    {
+        if (attachObject.GetComponent<CodeBlockEditor>())
+        {
+            if (childBlock)
+            {
+                //go to end of child objects
+            }
+            else
+            {
+                attachObject.transform.position = childAttachPoint.stickPoint.position;
+                attachObject.gameObject.transform.SetParent(transform);
+
+                attachObject.GetComponent<CodeBlockEditor>().parentBlock = GetComponent<CodeBlockEditor>();
+                childBlock = attachObject.GetComponent<CodeBlockEditor>();
+
+                childAttachPoint.Enable(false);
+                //childAttachPoint.heighlight.SetActive(false);
+            }
+
+            resizableCurrentHeight = resizableBottom.GetComponent<RectTransform>().rect.height;
+            Resize(false, 0);
+        }
+    }
+
+    public override void DetachChildBlock(GameObject detachObject)
+    {
+        if (detachObject.GetComponent<CodeBlockEditor>())
+        {
+            detachObject.gameObject.transform.SetParent(codePanel.gameObject.transform);
+            detachObject.GetComponent<CodeBlockEditor>().parentBlock = null;
+            childBlock = null;
+
+            childAttachPoint.Enable(true);
+        }
+    }
+
+    public void Resize(bool expand, float expandSize)
+    {
+        RectTransform resizable = resizableBottom.GetComponent<RectTransform>();
+        if (expand)
+        {
+            resizable.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, resizableCurrentHeight + expandSize);
+        } else
+        {
+            resizable.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, resizableCurrentHeight);
+        }
+    }
+
     public override void OnBeginDrag(PointerEventData eventData)
     {
         base.OnBeginDrag(eventData);
@@ -223,11 +285,18 @@ public class CodeBlockEditor : BlockEditor
         //unlink from current object if its linked
         if (previousBlock != null)
         {
-            previousBlock.DetachBlock(gameObject);         
+            previousBlock.DetachBlock(gameObject);
+            CalculateOffset(eventData.position);
         }
         else
         {
             //codePanel.blocks.Remove(this);
+        }
+
+        if (parentBlock != null)
+        {
+            parentBlock.DetachChildBlock(gameObject);
+            CalculateOffset(eventData.position);
         }
     }
 

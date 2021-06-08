@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BroadcastEvent : Block
 {
-    string messageName;
+    public string messageName;
 
     //BoradcastEvent is not derrived from Events because it acts as a regular block
     public override void Do()

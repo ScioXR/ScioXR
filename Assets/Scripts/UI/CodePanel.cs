@@ -22,14 +22,14 @@ public class CodePanel : XRPanel
 
     public void LoadState()
     {
-        codeBoard.LoadCode(EditorManager.instance.selectedObject.GetComponent<Saveable>().codeData);
+        codeBoard.LoadCode(EditorManager.instance.selectedObject.GetComponent<Saveable>().data.code);
     }
 
     public void SaveState()
     {
         if (codeBoard.shouldSave)
         {
-            EditorManager.instance.selectedObject.GetComponent<Saveable>().codeData = codeBoard.SaveCode();
+            EditorManager.instance.selectedObject.GetComponent<Saveable>().data.code = codeBoard.SaveCode();
             EditorManager.instance.globalData.variables = codeBoard.blockBoard.GetVariables().ToArray();
             EditorManager.instance.globalData.messages = codeBoard.blockBoard.GetMessages().ToArray();
             codeBoard.shouldSave = false;

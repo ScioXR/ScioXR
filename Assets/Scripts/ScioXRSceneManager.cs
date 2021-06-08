@@ -15,8 +15,10 @@ public class ScioXRSceneManager : MonoBehaviour
     public GameObject environment;
     public GameObject defaultEnvironment;
 
+#if UNITY_WEBGL
     [DllImport("__Internal")]
     private static extern void SyncFiles();
+#endif
 
     void Awake()
     {
@@ -105,7 +107,7 @@ public class ScioXRSceneManager : MonoBehaviour
             {
                 Debug.Log("Model: " + dataJson.saveData[i].model + ", name " + dataJson.saveData[i].name + ", position " + dataJson.saveData[i].position + ", roation " + dataJson.saveData[i].rotation + ", scale " + dataJson.saveData[i].scale);
                 //string modelPath = AssetsLoader.CheckIfModelExist(dataJson.saveData[i].model);
-                SaveData currentData = dataJson.saveData[i];
+                ObjectData currentData = dataJson.saveData[i];
                 StartCoroutine(AssetsLoader.ImportModel(dataJson.saveData[i].model, loadedObject =>
                 {
                     loadedObject.name = currentData.name;
@@ -116,17 +118,13 @@ public class ScioXRSceneManager : MonoBehaviour
 
                     if (editor)
                     {
+                        loadedObject.AddComponent<Saveable>().data = currentData;
                         PlatformLoader.instance.platform.SetupEditorObject(loadedObject, currentData);
 
-                        loadedObject.AddComponent<Saveable>();
-                        loadedObject.GetComponent<Saveable>().model = currentData.model;
-                        loadedObject.GetComponent<Saveable>().texture = currentData.texture;
-                        loadedObject.GetComponent<Saveable>().color = currentData.color;
-                        loadedObject.GetComponent<Saveable>().codeData = currentData.code;
-                        loadedObject.GetComponent<Saveable>().isInteractable = currentData.isInteractable;
-                        loadedObject.GetComponent<Saveable>().id = currentData.id;
+                        
                     } else
                     {
+                        loadedObject.AddComponent<Saveable>().data = currentData;
                         PlatformLoader.instance.platform.SetupPlayerObject(loadedObject, currentData);
 
                         loadedObject.AddComponent<CodeController>();
@@ -141,7 +139,7 @@ public class ScioXRSceneManager : MonoBehaviour
                         Saveable[] allObjects = GameObject.FindObjectsOfType<Saveable>();
                         foreach (var sceneObjects in allObjects)
                         {
-                            if (sceneObjects.id == currentData.parent)
+                            if (sceneObjects.data.id == currentData.parent)
                             {
                                 parentFound = true;
                                 loadedObject.transform.SetParent(sceneObjects.gameObject.transform);
@@ -189,12 +187,12 @@ public class ScioXRSceneManager : MonoBehaviour
 
     public void SaveScene(string sceneName)
     {
-        List<SaveData> saveDataList = GetSaveData();
+        List<ObjectData> saveDataList = GetSaveData();
         string filePath = sceneName;
         Debug.Log("SavingScene: " + filePath);
         using (var writer = new StreamWriter(File.Open(filePath, FileMode.Create)))
         {
-            SaveData[] saveData = saveDataList.ToArray();
+            ObjectData[] saveData = saveDataList.ToArray();
             SaveCollection saveCollection = new SaveCollection() { saveData = saveData, globalData = EditorManager.instance.globalData, environment = environmentName };
 
             string jsonString = JsonUtility.ToJson(saveCollection, true);
@@ -202,34 +200,21 @@ public class ScioXRSceneManager : MonoBehaviour
         }
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
+#if UNITY_WEBGL
             SyncFiles();
+#endif
         }
     }
 
-    private List<SaveData> GetSaveData()
+    private List<ObjectData> GetSaveData()
     {
-        List<SaveData> saveDataList = new List<SaveData>();
+        List<ObjectData> saveDataList = new List<ObjectData>();
         Saveable[] saveableObjects = ObjectFinder.FindEvenInactiveComponents<Saveable>();
         for (int i = 0; i < saveableObjects.Length; i++)
         {
             if (saveableObjects[i].shouldSave)
             {
-                SaveData dataStore = new SaveData()
-                {
-                    id = saveableObjects[i].id,
-                    parent = saveableObjects[i].gameObject.transform.parent ? saveableObjects[i].gameObject.transform.parent.gameObject.GetComponent<Saveable>().id : 0,
-                    name = saveableObjects[i].gameObject.name,
-                    model = saveableObjects[i].model,
-                    texture = saveableObjects[i].texture,
-                    color = saveableObjects[i].color,
-                    position = saveableObjects[i].transform.position,
-                    rotation = saveableObjects[i].transform.rotation,
-                    scale = saveableObjects[i].transform.localScale,
-                    isVisible = saveableObjects[i].gameObject.activeInHierarchy ? 1 : 0,
-                    isInteractable = saveableObjects[i].isInteractable,
-                    code = saveableObjects[i].codeData,
-                };
-                saveDataList.Add(dataStore);
+                saveDataList.Add(saveableObjects[i].GetSavableData());
             }
 
         }
@@ -238,20 +223,23 @@ public class ScioXRSceneManager : MonoBehaviour
 
     public void SetEnvironment(string environmentName)
     {
-        this.environmentName = environmentName;
-        defaultEnvironment.SetActive(true);
-        if (environment)
+        if (environmentName != null)
         {
-            Destroy(environment);
-            environment = null;
-        }
-        if (environmentName != "")
-        {
-            StartCoroutine(AssetsLoader.ImportEnvironment(environmentName, importedObject =>
+            this.environmentName = environmentName;
+            defaultEnvironment.SetActive(true);
+            if (environment)
             {
-                defaultEnvironment.SetActive(false);
-                environment = importedObject;
-            }));
+                Destroy(environment);
+                environment = null;
+            }
+            if (environmentName != "")
+            {
+                StartCoroutine(AssetsLoader.ImportEnvironment(environmentName, importedObject =>
+                {
+                    defaultEnvironment.SetActive(false);
+                    environment = importedObject;
+                }));
+            }
         }
     }
 }

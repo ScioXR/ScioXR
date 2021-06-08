@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -853,6 +853,14 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5721275130980754095, guid: 5a02830c13cb97e41bb9d3abfff074bc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721275130980754095, guid: 5a02830c13cb97e41bb9d3abfff074bc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 6060594370301769171, guid: 5a02830c13cb97e41bb9d3abfff074bc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1371,7 +1379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1c0bea8a2453844a4af8f87d2dc5dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSceneName: ExampleScene
+  currentSceneName: 
   loaded: 1
   saveDirectory: Experiences
 --- !u!4 &1100865578
@@ -1417,6 +1425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23e92c25056ccc54ebd6bd1118009cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  environmentName: 
   environment: {fileID: 0}
   defaultEnvironment: {fileID: 1795186820}
 --- !u!4 &1463671533
@@ -1600,6 +1609,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1913284616}
   - component: {fileID: 1913284615}
+  - component: {fileID: 1913284617}
   m_Layer: 0
   m_Name: EditorManager
   m_TagString: Untagged
@@ -1641,6 +1651,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1913284617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913284614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c25112ce829f784483a725ab495c43c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableSnap: 0
+  snapMoveStep: 0
+  snapRotateStep: 0
+  snapScaleStep: 0
 --- !u!114 &2038673655 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1069426530292205978, guid: 5a02830c13cb97e41bb9d3abfff074bc, type: 3}
@@ -1763,10 +1789,6 @@ PrefabInstance:
     - target: {fileID: 2535419923144365965, guid: 1b04e119a23ace2499600cc8e6cb9d32, type: 3}
       propertyPath: m_Name
       value: Setup
-      objectReference: {fileID: 0}
-    - target: {fileID: 4307612045936342473, guid: 1b04e119a23ace2499600cc8e6cb9d32, type: 3}
-      propertyPath: currentPlatfrom
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b04e119a23ace2499600cc8e6cb9d32, type: 3}

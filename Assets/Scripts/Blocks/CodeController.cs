@@ -6,31 +6,7 @@ public class CodeController : MonoBehaviour
 {
     public int id;
 
-    List<Block> blocks = new List<Block>();
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //TEST CASE
-        /*StartEvent startEvent = new StartEvent();
-        MoveMotion moveMotion = new MoveMotion();
-        moveMotion.moveStep = new IntVariable(1);
-        //startEvent.AddBlock(moveMotion);
-
-        KeyPressedEvent keyPressedEvent = new KeyPressedEvent();
-        keyPressedEvent.key = KeyCode.Space;
-        MoveMotion moveMotion2 = new MoveMotion();
-        moveMotion2.moveStep = new IntVariable(1);
-        //keyPressedEvent.AddBlock(moveMotion2);
-
-        blocks.Add(startEvent);
-        blocks.Add(keyPressedEvent);
-
-        startEvent.codeController = this;
-        moveMotion.codeController = this;
-        keyPressedEvent.codeController = this;
-        moveMotion2.codeController = this;*/
-    }
+    public List<Block> blocks = new List<Block>();
 
     public void LoadCode(CodeData codeData)
     {

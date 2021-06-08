@@ -9,6 +9,7 @@ using static UnityEngine.InputSystem.InputAction;
 public class WebXRInteractor : MonoBehaviour
 {
     public FixedJoint attachJoint = null;
+    public Transform attachTransform;
     private List<Rigidbody> contactRigidBodies = new List<Rigidbody>();
 
     private Animator anim;
@@ -16,6 +17,8 @@ public class WebXRInteractor : MonoBehaviour
 
     private Rigidbody highlightedRigidbody;
     private Rigidbody grabedRigidbody;
+
+    private Rigidbody selectedInteractable;
 
     void Awake()
     {
@@ -65,6 +68,7 @@ public class WebXRInteractor : MonoBehaviour
         {
             if (highlightedRigidbody)
             {
+                selectedInteractable = highlightedRigidbody;
                 IWebXRInteractable[] interactables = highlightedRigidbody.GetComponents<IWebXRInteractable>();
                 foreach (var interactable in interactables)
                 {
@@ -81,13 +85,13 @@ public class WebXRInteractor : MonoBehaviour
 
         if (controller.primaryButton.wasReleasedThisFrame)
         {
-            if (highlightedRigidbody)
-            {
-                IWebXRInteractable[] interactables = highlightedRigidbody.GetComponents<IWebXRInteractable>();
+            if (selectedInteractable != null) { 
+                IWebXRInteractable[] interactables = selectedInteractable.GetComponents<IWebXRInteractable>();
                 foreach (var interactable in interactables)
                 {
                     interactable.OnSecondaryUngrab(this);
                 }
+                selectedInteractable = null;
             }
         }
 

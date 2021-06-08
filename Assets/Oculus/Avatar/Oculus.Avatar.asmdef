@@ -1,0 +1,24 @@
+{
+    "name": "Oculus.Avatar",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f64c9ebcd7899c3448a08dc9f9ddbe30",
+        "GUID:98b69116447f90543869c2b5f77d5c22",
+        "GUID:7eecaac3435439943af85d99a47ed51c",
+        "GUID:bf7126905a54c9746b9c475d69312766"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WindowsStandalone32",
+        "WindowsStandalone64"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.XR;
 using UnityEngine.XR.Management;
 
 public class PlatformLoader : MonoBehaviour
@@ -47,6 +48,12 @@ public class PlatformLoader : MonoBehaviour
         //platform = gameObject.AddComponent<Scio3DPlatform>();
         //setup3D.SetActive(true);
 #else
+        List<XRInputSubsystem> lst = new List<XRInputSubsystem>();
+        SubsystemManager.GetInstances<XRInputSubsystem>(lst);
+        for (int i = 0; i < lst.Count; i++)
+        {
+            lst[i].TrySetTrackingOriginMode(TrackingOriginModeFlags.Floor);
+        }
         /*if (force3D)
         {
             platform = gameObject.AddComponent<Scio3DPlatform>();

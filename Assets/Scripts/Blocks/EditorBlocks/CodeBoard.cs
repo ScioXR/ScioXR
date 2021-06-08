@@ -27,6 +27,19 @@ public class CodeBoard : MonoBehaviour
                 AttachPoint[] attachPointsBelow = gameObject.GetComponentsInChildren<BelowAttachPoint>();
                 foreach (var attachPoint in attachPointsBelow)
                 {
+                    bool inside = attachPoint.CheckIsInside(dragObject);
+
+                    //if its in inside block we need to resize
+                    if (attachPoint.GetComponent<CodeBlockEditor>().parentBlock)
+                    {
+                        float hoverObjectHeight = dragObject.GetComponent<RectTransform>().rect.height;
+                        attachPoint.GetComponent<CodeBlockEditor>().parentBlock.GetComponent<CodeBlockEditor>().Resize(inside, hoverObjectHeight);
+                    }
+                }
+
+                AttachPoint[] attachPointsInside = gameObject.GetComponentsInChildren<InsideAttachPoint>();
+                foreach (var attachPoint in attachPointsInside)
+                {
                     attachPoint.CheckIsInside(dragObject);
                 }
             }
@@ -65,6 +78,8 @@ public class CodeBoard : MonoBehaviour
             AttachPoint[] attachPointsBelow = gameObject.GetComponentsInChildren<BelowAttachPoint>();
             foreach (var attachPoint in attachPointsBelow)
             {
+                
+
                 if (attachPoint.CheckIsInside(dragObject))
                 {
                     attachPoint.GetComponent<BlockEditor>().AttachBlock(dragObject);
@@ -79,6 +94,15 @@ public class CodeBoard : MonoBehaviour
                 if (attachPoint.CheckIsInside(lastDrag.gameObject))
                 {
                     lastDrag.AttachBlock(attachPoint.gameObject);
+                }
+            }
+
+            AttachPoint[] attachPointsInside = gameObject.GetComponentsInChildren<InsideAttachPoint>();
+            foreach (var attachPoint in attachPointsInside)
+            {
+                if (attachPoint.CheckIsInside(dragObject))
+                {
+                    attachPoint.GetComponent<BlockEditor>().AttachChildBlock(dragObject);
                 }
             }
         }

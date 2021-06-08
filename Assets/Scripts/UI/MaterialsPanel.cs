@@ -35,7 +35,7 @@ public class MaterialsPanel : XRPanel
         if (!isListCreated)
         {
             Color color = Color.white;
-            ColorUtility.TryParseHtmlString("#" + EditorManager.instance.selectedObject.GetComponent<Saveable>().color, out color);
+            ColorUtility.TryParseHtmlString("#" + EditorManager.instance.selectedObject.GetComponent<Saveable>().data.color, out color);
             colorPicker.CurrentColor = color;
 
             PopulateMaterialTextures();

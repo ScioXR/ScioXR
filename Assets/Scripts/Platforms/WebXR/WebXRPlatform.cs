@@ -14,7 +14,7 @@ public class WebXRPlatform : Platform
         WebXRManager.OnXRChange += onXRChange;
     }
 
-    public override void SetupPlayerObject(GameObject loadedModel, SaveData data)
+    public override void SetupPlayerObject(GameObject loadedModel, ObjectData data)
     {
         base.SetupPlayerObject(loadedModel, data);
 
@@ -24,13 +24,13 @@ public class WebXRPlatform : Platform
         }
     }
 
-    public override void SetupEditorObject(GameObject loadedModel, SaveData data)
+    public override void SetupEditorObject(GameObject loadedModel, ObjectData data)
     {
         base.SetupEditorObject(loadedModel, data);
 
         loadedModel.AddComponent<EditorTransform3D>();
         loadedModel.AddComponent<WebXREditorInteractable>();
-        loadedModel.AddComponent<WebXRGrabInteractable>();
+        //loadedModel.AddComponent<WebXRGrabInteractable>();
 
         loadedModel.GetComponent<WebXREditorInteractable>().gizmoScale = Instantiate(EditorManager.instance.gizmoScalePrefab, loadedModel.transform);
     }

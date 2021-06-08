@@ -47,7 +47,7 @@ public class PropertiesPanel : XRPanel
         selectedObject = obj;
         if (selectedObject != null)
         {
-            modelIdText.text = selectedObject.GetComponent<Saveable>().id.ToString();
+            modelIdText.text = selectedObject.GetComponent<Saveable>().data.id.ToString();
             modelNameText.GetComponent<TextMeshProUGUI>().text = selectedObject.name;
             string ObjectPosition = selectedObject.transform.position.ToString();
             modelPositionText.GetComponent<TextMeshProUGUI>().text = ObjectPosition;
@@ -56,10 +56,10 @@ public class PropertiesPanel : XRPanel
             string ObjectScale = selectedObject.transform.localScale.ToString();
             modelScaleText.GetComponent<TextMeshProUGUI>().text = ObjectScale;
 
-            interactableToggle.isOn = selectedObject.GetComponent<Saveable>().isInteractable;
+            interactableToggle.isOn = selectedObject.GetComponent<Saveable>().data.isInteractable;
 
             //update parent info
-            parentText.text = selectedObject.transform.parent ? "" + selectedObject.transform.parent.GetComponent<Saveable>().id : "<NONE>";
+            parentText.text = selectedObject.transform.parent ? "" + selectedObject.transform.parent.GetComponent<Saveable>().data.id : "<NONE>";
         }
     }
 
@@ -80,6 +80,6 @@ public class PropertiesPanel : XRPanel
 
     public void SetInteractable(bool interactable)
     {
-        selectedObject.GetComponent<Saveable>().isInteractable = interactable;
+        selectedObject.GetComponent<Saveable>().data.isInteractable = interactable;
     }
 }

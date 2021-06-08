@@ -20,14 +20,14 @@ public class ModelSelecter : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void CreateModel()
     {
         //TODO better to just clone the current
-        StartCoroutine(AssetsLoader.ImportModel(modelObject.GetComponent<Saveable>().model, loadedModel =>
+        StartCoroutine(AssetsLoader.ImportModel(modelObject.GetComponent<Saveable>().data.model, loadedModel =>
         {
             loadedModel.transform.position = new Vector3(modelObject.transform.position.x, modelObject.transform.position.y, modelObject.transform.position.z + 1f);
             loadedModel.transform.localScale = loadedModel.transform.localScale / 10;
-            PlatformLoader.instance.platform.SetupEditorObject(loadedModel, new SaveData());
             loadedModel.AddComponent<Saveable>();
-            loadedModel.GetComponent<Saveable>().model = modelObject.GetComponent<Saveable>().model;
+            loadedModel.GetComponent<Saveable>().data.model = modelObject.GetComponent<Saveable>().data.model;
             loadedModel.GetComponent<Saveable>().GenerateUniqueId();
+            PlatformLoader.instance.platform.SetupEditorObject(loadedModel, new ObjectData());
 
             WebXRInteractor[] interactors = FindObjectsOfType<WebXRInteractor>();
             foreach (var interactor in interactors)

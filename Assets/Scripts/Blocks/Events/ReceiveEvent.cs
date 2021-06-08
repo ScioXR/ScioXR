@@ -19,6 +19,12 @@ public class ReceiveEvent : Event
     public void Trigger()
     {
         trigger = true;
+
+        //Update is not called when the object is inactive and this is a workaround for objects that are hidden and that still need to receive the event
+        if (!gameObject.activeSelf)
+        {
+            Poll();
+        }
     }
 
     public override void Resolve(BlockData blockData)

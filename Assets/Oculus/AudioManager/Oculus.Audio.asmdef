@@ -1,0 +1,21 @@
+{
+    "name": "Oculus.Audio",
+    "rootNamespace": "",
+    "references": [
+        "GUID:98b69116447f90543869c2b5f77d5c22"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WindowsStandalone32",
+        "WindowsStandalone64"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

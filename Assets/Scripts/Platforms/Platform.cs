@@ -10,21 +10,12 @@ public class Platform : MonoBehaviour
         return true;
     }
 
-    protected virtual void SetupGraphics(GameObject loadedModel, SaveData data)
+    protected virtual void SetupGraphics(GameObject loadedModel, ObjectData data)
     {
-        Color color = Color.white;
-        bool colorParse = ColorUtility.TryParseHtmlString("#" + data.color, out color);
-        loadedModel.GetComponent<MeshRenderer>().material.color = color;
-        if (data.texture != "")
-        {
-            StartCoroutine(AssetsLoader.ImportMaterial(data.texture, texture =>
-            {
-                loadedModel.GetComponent<MeshRenderer>().material.mainTexture = texture;
-            }));
-        }
+        loadedModel.GetComponent<Saveable>().SetupGraphics();
     }
 
-    public virtual void SetupPlayerObject(GameObject loadedModel, SaveData data)
+    public virtual void SetupPlayerObject(GameObject loadedModel, ObjectData data)
     {
         loadedModel.AddComponent<BoxCollider>();
 
@@ -33,7 +24,7 @@ public class Platform : MonoBehaviour
         SetupGraphics(loadedModel, data);
     }
 
-    public virtual void SetupEditorObject(GameObject loadedModel, SaveData data)
+    public virtual void SetupEditorObject(GameObject loadedModel, ObjectData data)
     {
         loadedModel.AddComponent<BoxCollider>();
 
@@ -59,6 +50,12 @@ public class Platform : MonoBehaviour
             if (!rb)
             {
                 gameObject.AddComponent<Rigidbody>();
+
+                var outline = gameObject.AddComponent<Outline>();
+                outline.OutlineMode = Outline.Mode.OutlineAll;
+                outline.OutlineColor = Color.yellow;
+                outline.OutlineWidth = 5f;
+                outline.enabled = false;
             }
         } else
         {

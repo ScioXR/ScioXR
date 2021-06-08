@@ -19,6 +19,11 @@ public class AttachPoint : MonoBehaviour
             return false;
         }
 
+        if (gameObject.transform.IsChildOf(otherObject.gameObject.transform))
+        {
+            return false;
+        }
+
         bool inside = hoverRect.Overlaps(otherObject.GetComponent<RectTransform>());
 
         //Vector3 diff = hoverRect.transform.position - otherObject.transform.position;

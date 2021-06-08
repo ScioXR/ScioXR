@@ -12,6 +12,15 @@ TagManager:
   - molecule_o
   - molecule_other
   - laser
+  - projectile
+  - FxTemporaire
+  - fat
+  - carbs
+  - protein
+  - alkali
+  - alkaline
+  - transitions_metal
+  - function
   layers:
   - Default
   - TransparentFX
@@ -19,7 +28,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Hands
   - 
   - 
   - 
