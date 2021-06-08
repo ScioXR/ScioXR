@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
 {
-    private WebXRInteractor currentInteractor;
+    private WebXRInteractor currentSecondaryGrabInteractor;
+    private WebXRInteractor currentHighlightInteractor;
     private WebXRInteractor currentGrabInteractor;
 
-    private Vector3 grabPositionOffset;
-    private Quaternion grabRotationOffset;
+    //private Vector3 grabPositionOffset;
+    //private Quaternion grabRotationOffset;
 
     private float startDistanceFromCenter;
     private Vector3 startScale;
@@ -26,9 +28,11 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
     }
 
     void IWebXRInteractable.OnGrab(WebXRInteractor interactor) {
-        grabPositionOffset = interactor.gameObject.transform.position - transform.position;
-        grabRotationOffset = interactor.gameObject.transform.rotation * Quaternion.Inverse(transform.rotation);
+        //grabPositionOffset = interactor.gameObject.transform.position - transform.position;
+        //grabRotationOffset = interactor.gameObject.transform.rotation * Quaternion.Inverse(transform.rotation);
         currentGrabInteractor = interactor;
+        interactor.attachTransform.position = transform.position;
+        interactor.attachTransform.rotation = transform.rotation;
     }
     void IWebXRInteractable.OnUngrab(WebXRInteractor interactor) {
         currentGrabInteractor = null;
@@ -36,7 +40,7 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
 
     void IWebXRInteractable.OnSecondaryGrab(WebXRInteractor interactor)
     {
-        currentInteractor = interactor;
+        currentSecondaryGrabInteractor = interactor;
         if (EditorManager.mode == TransformMode.PROPERTIES)
         {
             EditorManager.instance.ToggleProperties(gameObject);
@@ -67,7 +71,7 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
 
     void IWebXRInteractable.OnSecondaryUngrab(WebXRInteractor interactor)
     {
-        currentInteractor = null;
+        currentSecondaryGrabInteractor = null;
         UnselectGizmo(null);
         gizmoScale.transform.SetParent(transform);
         if (EditorManager.mode == TransformMode.CLONE)
@@ -79,7 +83,8 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
     {
         if (currentGrabInteractor)
         {
-            transform.position = currentGrabInteractor.transform.position - grabPositionOffset;
+            //transform.position = currentGrabInteractor.transform.position - grabPositionOffset;
+            transform.position = currentGrabInteractor.attachTransform.position;
             if (EditorSettings.instance.enableSnap)
             {
                 if (EditorSettings.instance.snapMoveStep != 0)
@@ -88,12 +93,13 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
                 }
             }
 
-            transform.rotation = currentGrabInteractor.transform.rotation * Quaternion.Inverse(grabRotationOffset);
+            //transform.rotation = currentGrabInteractor.transform.rotation * Quaternion.Inverse(grabRotationOffset);
+            transform.rotation = currentGrabInteractor.attachTransform.rotation;
             if (EditorSettings.instance.enableSnap)
             {
                 if (EditorSettings.instance.snapRotateStep != 0)
                 {
-                    //transform.position = new Vector3(transform.position.x - (transform.position.x % EditorSettings.instance.snapMoveStep), transform.position.y - (transform.position.y % EditorSettings.instance.snapMoveStep), transform.position.z - (transform.position.z % EditorSettings.instance.snapMoveStep));
+                    transform.position = new Vector3(transform.position.x - (transform.position.x % EditorSettings.instance.snapMoveStep), transform.position.y - (transform.position.y % EditorSettings.instance.snapMoveStep), transform.position.z - (transform.position.z % EditorSettings.instance.snapMoveStep));
                 }
             }
         }
@@ -105,7 +111,7 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
         {
             case TransformMode.SCALE:
                 Vector3 newScale = startScale;
-                float scaleFactor = ((transform.position - currentInteractor.transform.position).magnitude / startDistanceFromCenter);
+                float scaleFactor = ((transform.position - currentSecondaryGrabInteractor.transform.position).magnitude / startDistanceFromCenter);
                 if (!currentPivot || currentPivot.scaleMode == WebXREditorPivot.ScaleMode.ALL)
                 {
                     newScale *= scaleFactor;
@@ -129,9 +135,12 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
     // Update is called once per frame
     void Update()
     {
-        if (currentInteractor)
+        if (currentGrabInteractor)
         {
             DoMove();
+        }
+        if (currentSecondaryGrabInteractor)
+        {
             DoDrag();
         }
     }
@@ -139,6 +148,10 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
 
     void IWebXRInteractable.OnTouch(WebXRInteractor interactor)
     {
+        GetComponent<Outline>().enabled = true;
+        GetComponentsInChildren<Outline>().ToList().ForEach(outline => outline.enabled = true);
+        currentHighlightInteractor = interactor;
+
         if (EditorManager.mode == TransformMode.SCALE)
         {
             gizmoScale.SetActive(true);
@@ -150,6 +163,10 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
 
     void IWebXRInteractable.OnUntouch(WebXRInteractor interactor)
     {
+        GetComponent<Outline>().enabled = false;
+        GetComponentsInChildren<Outline>().ToList().ForEach(outline => outline.enabled = false);
+        currentHighlightInteractor = null;
+
         if (EditorManager.mode == TransformMode.SCALE)
         {
             Color color = GetComponent<MeshRenderer>().material.color;
@@ -161,7 +178,7 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
     
     public void SelectGizmo(WebXREditorPivot selectedPivot)
     {
-        if (currentInteractor)
+        if (currentSecondaryGrabInteractor)
         {
             return;
         }

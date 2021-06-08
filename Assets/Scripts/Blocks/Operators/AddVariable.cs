@@ -1,9 +1,12 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReferenceVariable : Variable
+public class AddVariable : Variable
 {
+    public Variable value1;
+    public Variable value2;
+
     public override string GetText()
     {
         throw new System.NotImplementedException();
@@ -11,6 +14,6 @@ public class ReferenceVariable : Variable
 
     public override int GetValue()
     {
-        throw new System.NotImplementedException();
+        return value1.GetValue() + value2.GetValue();
     }
 }

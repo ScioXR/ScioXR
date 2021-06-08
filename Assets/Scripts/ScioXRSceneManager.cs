@@ -223,20 +223,23 @@ public class ScioXRSceneManager : MonoBehaviour
 
     public void SetEnvironment(string environmentName)
     {
-        this.environmentName = environmentName;
-        defaultEnvironment.SetActive(true);
-        if (environment)
+        if (environmentName != null)
         {
-            Destroy(environment);
-            environment = null;
-        }
-        if (environmentName != "")
-        {
-            StartCoroutine(AssetsLoader.ImportEnvironment(environmentName, importedObject =>
+            this.environmentName = environmentName;
+            defaultEnvironment.SetActive(true);
+            if (environment)
             {
-                defaultEnvironment.SetActive(false);
-                environment = importedObject;
-            }));
+                Destroy(environment);
+                environment = null;
+            }
+            if (environmentName != "")
+            {
+                StartCoroutine(AssetsLoader.ImportEnvironment(environmentName, importedObject =>
+                {
+                    defaultEnvironment.SetActive(false);
+                    environment = importedObject;
+                }));
+            }
         }
     }
 }

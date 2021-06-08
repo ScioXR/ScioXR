@@ -4,7 +4,7 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "GameAssembly"
+        "ScioXR"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

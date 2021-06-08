@@ -149,11 +149,18 @@ PlayerSettings:
   - {fileID: 3728438714963460712, guid: 85064f40e42256a4d843081c66ddd0a9, type: 2}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 11400000, guid: 46f20e10402563d4a86a121bb92c46c2, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -179,8 +186,8 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.FlatHillGames.ScioXR
-    Standalone: com.FlatHillGames.ScioXR
+    Android: com.ScioXR.ScioXR
+    Standalone: com.ScioXR.ScioXR
   buildNumber:
     Standalone: 0
     iPhone: 0

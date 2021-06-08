@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class SnappingPanel : XRPanel
 {
-    Toggle enableSnap;
-    InputField moveStep;
-    InputField rotateStep;
-    InputField scaleStep;
+    public Toggle enableSnap;
+    public InputField moveStep;
+    public InputField rotateStep;
+    public InputField scaleStep;
 
     public override void Show()
     {

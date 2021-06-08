@@ -6878,6 +6878,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b93133e67ece44b81e7dbb71dd987e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableSnap: {fileID: 3047929154574149243}
+  moveStep: {fileID: 7779101768405791235}
+  rotateStep: {fileID: 2514030928905077432}
+  scaleStep: {fileID: 2740148413692293503}
 --- !u!1 &4548132457311007566
 GameObject:
   m_ObjectHideFlags: 0
