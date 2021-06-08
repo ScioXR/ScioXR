@@ -1,6 +1,6 @@
 version: 2.1
 
- jobs:
+jobs:
    build:
      docker:
       - image: unityci/editor:ubuntu-2020.3.6f1-webgl-0.13.0
