@@ -1,0 +1,14 @@
+version: 2.1
+
+ jobs:
+   build:
+     docker:
+      - image: unityci/editor:ubuntu-2020.3.6f1-webgl-0.13.0
+    
+     steps:
+       - checkout
+       - run: /opt/unity/Editor/Unity -batchmode -nographics -manualActivation -logFile /dev/stdout -username $UNITY_USER -password $UNITY_PASS || true
+       - run: echo "$UNITY_LICENSE_CONTENT" | base64 --decode | tr -d '\r' > /root/.local/share/unity3d/Unity/Unity_lic.ulf
+       - run:
+           name: "Building App"
+           command: xvfb-run -a /opt/unity/Editor/Unity -batchmode -quit -executeMethod CIBuildScript.PerformBuildWebXR -quit -logfile -
