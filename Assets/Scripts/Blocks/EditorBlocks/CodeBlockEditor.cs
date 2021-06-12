@@ -25,8 +25,16 @@ public class CodeBlockEditor : BlockEditor
     public TMP_Dropdown selectionDropDown;
 
     private float resizableStartHeight;
-    private float resizableCurrentHeight;
+    public float resizableOffsetHeight;
     public GameObject resizableBottom;
+
+    private void Awake()
+    {
+        if (resizableBottom)
+        {
+            resizableStartHeight = resizableBottom.GetComponent<RectTransform>().rect.height;
+        }
+    }
 
     private void Start()
     {
@@ -47,12 +55,6 @@ public class CodeBlockEditor : BlockEditor
         if (messageReferenceDropDown && messageReferenceDropDown.options.Count == 0)
         {
             messageReferenceDropDown.AddOptions(codePanel.blockBoard.GetMessages());
-        }
-
-        if (resizableBottom)
-        {
-            resizableStartHeight = resizableBottom.GetComponent<RectTransform>().rect.height;
-            resizableCurrentHeight = resizableStartHeight;
         }
     }
 
@@ -244,12 +246,12 @@ public class CodeBlockEditor : BlockEditor
 
                 attachObject.GetComponent<CodeBlockEditor>().parentBlock = GetComponent<CodeBlockEditor>();
                 childBlock = attachObject.GetComponent<CodeBlockEditor>();
+                childBlock.previousAttachPoint.Enable(false);
 
                 childAttachPoint.Enable(false);
                 //childAttachPoint.heighlight.SetActive(false);
             }
 
-            resizableCurrentHeight = resizableBottom.GetComponent<RectTransform>().rect.height;
             Resize(false, 0);
         }
     }
@@ -260,21 +262,52 @@ public class CodeBlockEditor : BlockEditor
         {
             detachObject.gameObject.transform.SetParent(codePanel.gameObject.transform);
             detachObject.GetComponent<CodeBlockEditor>().parentBlock = null;
+            childBlock.previousAttachPoint.Enable(true);
             childBlock = null;
 
             childAttachPoint.Enable(true);
+            Resize(false, 0);
         }
     }
 
     public void Resize(bool expand, float expandSize)
     {
+        float childSize = 0;
+        if (childBlock)
+        {
+            childSize = childBlock.CalculateSize();
+        }
+        /*CodeBlockEditor childIterator = childBlock.CalculateSize();
+        while (childIterator)
+        {
+            childSize += childIterator.GetComponent<RectTransform>().rect.height;
+            childIterator = childIterator.nextBlock;
+        }*/
+
+        if (childSize == 0 && !expand)
+        {
+            childSize = resizableStartHeight;
+        } else
+        {
+            childSize += resizableOffsetHeight;
+        }
+
         RectTransform resizable = resizableBottom.GetComponent<RectTransform>();
         if (expand)
         {
-            resizable.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, resizableCurrentHeight + expandSize);
-        } else
+            resizable.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, childSize + expandSize);
+            //resizable.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, resizableCurrentHeight + expandSize);
+        }
+        else
         {
-            resizable.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, resizableCurrentHeight);
+            resizable.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, childSize);
+            //resizable.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, resizableCurrentHeight);
+        }
+
+        CodeBlockEditor firstBlock = First();
+        if (firstBlock.parentBlock)
+        {
+            firstBlock.parentBlock.Resize(expand, expandSize);
         }
     }
 
@@ -305,6 +338,18 @@ public class CodeBlockEditor : BlockEditor
 
     }
 
+    public CodeBlockEditor First()
+    {
+        if (previousBlock)
+        {
+            return previousBlock.First();
+        }
+        else
+        {
+            return this;
+        }
+    }
+
     public CodeBlockEditor Last()
     {
         if (nextBlock)
@@ -314,5 +359,25 @@ public class CodeBlockEditor : BlockEditor
         {
             return this;
         }
+    }
+
+    public float CalculateSize()
+    {
+        float blockSize = 0;
+        CodeBlockEditor iterator = this;
+        while (iterator)
+        {
+            if (iterator.childAttachPoint && iterator.childBlock)
+            {
+                //Debug.Log("Size calc:" + iterator.childBlock.CalculateSize() + iterator.resizableOffsetHeight + 97);
+                blockSize += iterator.childBlock.CalculateSize() + iterator.resizableOffsetHeight + 97;
+            }
+            else
+            {
+                blockSize += iterator.GetComponent<RectTransform>().rect.height;
+            }
+            iterator = iterator.nextBlock;
+        }
+        return blockSize;
     }
 }

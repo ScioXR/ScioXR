@@ -17,7 +17,8 @@ public class CodeBoard : MonoBehaviour
             AttachPoint[] attachPoints = gameObject.GetComponentsInChildren<VariableAttachPoint>();
             foreach (var attachPoint in attachPoints)
             {
-                attachPoint.CheckIsInside(dragObject);
+                bool inside = attachPoint.CheckIsInside(dragObject);
+                attachPoint.UpdateHighlight(inside);
             }
         }
 
@@ -28,19 +29,30 @@ public class CodeBoard : MonoBehaviour
                 foreach (var attachPoint in attachPointsBelow)
                 {
                     bool inside = attachPoint.CheckIsInside(dragObject);
+                    bool changedHighlight = attachPoint.UpdateHighlight(inside);
 
-                    //if its in inside block we need to resize
-                    if (attachPoint.GetComponent<CodeBlockEditor>().parentBlock)
+                    if (changedHighlight)
                     {
-                        float hoverObjectHeight = dragObject.GetComponent<RectTransform>().rect.height;
-                        attachPoint.GetComponent<CodeBlockEditor>().parentBlock.GetComponent<CodeBlockEditor>().Resize(inside, hoverObjectHeight);
+                        //if its in inside block we need to resize
+                        if (attachPoint.GetComponent<CodeBlockEditor>().First().parentBlock)
+                        {
+                            float hoverObjectHeight = dragObject.GetComponent<CodeBlockEditor>().CalculateSize();
+                            attachPoint.GetComponent<CodeBlockEditor>().First().parentBlock.GetComponent<CodeBlockEditor>().Resize(inside, hoverObjectHeight);
+                        }
                     }
                 }
 
                 AttachPoint[] attachPointsInside = gameObject.GetComponentsInChildren<InsideAttachPoint>();
                 foreach (var attachPoint in attachPointsInside)
                 {
-                    attachPoint.CheckIsInside(dragObject);
+                    bool inside = attachPoint.CheckIsInside(dragObject);
+                    bool changedHighlight = attachPoint.UpdateHighlight(inside);
+
+                    if (changedHighlight)
+                    {
+                        float hoverObjectHeight = dragObject.GetComponent<CodeBlockEditor>().CalculateSize();
+                        attachPoint.GetComponent<CodeBlockEditor>().Resize(inside, hoverObjectHeight);
+                    }
                 }
             }
 
@@ -50,7 +62,8 @@ public class CodeBoard : MonoBehaviour
                 AttachPoint[] attachPointsAbove = gameObject.GetComponentsInChildren<AboveAttachPoint>();
                 foreach (var attachPoint in attachPointsAbove)
                 {
-                    attachPoint.CheckIsInside(lastDrag.gameObject);
+                    bool inside = attachPoint.CheckIsInside(lastDrag.gameObject);
+                    attachPoint.UpdateHighlight(inside);
                 }
             }
         }

@@ -180,14 +180,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7007389509978465620}
-  m_Father: {fileID: 3886916030250832115}
-  m_RootOrder: 5
+  m_Father: {fileID: 6450798703217686197}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -1.699997, y: -178}
-  m_SizeDelta: {x: 293, y: 87}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 107.726524, y: 28.393082}
+  m_SizeDelta: {x: 294.56, y: 82.9514}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &8067458400562008771
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -404,15 +404,16 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 3085200455492763829}
   m_Father: {fileID: 3886916030250832115}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -105.4, y: -27.806936}
-  m_SizeDelta: {x: 76.1024, y: 139.46}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -108.50806, y: -63.90265}
+  m_SizeDelta: {x: 79.3798, y: 93.9379}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &3462687541381479734
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -441,7 +442,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 5422c99e085208745991c5fc53eef092, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -564,7 +565,6 @@ RectTransform:
   - {fileID: 4580417919728471767}
   - {fileID: 2841384634331165828}
   - {fileID: 2624413413768084256}
-  - {fileID: 3085200455492763829}
   - {fileID: 6450798703217686197}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -602,7 +602,8 @@ MonoBehaviour:
   variableReferenceDropDown: {fileID: 0}
   messageReferenceDropDown: {fileID: 0}
   selectionDropDown: {fileID: 0}
-  resizableBottom: {fileID: 1082913715888843562}
+  resizableOffsetHeight: 33
+  resizableBottom: {fileID: 1693399122993717145}
 --- !u!114 &1647402850448392821
 MonoBehaviour:
   m_ObjectHideFlags: 0
