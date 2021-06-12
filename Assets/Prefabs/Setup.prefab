@@ -267,6 +267,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 4925015680340246920}
   platform: {fileID: 0}
+  controllerLeft: {fileID: 5756112722300953644}
+  controllerRight: {fileID: 4769073527716650142}
 --- !u!1 &4319586836096747022
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,6 +720,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 137037042967364456, guid: 841f5fe1216c6b34896d7ca7bd815f76, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 137859123971994456, guid: 841f5fe1216c6b34896d7ca7bd815f76, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 464914437235518786, guid: 841f5fe1216c6b34896d7ca7bd815f76, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 845902857080165872, guid: 841f5fe1216c6b34896d7ca7bd815f76, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 841f5fe1216c6b34896d7ca7bd815f76, type: 3}
 --- !u!1 &4925015680340246920 stripped
@@ -728,5 +746,15 @@ GameObject:
 --- !u!4 &4921510343720025316 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4545079059221816, guid: 841f5fe1216c6b34896d7ca7bd815f76, type: 3}
+  m_PrefabInstance: {fileID: 4925972813285339612}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5756112722300953644 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 845902857080165872, guid: 841f5fe1216c6b34896d7ca7bd815f76, type: 3}
+  m_PrefabInstance: {fileID: 4925972813285339612}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4769073527716650142 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 464914437235518786, guid: 841f5fe1216c6b34896d7ca7bd815f76, type: 3}
   m_PrefabInstance: {fileID: 4925972813285339612}
   m_PrefabAsset: {fileID: 0}
