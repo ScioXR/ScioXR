@@ -130,7 +130,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091283458777958}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1199,7 +1199,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4427160273819458}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &137859123971994456
 SkinnedMeshRenderer:
@@ -1208,7 +1208,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1664295426898042}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1382,6 +1382,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4603535410349480}
+  - {fileID: 4460281009226033123}
   - {fileID: 4925627231713262}
   - {fileID: 1218315907877956796}
   - {fileID: 3281669876862566831}
@@ -1470,6 +1471,7 @@ MonoBehaviour:
   - {fileID: 1136128897566686}
   - {fileID: 1664295426898042}
   handJointPrefab: {fileID: 8513787482403080262, guid: 67541c9d1fd5e2c4798986ee73c07923, type: 3}
+  useCollidersForHandJoints: 1
   useInputProfile: 1
   inputProfileObject: {fileID: 1611361787474004}
   inputProfileModelParent: {fileID: 1469228564561163144}
@@ -2060,6 +2062,7 @@ Transform:
   m_Children:
   - {fileID: 4817586320957540}
   - {fileID: 4974700127051642}
+  - {fileID: 3470284025301131089}
   - {fileID: 3819867499605581648}
   - {fileID: 4130166392324725481}
   - {fileID: 5518751723967465584}
@@ -2148,6 +2151,7 @@ MonoBehaviour:
   - {fileID: 1644997114004198}
   - {fileID: 1091283458777958}
   handJointPrefab: {fileID: 8513787482403080262, guid: 67541c9d1fd5e2c4798986ee73c07923, type: 3}
+  useCollidersForHandJoints: 1
   useInputProfile: 1
   inputProfileObject: {fileID: 1611361787474004}
   inputProfileModelParent: {fileID: 599836867309221058}
@@ -2352,7 +2356,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4446684710817404}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &36318976291131514
 BoxCollider:
@@ -2392,16 +2396,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 729272463889479920}
-  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: -0.046649992}
+  m_LocalRotation: {x: 0.6003592, y: -0.0010392242, z: -0.0013843335, w: 0.79972863}
+  m_LocalPosition: {x: 0, y: 0, z: -0.098}
   m_LocalScale: {x: 0.0167, y: 0.0167, z: 0.0167}
   m_Children: []
   m_Father: {fileID: 4446684710817404}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: -90}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 73.79, y: -0.682, z: -0.711}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0291, y: 0.0033099651}
+  m_AnchoredPosition: {x: -0.0015, y: -0.0198}
   m_SizeDelta: {x: 5.216282, y: 5.1217117}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8686830484608657684
@@ -2534,6 +2538,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 8686830484608657684}
   m_maskType: 0
+  _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
 --- !u!1 &1469228564561163144
@@ -2565,7 +2570,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4427160273819458}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3050239350700165952
 BoxCollider:
@@ -2608,7 +2613,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4427160273819458}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3250837035476248814
 GameObject:
@@ -2845,7 +2850,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4446684710817404}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8910385453636693992
 GameObject:
@@ -2939,3 +2944,131 @@ MonoBehaviour:
   - {fileID: 8050325632217084075}
   m_ClickSpeed: 0.3
   m_TrackedDeviceDragThresholdMultiplier: 2
+--- !u!1001 &3555492065790217323
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4427160273819458}
+    m_Modifications:
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0023
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0343
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0359
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.0015111568
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.0050655385
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9525829
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.30423328
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 35.425003
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 179.98601
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -0.614
+      objectReference: {fileID: 0}
+    - target: {fileID: 4245457492171364763, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_Name
+      value: Oculus Quest Controller - Left
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+--- !u!4 &4460281009226033123 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+  m_PrefabInstance: {fileID: 3555492065790217323}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4366609477239747801
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4446684710817404}
+    m_Modifications:
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.008
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.043
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.048
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.0015111568
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.0050655385
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9525829
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.30423328
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 35.425003
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 179.98601
+      objectReference: {fileID: 0}
+    - target: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -0.614
+      objectReference: {fileID: 0}
+    - target: {fileID: 4245457492171364763, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+      propertyPath: m_Name
+      value: Oculus Quest Controller - Left
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+--- !u!4 &3470284025301131089 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 914719734005754760, guid: c836783e3928a624e9ff9c70d4f21606, type: 3}
+  m_PrefabInstance: {fileID: 4366609477239747801}
+  m_PrefabAsset: {fileID: 0}
