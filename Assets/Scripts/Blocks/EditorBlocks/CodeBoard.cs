@@ -12,7 +12,8 @@ public class CodeBoard : MonoBehaviour
 
     public void UpdateHighlights(GameObject dragObject)
     {
-        if (dragObject.GetComponent<VariableEditor>())
+        BlockEditor.BlockGroup group = dragObject.GetComponent<BlockEditor>().blockGroup;
+        if (group == BlockEditor.BlockGroup.VARIABLE)
         {
             AttachPoint[] attachPoints = gameObject.GetComponentsInChildren<VariableAttachPoint>();
             foreach (var attachPoint in attachPoints)
@@ -22,7 +23,7 @@ public class CodeBoard : MonoBehaviour
             }
         }
 
-        if (dragObject.GetComponent<CodeBlockEditor>())
+        if (group == BlockEditor.BlockGroup.BLOCK)
         {
             if (dragObject.GetComponent<CodeBlockEditor>().previousAttachPoint) {
                 AttachPoint[] attachPointsBelow = gameObject.GetComponentsInChildren<BelowAttachPoint>();
@@ -72,27 +73,25 @@ public class CodeBoard : MonoBehaviour
     public void DropBlock(BlockEditor block)
     {
         GameObject dragObject = block.gameObject;
-
-        if (dragObject.GetComponent<VariableEditor>())
+        BlockEditor.BlockGroup group = dragObject.GetComponent<BlockEditor>().blockGroup;
+        if (group == BlockEditor.BlockGroup.VARIABLE)
         {
             AttachPoint[] attachPoints = gameObject.GetComponentsInChildren<VariableAttachPoint>();
             foreach (var attachPoint in attachPoints)
             {
                 if (attachPoint.CheckIsInside(dragObject))
                 {
-                    attachPoint.GetComponent<BlockEditor>().AttachBlock(dragObject);
+                    attachPoint.GetComponent<BlockEditor>().AttachBlock(dragObject, attachPoint);
                     break;
                 }
             }
         }
 
-        if (dragObject.GetComponent<CodeBlockEditor>())
+        if (group == BlockEditor.BlockGroup.BLOCK)
         {
             AttachPoint[] attachPointsBelow = gameObject.GetComponentsInChildren<BelowAttachPoint>();
             foreach (var attachPoint in attachPointsBelow)
             {
-                
-
                 if (attachPoint.CheckIsInside(dragObject))
                 {
                     attachPoint.GetComponent<BlockEditor>().AttachBlock(dragObject);
@@ -163,22 +162,6 @@ public class CodeBoard : MonoBehaviour
                 BlockData blockData = new BlockData();
                 blockData.editorPosition = new Vector2(block.transform.localPosition.x, block.transform.localPosition.y);
                 block.ExportData(ref blockData);
-
-                if (block is CodeBlockEditor)
-                {
-                    CodeBlockEditor codeBlock = (block as CodeBlockEditor).nextBlock;
-                    List<BlockData> attachedBlocksList = new List<BlockData>();
-                    while (codeBlock != null)
-                    {
-                        BlockData attachedBlockData = new BlockData();
-                        codeBlock.ExportData(ref attachedBlockData);
-                        attachedBlocksList.Add(attachedBlockData);
-
-                        codeBlock = codeBlock.nextBlock;
-                    }
-                    blockData.blocks = attachedBlocksList.ToArray();
-                }
-
                 blocksList.Add(blockData);
             }
         }
@@ -221,11 +204,12 @@ public class CodeBoard : MonoBehaviour
             blockBoard.CreateMessage();
         }
 
-        if (data != null)
+        if (data != null && data.blocks != null)
         {
             foreach (var rootBlockData in data.blocks)
             {
-                GameObject rootBlock = blockBoard.CreateBlock(rootBlockData);
+                ParseBlock(rootBlockData);
+                /*GameObject rootBlock = blockBoard.CreateBlock(rootBlockData);
                 rootBlock.transform.localPosition = rootBlockData.editorPosition;
                 rootBlock.transform.localRotation = Quaternion.identity;
                 foreach (var childBlockData in rootBlockData.blocks)
@@ -234,9 +218,63 @@ public class CodeBoard : MonoBehaviour
                     childBlock.transform.localRotation = Quaternion.identity;
                     rootBlock.GetComponent<BlockEditor>().AttachBlock(childBlock);
                     rootBlock = childBlock;
+                }*/
+            }
+        }
+    }
+
+    private GameObject ParseBlock(BlockData blockData)
+    {
+        GameObject rootBlock = blockBoard.CreateBlock(blockData);
+        if (rootBlock)
+        {
+            rootBlock.transform.localPosition = blockData.editorPosition;
+            rootBlock.transform.localRotation = Quaternion.identity;
+            if (blockData.blocks != null)
+            {
+                GameObject nextBlockIterator = rootBlock;
+                foreach (var childBlockData in blockData.blocks)
+                {
+                    GameObject nextBlock = ParseBlock(childBlockData);
+                    //GameObject childBlock = blockBoard.CreateBlock(childBlockData);
+                    // childBlock.transform.localRotation = Quaternion.identity;
+                    nextBlockIterator.GetComponent<BlockEditor>().AttachBlock(nextBlock);
+                    nextBlockIterator = nextBlock;
+                }
+            }
+            if (blockData.childBlocks != null)
+            {
+                GameObject nextBlockIterator = null;
+                foreach (var childBlockData in blockData.childBlocks)
+                {
+                    GameObject nextBlock = ParseBlock(childBlockData);
+                    if (!nextBlockIterator)
+                    {
+                        rootBlock.GetComponent<BlockEditor>().AttachChildBlock(nextBlock);
+                    }
+                    else
+                    {
+                        nextBlockIterator.GetComponent<BlockEditor>().AttachBlock(nextBlock);
+                    }
+                    nextBlockIterator = nextBlock;
+                }
+            }
+            if (blockData.attachedBlocks != null)
+            {
+                for (int i = 0; i < blockData.attachedBlocks.Length; i++)
+                {
+                    BlockData childBlockData = blockData.attachedBlocks[i];
+                    GameObject nextBlock = ParseBlock(childBlockData);
+                    if (nextBlock)
+                    {
+                        //GameObject childBlock = blockBoard.CreateBlock(childBlockData);
+                        // childBlock.transform.localRotation = Quaternion.identity;
+                        rootBlock.GetComponent<BlockEditor>().AttachBlock(nextBlock, rootBlock.GetComponent<CodeBlockEditor>().variableAttachPoints[i]);
+                    }
                 }
             }
         }
+        return rootBlock;
     }
 
     public void SaveTest()

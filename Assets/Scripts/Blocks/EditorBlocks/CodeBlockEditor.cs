@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class CodeBlockEditor : BlockEditor
 {
@@ -15,9 +16,7 @@ public class CodeBlockEditor : BlockEditor
     public CodeBlockEditor parentBlock;
     public CodeBlockEditor childBlock;
 
-    public VariableAttachPoint variableAttachPoint;
-    public VariableEditor variableReference;
-    public GameObject variableEditText;
+    public VariableAttachPoint[] variableAttachPoints;
 
     public TMP_Dropdown objectReferenceDropDown;
     public TMP_Dropdown variableReferenceDropDown;
@@ -48,7 +47,7 @@ public class CodeBlockEditor : BlockEditor
                 objectReferenceDropDown.options.Add(new TMP_Dropdown.OptionData() { text = saveable.data.id.ToString() });
             }
         }
-        if (variableReferenceDropDown && messageReferenceDropDown.options.Count == 0)
+        if (variableReferenceDropDown && variableReferenceDropDown.options.Count == 0)
         {
             variableReferenceDropDown.AddOptions(codePanel.blockBoard.GetVariables());
         }
@@ -130,15 +129,20 @@ public class CodeBlockEditor : BlockEditor
             TMP_Dropdown.OptionData selected = objectReferenceDropDown.options.Find(it => it.text == "" + blockData.objectReference);
             objectReferenceDropDown.value = objectReferenceDropDown.options.IndexOf(selected);
         }
-        if (variableAttachPoint)
+        if (variableAttachPoints.Length > 0)
         {
-            if (blockData.paramString != null && blockData.paramString != "")
+            for (int i = 0; i < variableAttachPoints.Length; i++)
             {
-                variableReference.GetComponentInChildren<TextMeshProUGUI>().text = blockData.paramString;
-            } else
-            {
-                variableEditText.GetComponent<TMP_InputField>().text = "" + blockData.paramInt;
+                if (blockData.attachedBlocks.Length > i && blockData.attachedBlocks[i].blockType == "IntVariable") 
+                {
+                    variableAttachPoints[i].variableEditText.GetComponent<TMP_InputField>().text = "" + blockData.attachedBlocks[i].paramInt;
+                }
             }
+        }
+        if (variableReferenceDropDown)
+        {
+            TMP_Dropdown.OptionData selected = variableReferenceDropDown.options.Find(it => it.text == blockData.paramString);
+            variableReferenceDropDown.value = variableReferenceDropDown.options.IndexOf(selected);
         }
         if (messageReferenceDropDown)
         {
@@ -158,16 +162,27 @@ public class CodeBlockEditor : BlockEditor
         {
             blockData.objectReference = int.Parse(objectReferenceDropDown.options[objectReferenceDropDown.value].text);
         }
-        if (variableAttachPoint)
+        if (variableAttachPoints.Length > 0)
         {
-            if (variableReference)
+            List<BlockData> attachedBlocksList = new List<BlockData>();
+            foreach (var variableAttachPoint in variableAttachPoints)
             {
-                blockData.paramString = GetComponentInChildren<VariableEditor>().variableName;
+                BlockData variableBlockData = new BlockData();
+                if (variableAttachPoint.variableReference)
+                {
+                    variableAttachPoint.variableReference.ExportData(ref variableBlockData);
+                } else
+                {
+                    variableBlockData.blockType = "IntVariable";
+                    variableBlockData.paramInt = int.Parse(variableAttachPoint.variableEditText.GetComponent<TMP_InputField>().text);
+                }
+                attachedBlocksList.Add(variableBlockData);
             }
-            else
-            {
-                blockData.paramInt = int.Parse(variableEditText.GetComponent<TMP_InputField>().text);
-            }
+            blockData.attachedBlocks = attachedBlocksList.ToArray();
+        }
+        if (variableReferenceDropDown)
+        {
+            blockData.paramString = variableReferenceDropDown.options[variableReferenceDropDown.value].text;
         }
         if (messageReferenceDropDown)
         {
@@ -177,16 +192,41 @@ public class CodeBlockEditor : BlockEditor
         {
             blockData.paramInt = selectionDropDown.value;
         }
+        if (childAttachPoint && childBlock)
+        {
+            blockData.childBlocks = ExportBlockList(childBlock).ToArray();
+        }
+
+        if (nextBlock && !IsAttached())
+        {
+            blockData.blocks = ExportBlockList(nextBlock).ToArray();
+        }
+    }
+
+    public List<BlockData> ExportBlockList(CodeBlockEditor codeBlock)
+    {
+        List<BlockData> attachedBlocksList = new List<BlockData>();
+        while (codeBlock != null)
+        {
+            BlockData attachedBlockData = new BlockData();
+            codeBlock.ExportData(ref attachedBlockData);
+            attachedBlocksList.Add(attachedBlockData);
+
+            codeBlock = codeBlock.nextBlock;
+        }
+        return attachedBlocksList;
     }
 
     public override bool IsAttached()
     {
-        return previousBlock != null;
+        return previousBlock != null || parentBlock != null || attachPoint != null;
     }
 
-    public override void AttachBlock(GameObject attachObject)
+    public override void AttachBlock(GameObject attachObject, AttachPoint attachPoint = null)
     {
-        if (attachObject.GetComponent<CodeBlockEditor>()) {
+        BlockGroup group = attachObject.GetComponent<BlockEditor>().blockGroup;
+
+        if (group == BlockGroup.BLOCK) {
             attachObject.transform.position = nextAttachPoint.stickPoint.position;
             attachObject.gameObject.transform.SetParent(transform);
 
@@ -195,22 +235,48 @@ public class CodeBlockEditor : BlockEditor
 
             nextAttachPoint.Enable(false);
             attachObject.GetComponent<CodeBlockEditor>().previousAttachPoint.Enable(false);
-        } else if(attachObject.GetComponent<VariableEditor>())
+
+            if (First().parentBlock)
+            {
+                First().parentBlock.GetComponent<CodeBlockEditor>().Resize(false, 0);
+            }
+        } else if(group == BlockGroup.VARIABLE)
         {
+            VariableAttachPoint variableAttachPoint = attachPoint as VariableAttachPoint;
             attachObject.transform.position = variableAttachPoint.stickPoint.position;
-            attachObject.gameObject.transform.SetParent(transform);
+            attachObject.gameObject.transform.SetParent(variableAttachPoint.stickPoint.transform.parent);
+
+            attachObject.gameObject.transform.SetSiblingIndex(variableAttachPoint.stickPoint.transform.transform.GetSiblingIndex() + 1);
 
             variableAttachPoint.Enable(false);
-            variableEditText.SetActive(false);
+            variableAttachPoint.variableEditText.SetActive(false);
 
-            variableReference = attachObject.GetComponent<VariableEditor>();
-            attachObject.GetComponent<VariableEditor>().attachPoint = variableAttachPoint;
+            variableAttachPoint.variableReference = attachObject.GetComponent<BlockEditor>();
+            attachObject.GetComponent<BlockEditor>().attachPoint = variableAttachPoint;
+
+
+            //refresh parent
+            if (this.attachPoint)
+            {
+                this.attachPoint.GetComponentInParent<CodeBlockEditor>().UpdateHorizontalSize();
+                //LayoutRebuilder.ForceRebuildLayoutImmediate(variableAttachPoint.stickPoint.transform.parent.GetComponent<RectTransform>());
+            }
+        }
+    }
+
+    private void UpdateHorizontalSize()
+    {
+        LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponentInChildren<HorizontalLayoutGroup>().gameObject.GetComponent<RectTransform>());
+        if (this.attachPoint)
+        {            
+            this.attachPoint.GetComponentInParent<CodeBlockEditor>().UpdateHorizontalSize();
         }
     }
 
     public override void DetachBlock(GameObject detachObject)
     {
-        if (detachObject.GetComponent<CodeBlockEditor>())
+        BlockGroup group = detachObject.GetComponent<BlockEditor>().blockGroup;
+        if (group == BlockGroup.BLOCK)
         {
             detachObject.gameObject.transform.SetParent(codePanel.gameObject.transform);
             detachObject.GetComponent<CodeBlockEditor>().previousBlock = null;
@@ -219,15 +285,16 @@ public class CodeBlockEditor : BlockEditor
             nextAttachPoint.Enable(true);
             detachObject.GetComponent<CodeBlockEditor>().previousAttachPoint.Enable(true);
         }
-        else if (detachObject.GetComponent<VariableEditor>())
+        else if (group == BlockGroup.VARIABLE)
         {
+            VariableAttachPoint variableAttachPoint = detachObject.GetComponent<BlockEditor>().attachPoint as VariableAttachPoint;
             detachObject.gameObject.transform.SetParent(codePanel.gameObject.transform);
 
             variableAttachPoint.Enable(true);
-            variableEditText.SetActive(true);
+            variableAttachPoint.variableEditText.SetActive(true);
 
-            variableReference = null;
-            detachObject.GetComponent<VariableEditor>().attachPoint = null;
+            variableAttachPoint.variableReference = null;
+            detachObject.GetComponent<BlockEditor>().attachPoint = null;
         }
     }
 

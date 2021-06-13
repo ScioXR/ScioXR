@@ -1,25 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class VariableEditor : BlockEditor
 {
-    public VariableAttachPoint attachPoint;
     public string variableName;
-
-    public override void OnBeginDrag(PointerEventData eventData)
-    {
-        base.OnBeginDrag(eventData);
-
-        if (attachPoint != null)
-        {
-            attachPoint.GetComponent<BlockEditor>().DetachBlock(gameObject);
-        }
-    }
 
     public override bool IsAttached()
     {
         return attachPoint != null;
+    }
+
+    public override void ExportData(ref BlockData blockData)
+    {
+        base.ExportData(ref blockData);
+        blockData.paramString = variableName;
+    }
+
+    public override void ImportData(BlockData blockData)
+    {
+        base.ImportData(blockData);
+        variableName = blockData.paramString;
+        GetComponentInChildren<TextMeshProUGUI>().text = variableName;
     }
 }
