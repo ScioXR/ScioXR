@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Saveable : MonoBehaviour
 {
@@ -92,6 +93,11 @@ public class Saveable : MonoBehaviour
         GetComponent<MeshRenderer>().material.color = color;
     }
 
+    public void SetTag(Text tag)
+    {
+        data.tag = tag.text;
+    }
+
     public ObjectData GetSavableData()
     {
         data.parent = gameObject.transform.parent ? gameObject.transform.parent.gameObject.GetComponent<Saveable>().data.id : 0;
@@ -100,6 +106,7 @@ public class Saveable : MonoBehaviour
         data.rotation = transform.rotation;
         data.scale = transform.localScale;
         data.isVisible = gameObject.activeInHierarchy ? 1 : 0;
+
         return data;
     }
 }

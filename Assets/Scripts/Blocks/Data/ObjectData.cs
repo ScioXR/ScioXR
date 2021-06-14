@@ -20,5 +20,5 @@ public class ObjectData
     public PhysicsData physics = new PhysicsData();
     public TextData text = new TextData();
     public CodeData code = new CodeData();
-
+    public string tag = "";
 }

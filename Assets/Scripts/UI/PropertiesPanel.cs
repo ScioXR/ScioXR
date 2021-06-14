@@ -15,11 +15,17 @@ public class PropertiesPanel : XRPanel
     public TextMeshProUGUI parentText;
     public Button parentButton;
     public Toggle interactableToggle;
+    public InputField tagInputField;
+    public List<string> tags = new List<string>();
 
     public override void Show()
     {
         base.Show();
         selectedObject = EditorManager.instance.selectedObject;
+        if (selectedObject.GetComponent<Saveable>().data.tag != null)
+        {
+            tagInputField.GetComponent<InputField>().text = selectedObject.GetComponent<Saveable>().data.tag;
+        }
     }
 
     void Update()
@@ -57,7 +63,8 @@ public class PropertiesPanel : XRPanel
             modelScaleText.GetComponent<TextMeshProUGUI>().text = ObjectScale;
 
             interactableToggle.isOn = selectedObject.GetComponent<Saveable>().data.isInteractable;
-
+        
+           
             //update parent info
             parentText.text = selectedObject.transform.parent ? "" + selectedObject.transform.parent.GetComponent<Saveable>().data.id : "<NONE>";
         }
@@ -81,5 +88,25 @@ public class PropertiesPanel : XRPanel
     public void SetInteractable(bool interactable)
     {
         selectedObject.GetComponent<Saveable>().data.isInteractable = interactable;
+    }
+
+    public void AddTagToList()
+    {
+        //A list should be added to Savable data
+        if (tags.Contains(tagInputField.GetComponentInChildren<Text>().text))
+        {
+            Debug.Log("Tag already exist in list");
+        }
+        else
+        {
+            tags.Add(tagInputField.GetComponentInChildren<Text>().text);
+            EditorManager.instance.selectedObject.GetComponent<Saveable>().data.tag = tagInputField.GetComponentInChildren<Text>().text;
+            SetTag(tagInputField.GetComponentInChildren<Text>());
+        }
+    }
+
+    public void SetTag(Text tag)
+    {
+        EditorManager.instance.selectedObject.GetComponent<Saveable>().SetTag(tag);
     }
 }
