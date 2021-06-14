@@ -13,13 +13,8 @@ public class WaitControl : Block
 
     public override void Resolve(BlockData blockData)
     {
-        if (blockData.paramString != "")
-        {
-
-        } else
-        {
-            waitTime = new IntVariable(blockData.paramInt);
-        }
+        Block variableBlock = codeController.Resolve(blockData.attachedBlocks[0]);
+        waitTime = variableBlock as Variable;
     }
 
     public void DelayDo()

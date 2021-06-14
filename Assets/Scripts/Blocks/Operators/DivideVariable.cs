@@ -2,14 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GreaterCondition : Condition
+public class DivideVariable : Variable
 {
     public Variable value1;
     public Variable value2;
 
-    public override bool IsTrue()
+    public override string GetText()
     {
-        return value1.GetValue() > value2.GetValue();
+        throw new System.NotImplementedException();
+    }
+
+    public override int GetValue()
+    {
+        return value1.GetValue() / value2.GetValue();
     }
 
     public override void Resolve(BlockData blockData)

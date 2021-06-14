@@ -708,7 +708,9 @@ MonoBehaviour:
   childAttachPoint: {fileID: 0}
   parentBlock: {fileID: 0}
   childBlock: {fileID: 0}
-  variableAttachPoints: []
+  variableAttachPoints:
+  - {fileID: 1422346175167425933}
+  conditionalAttachPoint: {fileID: 0}
   objectReferenceDropDown: {fileID: 2498760033823843561}
   variableReferenceDropDown: {fileID: 0}
   messageReferenceDropDown: {fileID: 0}

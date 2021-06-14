@@ -20,4 +20,9 @@ public class IntVariable : Variable
     {
         return "" + value;
     }
+
+    public override void Resolve(BlockData blockData)
+    {
+        value = blockData.paramInt;
+    }
 }

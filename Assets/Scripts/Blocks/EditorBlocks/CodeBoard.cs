@@ -23,6 +23,16 @@ public class CodeBoard : MonoBehaviour
             }
         }
 
+        if (group == BlockEditor.BlockGroup.CONDITION)
+        {
+            AttachPoint[] attachPoints = gameObject.GetComponentsInChildren<ConditionAttachPoint>();
+            foreach (var attachPoint in attachPoints)
+            {
+                bool inside = attachPoint.CheckIsInside(dragObject);
+                attachPoint.UpdateHighlight(inside);
+            }
+        }
+
         if (group == BlockEditor.BlockGroup.BLOCK)
         {
             if (dragObject.GetComponent<CodeBlockEditor>().previousAttachPoint) {
@@ -77,6 +87,19 @@ public class CodeBoard : MonoBehaviour
         if (group == BlockEditor.BlockGroup.VARIABLE)
         {
             AttachPoint[] attachPoints = gameObject.GetComponentsInChildren<VariableAttachPoint>();
+            foreach (var attachPoint in attachPoints)
+            {
+                if (attachPoint.CheckIsInside(dragObject))
+                {
+                    attachPoint.GetComponent<BlockEditor>().AttachBlock(dragObject, attachPoint);
+                    break;
+                }
+            }
+        }
+
+        if (group == BlockEditor.BlockGroup.CONDITION)
+        {
+            AttachPoint[] attachPoints = gameObject.GetComponentsInChildren<ConditionAttachPoint>();
             foreach (var attachPoint in attachPoints)
             {
                 if (attachPoint.CheckIsInside(dragObject))
@@ -267,9 +290,14 @@ public class CodeBoard : MonoBehaviour
                     GameObject nextBlock = ParseBlock(childBlockData);
                     if (nextBlock)
                     {
-                        //GameObject childBlock = blockBoard.CreateBlock(childBlockData);
-                        // childBlock.transform.localRotation = Quaternion.identity;
-                        rootBlock.GetComponent<BlockEditor>().AttachBlock(nextBlock, rootBlock.GetComponent<CodeBlockEditor>().variableAttachPoints[i]);
+                        BlockEditor.BlockGroup group = nextBlock.GetComponent<BlockEditor>().blockGroup;
+                        if (group == BlockEditor.BlockGroup.CONDITION)
+                        {
+                            rootBlock.GetComponent<BlockEditor>().AttachBlock(nextBlock, rootBlock.GetComponent<CodeBlockEditor>().conditionalAttachPoint);
+                        } else if (group == BlockEditor.BlockGroup.VARIABLE)
+                        {
+                            rootBlock.GetComponent<BlockEditor>().AttachBlock(nextBlock, rootBlock.GetComponent<CodeBlockEditor>().variableAttachPoints[i]);
+                        }
                     }
                 }
             }

@@ -17,6 +17,7 @@ public class CodeBlockEditor : BlockEditor
     public CodeBlockEditor childBlock;
 
     public VariableAttachPoint[] variableAttachPoints;
+    public ConditionAttachPoint conditionalAttachPoint;
 
     public TMP_Dropdown objectReferenceDropDown;
     public TMP_Dropdown variableReferenceDropDown;
@@ -180,6 +181,17 @@ public class CodeBlockEditor : BlockEditor
             }
             blockData.attachedBlocks = attachedBlocksList.ToArray();
         }
+        if (conditionalAttachPoint)
+        {
+            List<BlockData> attachedBlocksList = new List<BlockData>();
+            BlockData conditionBlockData = new BlockData();
+            if (conditionalAttachPoint.conditionReference)
+            {
+                conditionalAttachPoint.conditionReference.ExportData(ref conditionBlockData);
+            }
+            attachedBlocksList.Add(conditionBlockData);
+            blockData.attachedBlocks = attachedBlocksList.ToArray();
+        }
         if (variableReferenceDropDown)
         {
             blockData.paramString = variableReferenceDropDown.options[variableReferenceDropDown.value].text;
@@ -262,6 +274,28 @@ public class CodeBlockEditor : BlockEditor
                 //LayoutRebuilder.ForceRebuildLayoutImmediate(variableAttachPoint.stickPoint.transform.parent.GetComponent<RectTransform>());
             }
         }
+        else if (group == BlockGroup.CONDITION)
+        {
+            ConditionAttachPoint conditionAttachPoint = attachPoint as ConditionAttachPoint;
+            attachObject.transform.position = conditionAttachPoint.stickPoint.position;
+            attachObject.gameObject.transform.SetParent(conditionAttachPoint.stickPoint.transform.parent);
+
+            attachObject.gameObject.transform.SetSiblingIndex(conditionAttachPoint.stickPoint.transform.transform.GetSiblingIndex() + 1);
+
+            conditionAttachPoint.Enable(false);
+            conditionAttachPoint.stickPoint.gameObject.SetActive(false);
+
+            conditionAttachPoint.conditionReference = attachObject.GetComponent<BlockEditor>();
+            attachObject.GetComponent<BlockEditor>().attachPoint = conditionAttachPoint;
+
+
+            //refresh parent
+            if (this.attachPoint)
+            {
+                this.attachPoint.GetComponentInParent<CodeBlockEditor>().UpdateHorizontalSize();
+                //LayoutRebuilder.ForceRebuildLayoutImmediate(variableAttachPoint.stickPoint.transform.parent.GetComponent<RectTransform>());
+            }
+        }
     }
 
     private void UpdateHorizontalSize()
@@ -294,6 +328,17 @@ public class CodeBlockEditor : BlockEditor
             variableAttachPoint.variableEditText.SetActive(true);
 
             variableAttachPoint.variableReference = null;
+            detachObject.GetComponent<BlockEditor>().attachPoint = null;
+        }
+        else if (group == BlockGroup.CONDITION)
+        {
+            ConditionAttachPoint conditionAttachPoint = detachObject.GetComponent<BlockEditor>().attachPoint as ConditionAttachPoint;
+            detachObject.gameObject.transform.SetParent(codePanel.gameObject.transform);
+
+            conditionAttachPoint.Enable(true);
+            conditionAttachPoint.stickPoint.gameObject.SetActive(true);
+
+            conditionAttachPoint.conditionReference = null;
             detachObject.GetComponent<BlockEditor>().attachPoint = null;
         }
     }
