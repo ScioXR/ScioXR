@@ -92,10 +92,10 @@ public class PlatformLoader : MonoBehaviour
         foreach (var hand in hands)
         {
             hand.enabled = !enable;
-            Debug.Log("HideHands111111 " + hand);
+           // Debug.Log("HideHands111111 " + hand);
         }
         controllerLeft.SetActive(enable);
         controllerRight.SetActive(enable);
-        Debug.Log("HideHands " + enable);
+       // Debug.Log("HideHands " + enable);
     }
 }

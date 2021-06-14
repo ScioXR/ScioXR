@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class ImportModelMenu : XRPanel
 {
+    public bool isBasic;
     public TextMeshProUGUI loadingText;
     public TextMeshProUGUI pageText;
     public Transform cardStartPosition;
@@ -28,7 +29,14 @@ public class ImportModelMenu : XRPanel
 
         if (!isListCreated)
         {
-            CreateModelCards();
+            if (!isBasic)
+            {
+                CreateModelCards();
+            } else
+            {
+                CreateBasicModelCards();
+            }
+      
         }
     }
 
@@ -80,6 +88,59 @@ public class ImportModelMenu : XRPanel
             SetPage(0);
         }));
     }
+
+
+    public void CreateBasicModelCards()
+    {
+        isListCreated = true;
+        Vector3 position = cardStartPosition.transform.localPosition;
+
+        StartCoroutine(AssetsLoader.GetBasicModelsList(result => {
+            loadingText.gameObject.SetActive(false);
+            for (int i = 0; i < result.Count; i++)
+            {
+                string modelName = result[i];
+               // Debug.Log("Card: " + modelName);
+                int gridX = models.Count % modelsInRow;
+                int gridY = (models.Count % modelsPerPage) / modelsInRow;
+
+                GameObject modelCard = Instantiate(modelCardPrefab, transform);
+                modelCard.name = modelName;
+                modelCard.GetComponentInChildren<TextMeshProUGUI>().text = modelName;
+                modelCard.transform.localPosition = new Vector3(cardStartPosition.transform.localPosition.x + gridX * spaceBetweenCardsX, cardStartPosition.transform.localPosition.y - gridY * spaceBetweenCardsY, cardStartPosition.transform.localPosition.z);
+                models.Add(modelCard);
+
+
+                StartCoroutine(AssetsLoader.ImportBasicModel(modelName, importedObject =>
+                {
+                    GameObject importedModel = importedObject;
+                    if (importedModel != null)
+                    {
+                        GameObject model = Instantiate(importedModel, modelCard.transform.parent, true) as GameObject;
+                        model.transform.parent = modelCard.transform;
+                        PrepareModel(model, modelName);
+
+                        ModelSelecter modelSelecter = modelCard.AddComponent<ModelSelecter>();
+                        modelSelecter.modelObject = model;
+
+                        modelCard.GetComponent<Button>().onClick.AddListener(modelSelecter.CreateModel);
+
+                        Vector3 size = Vector3.Scale(model.transform.localScale, model.GetComponentInChildren<MeshFilter>().mesh.bounds.size);
+                        float modelSize = Math.Max(size.x, Math.Max(size.y, size.z));
+
+                        if (modelSize > modelsMaxSize)
+                        {
+                            model.transform.localScale /= (modelSize / modelsMaxSize);
+                        }
+
+                        model.transform.localPosition = modelOffset;
+                    }
+                }));
+            }
+            SetPage(0);
+        }));
+    }
+
 
     public void SetPage(int pageIndex)
     {
