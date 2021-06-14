@@ -106,6 +106,10 @@ public class CodeController : MonoBehaviour
         {
             result = gameObject.AddComponent<HideLook>();
         }
+        else if (blockData.blockType == "SetColorLook")
+        {
+            result = gameObject.AddComponent<SetColorLook>();
+        }
         else if (blockData.blockType == "DestroyControl")
         {
             result = gameObject.AddComponent<DestroyControl>();

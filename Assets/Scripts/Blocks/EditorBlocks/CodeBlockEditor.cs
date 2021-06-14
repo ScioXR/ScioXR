@@ -24,6 +24,8 @@ public class CodeBlockEditor : BlockEditor
     public TMP_Dropdown messageReferenceDropDown;
     public TMP_Dropdown selectionDropDown;
 
+    public Image colorVariable;
+
     private float resizableStartHeight;
     public float resizableOffsetHeight;
     public GameObject resizableBottom;
@@ -154,6 +156,12 @@ public class CodeBlockEditor : BlockEditor
         {
             selectionDropDown.value = blockData.paramInt;
         }
+        if (colorVariable)
+        {
+            Color serializedColor;
+            ColorUtility.TryParseHtmlString("#" + blockData.paramString, out serializedColor);
+            colorVariable.color = serializedColor;
+        }
     }
 
     public override void ExportData(ref BlockData blockData)
@@ -203,6 +211,10 @@ public class CodeBlockEditor : BlockEditor
         if (selectionDropDown)
         {
             blockData.paramInt = selectionDropDown.value;
+        }
+        if (colorVariable)
+        {
+            blockData.paramString = ColorUtility.ToHtmlStringRGBA(colorVariable.color);
         }
         if (childAttachPoint && childBlock)
         {
@@ -491,5 +503,10 @@ public class CodeBlockEditor : BlockEditor
             iterator = iterator.nextBlock;
         }
         return blockSize;
+    }
+
+    public void OpenColorPicker()
+    {
+        codePanel.ToggleColorPicker(this);
     }
 }

@@ -1,14 +1,20 @@
-﻿using System;
+﻿using HSVPicker;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class CodeBoard : MonoBehaviour
+public class CodeBoard : MonoBehaviour, IPointerClickHandler
 {
     public BlocksBoard blockBoard;
 
     public bool shouldSave;
+
+    public ColorPicker colorPicker;
+    public Vector3 colorPickerOffset;
+    public CodeBlockEditor selectedBlock;
 
     public void UpdateHighlights(GameObject dragObject)
     {
@@ -340,6 +346,32 @@ public class CodeBoard : MonoBehaviour
         else
         {
             Debug.LogError("There is no SaveData!");
+        }
+    }
+
+    public void ToggleColorPicker(CodeBlockEditor blockEditor)
+    {
+        colorPicker.gameObject.SetActive(!colorPicker.gameObject.activeSelf);
+        if (blockEditor)
+        {
+            colorPicker.gameObject.transform.position = blockEditor.transform.position + new Vector3(colorPickerOffset.x * blockEditor.transform.lossyScale.x, colorPickerOffset.y * blockEditor.transform.lossyScale.y, colorPickerOffset.z * blockEditor.transform.lossyScale.z);
+        }
+        selectedBlock = blockEditor;
+    }
+
+    public void OnColorPicked()
+    {
+        if (selectedBlock)
+        {
+            selectedBlock.colorVariable.color = colorPicker.CurrentColor;
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (colorPicker.gameObject.activeSelf)
+        {
+            ToggleColorPicker(null);
         }
     }
 }
