@@ -82,6 +82,11 @@ public class MaterialsPanel : XRPanel
         EditorManager.instance.selectedObject.GetComponent<Saveable>().SetTexture(textureName, tex);
     }
 
+    public void ClearCurrentMaterial()
+    {
+        EditorManager.instance.selectedObject.GetComponent<Saveable>().ClearTexture();
+    }
+
     public void SelectColor(Color color)
     {
         EditorManager.instance.selectedObject.GetComponent<Saveable>().SetColor(color);

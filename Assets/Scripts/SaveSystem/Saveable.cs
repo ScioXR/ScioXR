@@ -87,6 +87,12 @@ public class Saveable : MonoBehaviour
         GetComponent<MeshRenderer>().material.mainTexture = textureAsset;
     }
 
+    public void ClearTexture()
+    {
+        data.texture = "";
+        GetComponent<MeshRenderer>().material.mainTexture = null;
+    }
+
     public void SetColor(Color color)
     {
         data.color = ColorUtility.ToHtmlStringRGBA(color);
