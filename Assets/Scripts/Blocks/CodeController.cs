@@ -42,48 +42,104 @@ public class CodeController : MonoBehaviour
         {
             result = gameObject.AddComponent<StartEvent>();
         }
-        if (blockData.blockType == "WaitControl")
+        else if (blockData.blockType == "IfControl")
+        {
+            result = gameObject.AddComponent<IfControl>();
+        }
+        else if (blockData.blockType == "WaitControl")
         {
             result = gameObject.AddComponent<WaitControl>();
         }
-        if (blockData.blockType == "MoveMotion")
+        else if (blockData.blockType == "MoveMotion")
         {
             result = gameObject.AddComponent<MoveMotion>();
         }
-        if (blockData.blockType == "PointsTowardMotion")
+        else if (blockData.blockType == "PointsTowardMotion")
         {
             result = gameObject.AddComponent<PointsTowardMotion>();
         }
-        if (blockData.blockType == "ShowLook")
+        else if (blockData.blockType == "Variable")
+        {
+            result = VariablesManager.instance.GetVariable(blockData.paramString);
+        }
+        else if (blockData.blockType == "SetVariable")
+        {
+            result = gameObject.AddComponent<SetVariable>();
+        }
+        else if (blockData.blockType == "IntVariable")
+        {
+            result = gameObject.AddComponent<IntVariable>();
+        }
+        else if (blockData.blockType == "StringVariable")
+        {
+            result = gameObject.AddComponent<StringVariable>();
+        }
+        else if (blockData.blockType == "AddVariable")
+        {
+            result = gameObject.AddComponent<AddVariable>();
+        }
+        else if (blockData.blockType == "SubtractVariable")
+        {
+            result = gameObject.AddComponent<SubtractVariable>();
+        }
+        else if (blockData.blockType == "MultiplyVariable")
+        {
+            result = gameObject.AddComponent<MultiplyVariable>();
+        }
+        else if (blockData.blockType == "DivideVariable")
+        {
+            result = gameObject.AddComponent<DivideVariable>();
+        }
+        else if (blockData.blockType == "EqualsCondition")
+        {
+            result = gameObject.AddComponent<EqualsCondition>();
+        }
+        else if (blockData.blockType == "LessCondition")
+        {
+            result = gameObject.AddComponent<LessCondition>();
+        }
+        else if (blockData.blockType == "GreaterCondition")
+        {
+            result = gameObject.AddComponent<GreaterCondition>();
+        }
+        else if (blockData.blockType == "ShowLook")
         {
             result = gameObject.AddComponent<ShowLook>();
         }
-        if (blockData.blockType == "HideLook")
+        else if (blockData.blockType == "HideLook")
         {
             result = gameObject.AddComponent<HideLook>();
         }
-        if (blockData.blockType == "DestroyControl")
+        else if (blockData.blockType == "SetTextLook")
+        {
+            result = gameObject.AddComponent<SetTextLook>();
+        }
+        else if (blockData.blockType == "SetColorLook")
+        {
+            result = gameObject.AddComponent<SetColorLook>();
+        }
+        else if (blockData.blockType == "DestroyControl")
         {
             result = gameObject.AddComponent<DestroyControl>();
         }
-        if (blockData.blockType == "ReceiveEvent")
+        else if (blockData.blockType == "ReceiveEvent")
         {
             result = gameObject.AddComponent<ReceiveEvent>();
         }
-        if (blockData.blockType == "BroadcastEvent")
+        else if (blockData.blockType == "BroadcastEvent")
         {
             result = gameObject.AddComponent<BroadcastEvent>();
         }
-        if (blockData.blockType == "InteractEvent")
+        else if (blockData.blockType == "InteractEvent")
         {
             result = gameObject.AddComponent<InteractEvent>();
         }
-        if (blockData.blockType == "SetInteractableSensing")
+        else if (blockData.blockType == "SetInteractableSensing")
         {
-            result = gameObject.AddComponent<InteractEvent>();
+            //result = gameObject.AddComponent<InteractEvent>();
         }
-        result.Resolve(blockData);
         result.codeController = this;
+        result.Resolve(blockData);
 
         //resolve childs
         Block lastBlock = result;

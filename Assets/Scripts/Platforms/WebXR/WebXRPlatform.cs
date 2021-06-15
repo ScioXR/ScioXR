@@ -22,6 +22,7 @@ public class WebXRPlatform : Platform
         {
             loadedModel.AddComponent<WebXRGrabInteractable>();
         }
+        loadedModel.AddComponent<WebXRInteract>();
     }
 
     public override void SetupEditorObject(GameObject loadedModel, ObjectData data)

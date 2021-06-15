@@ -4,4 +4,5 @@ using UnityEngine;
 
 public class ConditionAttachPoint : AttachPoint
 {
+    public BlockEditor conditionReference;
 }

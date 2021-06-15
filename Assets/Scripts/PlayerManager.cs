@@ -36,6 +36,7 @@ public class PlayerManager : MonoBehaviour
             SaveCollection dataJson = ScioXRSceneManager.instance.LoadFromJson(AppManager.instance.GetScenePath());
             ScioXRSceneManager.instance.SetEnvironment(dataJson.environment);
             MessagesManager.instance.InitMessages(dataJson.globalData.messages);
+            VariablesManager.instance.InitVariables(dataJson.globalData.variables);
             
             ScioXRSceneManager.instance.CreateLoadedObjects(dataJson, false);
         }

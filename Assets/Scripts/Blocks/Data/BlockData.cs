@@ -12,5 +12,8 @@ public class BlockData
     public string paramString;
     public int objectReference;
 
+    public BlockData[] childBlocks;
+    public BlockData[] attachedBlocks;
+
     public BlockData[] blocks;
 }

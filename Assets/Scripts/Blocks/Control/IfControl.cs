@@ -18,4 +18,23 @@ public class IfControl : Block
         }
         base.Do();
     }
+
+    public override void Resolve(BlockData blockData)
+    {
+        condition = codeController.Resolve(blockData.attachedBlocks[0]) as Condition;
+
+        Block lastBlock = null;
+        foreach (var childBlockData in blockData.childBlocks)
+        {
+            Block childBlock = codeController.Resolve(childBlockData);
+            if (!lastBlock)
+            {
+                insideBlock = childBlock;
+            } else
+            {
+                lastBlock.AddBlock(childBlock);
+            }
+            lastBlock = childBlock;
+        }
+    }
 }

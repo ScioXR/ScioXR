@@ -51,29 +51,41 @@ public class BlocksBoard : MonoBehaviour
 
     public GameObject CreateBlock(BlockData blockData)
     {
-        foreach (var blockPrefab in blocksPrefabs)
+        GameObject newBlock = null;
+        if (blockData.blockType == "Variable")
         {
-            if (blockPrefab.name == blockData.blockType)
+            newBlock = Instantiate(variablePrefab, blockData.editorPosition, Quaternion.identity, codeBoard.gameObject.transform);
+        }
+        else
+        {
+            foreach (var blockPrefab in blocksPrefabs)
             {
-                GameObject newBlock = Instantiate(blockPrefab, blockData.editorPosition, Quaternion.identity, codeBoard.gameObject.transform);
-                BlockEditor blockEditor = newBlock.GetComponent<BlockEditor>();
-                blockEditor.codePanel = codeBoard;
-                if (blockEditor is CodeBlockEditor)
+                if (blockPrefab.name == blockData.blockType)
                 {
-                    CodeBlockEditor codeBlock = blockEditor as CodeBlockEditor;
-                    if (codeBlock.variableAttachPoint && blockData.paramString != null && blockData.paramString != "")
-                    {
-                        GameObject variableObject = Instantiate(variablePrefab, newBlock.transform);
-                        variableObject.GetComponentInChildren<TextMeshProUGUI>().text = blockData.paramString;
-                        variableObject.GetComponent<BlockEditor>().codePanel = codeBoard;
-                        blockEditor.AttachBlock(variableObject);
-                    }
+                    newBlock = Instantiate(blockPrefab, blockData.editorPosition, Quaternion.identity, codeBoard.gameObject.transform);
+                    break;
                 }
-                blockEditor.ImportData(blockData);
-                return newBlock;
             }
         }
-        return null;
+
+        if (newBlock)
+        {
+            BlockEditor blockEditor = newBlock.GetComponent<BlockEditor>();
+            blockEditor.codePanel = codeBoard;
+            if (blockEditor is CodeBlockEditor)
+            {
+                CodeBlockEditor codeBlock = blockEditor as CodeBlockEditor;
+                /*if (codeBlock.variableAttachPoints.Length > 0 && blockData.paramString != null && blockData.paramString != "")
+                {
+                    GameObject variableObject = Instantiate(variablePrefab, newBlock.transform);
+                    variableObject.GetComponentInChildren<TextMeshProUGUI>().text = blockData.paramString;
+                    variableObject.GetComponent<BlockEditor>().codePanel = codeBoard;
+                    blockEditor.AttachBlock(variableObject);
+                }*/
+            }
+            blockEditor.ImportData(blockData);
+        }
+        return newBlock;
     }
 
     public List<string> GetVariables()

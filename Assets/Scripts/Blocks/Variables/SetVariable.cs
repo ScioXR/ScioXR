@@ -12,4 +12,10 @@ public class SetVariable : Block
         intVariable.value = newValue.GetValue();
         base.Do();
     }
+
+    public override void Resolve(BlockData blockData)
+    {
+        intVariable = VariablesManager.instance.GetVariable(blockData.paramString);
+        newValue = codeController.Resolve(blockData.attachedBlocks[0]) as Variable;
+    }
 }

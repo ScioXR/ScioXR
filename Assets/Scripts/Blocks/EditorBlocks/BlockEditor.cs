@@ -6,12 +6,21 @@ using UnityEngine.EventSystems;
 
 public class BlockEditor : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    public enum BlockGroup
+    {
+        BLOCK,
+        CONDITION,
+        VARIABLE
+    }
+    public BlockGroup blockGroup;
     public string blockType;
     public CodeBoard codePanel;
 
     private Vector2 deltaDrag;
 
-    public virtual void AttachBlock(GameObject attachObject)
+    public AttachPoint attachPoint;
+
+    public virtual void AttachBlock(GameObject attachObject, AttachPoint attachPoint = null)
     {
 
     }
@@ -50,6 +59,12 @@ public class BlockEditor : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
     {
         CalculateOffset(eventData.position);
         transform.SetAsLastSibling();
+
+        if (attachPoint != null)
+        {
+            attachPoint.GetComponent<BlockEditor>().DetachBlock(gameObject);
+            CalculateOffset(eventData.position);
+        }
     }
 
     public void CalculateOffset(Vector3 screenPos)

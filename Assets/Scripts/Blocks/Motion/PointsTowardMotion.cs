@@ -47,15 +47,7 @@ public class PointsTowardMotion : Block
 
     public override void Resolve(BlockData blockData)
     {
-        if (blockData.paramString != "")
-        {
-            //variable reference
-        }
-        else
-        {
-            //integer reference
-            movingTime = new IntVariable(blockData.paramInt);
-        }
+        movingTime = codeController.Resolve(blockData.attachedBlocks[0]) as Variable;
         targetId = blockData.objectReference;
     }
 }

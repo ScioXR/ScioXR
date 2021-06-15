@@ -1,46 +1,75 @@
-﻿using System;
+﻿using HSVPicker;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class CodeBoard : MonoBehaviour
+public class CodeBoard : MonoBehaviour, IPointerClickHandler
 {
     public BlocksBoard blockBoard;
 
     public bool shouldSave;
 
+    public ColorPicker colorPicker;
+    public Vector3 colorPickerOffset;
+    public CodeBlockEditor selectedBlock;
+
     public void UpdateHighlights(GameObject dragObject)
     {
-        if (dragObject.GetComponent<VariableEditor>())
+        BlockEditor.BlockGroup group = dragObject.GetComponent<BlockEditor>().blockGroup;
+        if (group == BlockEditor.BlockGroup.VARIABLE)
         {
             AttachPoint[] attachPoints = gameObject.GetComponentsInChildren<VariableAttachPoint>();
             foreach (var attachPoint in attachPoints)
             {
-                attachPoint.CheckIsInside(dragObject);
+                bool inside = attachPoint.CheckIsInside(dragObject);
+                attachPoint.UpdateHighlight(inside);
             }
         }
 
-        if (dragObject.GetComponent<CodeBlockEditor>())
+        if (group == BlockEditor.BlockGroup.CONDITION)
+        {
+            AttachPoint[] attachPoints = gameObject.GetComponentsInChildren<ConditionAttachPoint>();
+            foreach (var attachPoint in attachPoints)
+            {
+                bool inside = attachPoint.CheckIsInside(dragObject);
+                attachPoint.UpdateHighlight(inside);
+            }
+        }
+
+        if (group == BlockEditor.BlockGroup.BLOCK)
         {
             if (dragObject.GetComponent<CodeBlockEditor>().previousAttachPoint) {
                 AttachPoint[] attachPointsBelow = gameObject.GetComponentsInChildren<BelowAttachPoint>();
                 foreach (var attachPoint in attachPointsBelow)
                 {
                     bool inside = attachPoint.CheckIsInside(dragObject);
+                    bool changedHighlight = attachPoint.UpdateHighlight(inside);
 
-                    //if its in inside block we need to resize
-                    if (attachPoint.GetComponent<CodeBlockEditor>().parentBlock)
+                    if (changedHighlight)
                     {
-                        float hoverObjectHeight = dragObject.GetComponent<RectTransform>().rect.height;
-                        attachPoint.GetComponent<CodeBlockEditor>().parentBlock.GetComponent<CodeBlockEditor>().Resize(inside, hoverObjectHeight);
+                        //if its in inside block we need to resize
+                        if (attachPoint.GetComponent<CodeBlockEditor>().First().parentBlock)
+                        {
+                            float hoverObjectHeight = dragObject.GetComponent<CodeBlockEditor>().CalculateSize();
+                            attachPoint.GetComponent<CodeBlockEditor>().First().parentBlock.GetComponent<CodeBlockEditor>().Resize(inside, hoverObjectHeight);
+                        }
                     }
                 }
 
                 AttachPoint[] attachPointsInside = gameObject.GetComponentsInChildren<InsideAttachPoint>();
                 foreach (var attachPoint in attachPointsInside)
                 {
-                    attachPoint.CheckIsInside(dragObject);
+                    bool inside = attachPoint.CheckIsInside(dragObject);
+                    bool changedHighlight = attachPoint.UpdateHighlight(inside);
+
+                    if (changedHighlight)
+                    {
+                        float hoverObjectHeight = dragObject.GetComponent<CodeBlockEditor>().CalculateSize();
+                        attachPoint.GetComponent<CodeBlockEditor>().Resize(inside, hoverObjectHeight);
+                    }
                 }
             }
 
@@ -50,7 +79,8 @@ public class CodeBoard : MonoBehaviour
                 AttachPoint[] attachPointsAbove = gameObject.GetComponentsInChildren<AboveAttachPoint>();
                 foreach (var attachPoint in attachPointsAbove)
                 {
-                    attachPoint.CheckIsInside(lastDrag.gameObject);
+                    bool inside = attachPoint.CheckIsInside(lastDrag.gameObject);
+                    attachPoint.UpdateHighlight(inside);
                 }
             }
         }
@@ -59,27 +89,38 @@ public class CodeBoard : MonoBehaviour
     public void DropBlock(BlockEditor block)
     {
         GameObject dragObject = block.gameObject;
-
-        if (dragObject.GetComponent<VariableEditor>())
+        BlockEditor.BlockGroup group = dragObject.GetComponent<BlockEditor>().blockGroup;
+        if (group == BlockEditor.BlockGroup.VARIABLE)
         {
             AttachPoint[] attachPoints = gameObject.GetComponentsInChildren<VariableAttachPoint>();
             foreach (var attachPoint in attachPoints)
             {
                 if (attachPoint.CheckIsInside(dragObject))
                 {
-                    attachPoint.GetComponent<BlockEditor>().AttachBlock(dragObject);
+                    attachPoint.GetComponent<BlockEditor>().AttachBlock(dragObject, attachPoint);
                     break;
                 }
             }
         }
 
-        if (dragObject.GetComponent<CodeBlockEditor>())
+        if (group == BlockEditor.BlockGroup.CONDITION)
+        {
+            AttachPoint[] attachPoints = gameObject.GetComponentsInChildren<ConditionAttachPoint>();
+            foreach (var attachPoint in attachPoints)
+            {
+                if (attachPoint.CheckIsInside(dragObject))
+                {
+                    attachPoint.GetComponent<BlockEditor>().AttachBlock(dragObject, attachPoint);
+                    break;
+                }
+            }
+        }
+
+        if (group == BlockEditor.BlockGroup.BLOCK)
         {
             AttachPoint[] attachPointsBelow = gameObject.GetComponentsInChildren<BelowAttachPoint>();
             foreach (var attachPoint in attachPointsBelow)
             {
-                
-
                 if (attachPoint.CheckIsInside(dragObject))
                 {
                     attachPoint.GetComponent<BlockEditor>().AttachBlock(dragObject);
@@ -150,22 +191,6 @@ public class CodeBoard : MonoBehaviour
                 BlockData blockData = new BlockData();
                 blockData.editorPosition = new Vector2(block.transform.localPosition.x, block.transform.localPosition.y);
                 block.ExportData(ref blockData);
-
-                if (block is CodeBlockEditor)
-                {
-                    CodeBlockEditor codeBlock = (block as CodeBlockEditor).nextBlock;
-                    List<BlockData> attachedBlocksList = new List<BlockData>();
-                    while (codeBlock != null)
-                    {
-                        BlockData attachedBlockData = new BlockData();
-                        codeBlock.ExportData(ref attachedBlockData);
-                        attachedBlocksList.Add(attachedBlockData);
-
-                        codeBlock = codeBlock.nextBlock;
-                    }
-                    blockData.blocks = attachedBlocksList.ToArray();
-                }
-
                 blocksList.Add(blockData);
             }
         }
@@ -208,11 +233,12 @@ public class CodeBoard : MonoBehaviour
             blockBoard.CreateMessage();
         }
 
-        if (data != null)
+        if (data != null && data.blocks != null)
         {
             foreach (var rootBlockData in data.blocks)
             {
-                GameObject rootBlock = blockBoard.CreateBlock(rootBlockData);
+                ParseBlock(rootBlockData);
+                /*GameObject rootBlock = blockBoard.CreateBlock(rootBlockData);
                 rootBlock.transform.localPosition = rootBlockData.editorPosition;
                 rootBlock.transform.localRotation = Quaternion.identity;
                 foreach (var childBlockData in rootBlockData.blocks)
@@ -221,9 +247,68 @@ public class CodeBoard : MonoBehaviour
                     childBlock.transform.localRotation = Quaternion.identity;
                     rootBlock.GetComponent<BlockEditor>().AttachBlock(childBlock);
                     rootBlock = childBlock;
+                }*/
+            }
+        }
+    }
+
+    private GameObject ParseBlock(BlockData blockData)
+    {
+        GameObject rootBlock = blockBoard.CreateBlock(blockData);
+        if (rootBlock)
+        {
+            rootBlock.transform.localPosition = blockData.editorPosition;
+            rootBlock.transform.localRotation = Quaternion.identity;
+            if (blockData.blocks != null)
+            {
+                GameObject nextBlockIterator = rootBlock;
+                foreach (var childBlockData in blockData.blocks)
+                {
+                    GameObject nextBlock = ParseBlock(childBlockData);
+                    //GameObject childBlock = blockBoard.CreateBlock(childBlockData);
+                    // childBlock.transform.localRotation = Quaternion.identity;
+                    nextBlockIterator.GetComponent<BlockEditor>().AttachBlock(nextBlock);
+                    nextBlockIterator = nextBlock;
+                }
+            }
+            if (blockData.childBlocks != null)
+            {
+                GameObject nextBlockIterator = null;
+                foreach (var childBlockData in blockData.childBlocks)
+                {
+                    GameObject nextBlock = ParseBlock(childBlockData);
+                    if (!nextBlockIterator)
+                    {
+                        rootBlock.GetComponent<BlockEditor>().AttachChildBlock(nextBlock);
+                    }
+                    else
+                    {
+                        nextBlockIterator.GetComponent<BlockEditor>().AttachBlock(nextBlock);
+                    }
+                    nextBlockIterator = nextBlock;
+                }
+            }
+            if (blockData.attachedBlocks != null)
+            {
+                for (int i = 0; i < blockData.attachedBlocks.Length; i++)
+                {
+                    BlockData childBlockData = blockData.attachedBlocks[i];
+                    GameObject nextBlock = ParseBlock(childBlockData);
+                    if (nextBlock)
+                    {
+                        BlockEditor.BlockGroup group = nextBlock.GetComponent<BlockEditor>().blockGroup;
+                        if (group == BlockEditor.BlockGroup.CONDITION)
+                        {
+                            rootBlock.GetComponent<BlockEditor>().AttachBlock(nextBlock, rootBlock.GetComponent<CodeBlockEditor>().conditionalAttachPoint);
+                        } else if (group == BlockEditor.BlockGroup.VARIABLE)
+                        {
+                            rootBlock.GetComponent<BlockEditor>().AttachBlock(nextBlock, rootBlock.GetComponent<CodeBlockEditor>().variableAttachPoints[i]);
+                        }
+                    }
                 }
             }
         }
+        return rootBlock;
     }
 
     public void SaveTest()
@@ -261,6 +346,32 @@ public class CodeBoard : MonoBehaviour
         else
         {
             Debug.LogError("There is no SaveData!");
+        }
+    }
+
+    public void ToggleColorPicker(CodeBlockEditor blockEditor)
+    {
+        colorPicker.gameObject.SetActive(!colorPicker.gameObject.activeSelf);
+        if (blockEditor)
+        {
+            colorPicker.gameObject.transform.position = blockEditor.transform.position + new Vector3(colorPickerOffset.x * blockEditor.transform.lossyScale.x, colorPickerOffset.y * blockEditor.transform.lossyScale.y, colorPickerOffset.z * blockEditor.transform.lossyScale.z);
+        }
+        selectedBlock = blockEditor;
+    }
+
+    public void OnColorPicked()
+    {
+        if (selectedBlock)
+        {
+            selectedBlock.colorVariable.color = colorPicker.CurrentColor;
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (colorPicker.gameObject.activeSelf)
+        {
+            ToggleColorPicker(null);
         }
     }
 }

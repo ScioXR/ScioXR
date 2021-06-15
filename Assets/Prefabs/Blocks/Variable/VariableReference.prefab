@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ce491a492c6b54d893ddc8b4fbe1e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockGroup: 2
   blockType: Variable
   codePanel: {fileID: 0}
   attachPoint: {fileID: 0}

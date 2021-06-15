@@ -10,7 +10,7 @@ public class AttachPoint : MonoBehaviour
     public RectTransform hoverRect;
     public GameObject heighlight;
 
-    
+    private bool isHighlighted;
 
     public bool CheckIsInside(GameObject otherObject)
     {
@@ -28,8 +28,18 @@ public class AttachPoint : MonoBehaviour
 
         //Vector3 diff = hoverRect.transform.position - otherObject.transform.position;
         //bool inside = hoverRect.rect.Contains(diff);
-        heighlight.SetActive(inside);
         return inside;
+    }
+
+    public bool UpdateHighlight(bool highlighted)
+    {
+        if (isHighlighted != highlighted)
+        {
+            isHighlighted = highlighted;
+            heighlight.SetActive(highlighted);
+            return true;
+        }
+        return false;
     }
 
     public void Enable(bool isEnabled)
