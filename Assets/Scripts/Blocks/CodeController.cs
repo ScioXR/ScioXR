@@ -70,6 +70,10 @@ public class CodeController : MonoBehaviour
         {
             result = gameObject.AddComponent<IntVariable>();
         }
+        else if (blockData.blockType == "StringVariable")
+        {
+            result = gameObject.AddComponent<StringVariable>();
+        }
         else if (blockData.blockType == "AddVariable")
         {
             result = gameObject.AddComponent<AddVariable>();
@@ -105,6 +109,10 @@ public class CodeController : MonoBehaviour
         else if (blockData.blockType == "HideLook")
         {
             result = gameObject.AddComponent<HideLook>();
+        }
+        else if (blockData.blockType == "SetTextLook")
+        {
+            result = gameObject.AddComponent<SetTextLook>();
         }
         else if (blockData.blockType == "SetColorLook")
         {

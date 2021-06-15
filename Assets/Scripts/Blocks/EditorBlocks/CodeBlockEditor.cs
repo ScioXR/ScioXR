@@ -139,6 +139,9 @@ public class CodeBlockEditor : BlockEditor
                 if (blockData.attachedBlocks.Length > i && blockData.attachedBlocks[i].blockType == "IntVariable") 
                 {
                     variableAttachPoints[i].variableEditText.GetComponent<TMP_InputField>().text = "" + blockData.attachedBlocks[i].paramInt;
+                } else if (blockData.attachedBlocks.Length > i && blockData.attachedBlocks[i].blockType == "StringVariable")
+                {
+                    variableAttachPoints[i].variableEditText.GetComponent<TMP_InputField>().text = "" + blockData.attachedBlocks[i].paramString;
                 }
             }
         }
@@ -182,8 +185,16 @@ public class CodeBlockEditor : BlockEditor
                     variableAttachPoint.variableReference.ExportData(ref variableBlockData);
                 } else
                 {
-                    variableBlockData.blockType = "IntVariable";
-                    variableBlockData.paramInt = int.Parse(variableAttachPoint.variableEditText.GetComponent<TMP_InputField>().text);
+                    int intValue;
+                    if (int.TryParse(variableAttachPoint.variableEditText.GetComponent<TMP_InputField>().text, out intValue))
+                    {
+                        variableBlockData.blockType = "IntVariable";
+                        variableBlockData.paramInt = intValue;
+                    } else
+                    {
+                        variableBlockData.blockType = "StringVariable";
+                        variableBlockData.paramString = variableAttachPoint.variableEditText.GetComponent<TMP_InputField>().text;
+                    }
                 }
                 attachedBlocksList.Add(variableBlockData);
             }
