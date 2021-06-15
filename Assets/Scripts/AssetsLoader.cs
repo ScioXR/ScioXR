@@ -162,9 +162,9 @@ public class AssetsLoader
         return true;
 #else
         string modelPath = Path.Combine(Application.dataPath + "/StreamingAssets" + modelsFolder, modelName);
-
         string filePath = modelPath + modelsSuffix;
-        //  Debug.Log("CheckIfModelExist " + filePath);
+
+         // Debug.Log("CheckIfModelExist " + resFilePath);
         if (File.Exists(filePath))
         {
             return true;
@@ -172,6 +172,25 @@ public class AssetsLoader
         else
         {
             return File.Exists(modelPath);
+        }
+#endif
+    }
+    public static bool CheckIfModelExistinResources(string modelName)
+    {
+#if UNITY_WEBGL || UNITY_ANDROID
+        //TODO: implement
+        return true;
+#else
+        string resourcesPath = Path.Combine(Application.dataPath + "/Resources" + modelsFolder, modelName);
+        string resFilePath = resourcesPath + modelsSuffix;
+        Debug.Log("CheckIfModelExist " + resFilePath);
+        if (File.Exists(resFilePath))
+        {
+            return true;
+        }
+        else
+        {
+            return File.Exists(resFilePath);
         }
 #endif
     }

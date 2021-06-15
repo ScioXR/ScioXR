@@ -50,9 +50,10 @@ public class ModelSelecter : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         loadedModel.transform.position = new Vector3(modelObject.transform.position.x, modelObject.transform.position.y, modelObject.transform.position.z + 1f);
         loadedModel.transform.localScale = loadedModel.transform.localScale * 10;
         loadedModel.transform.localRotation = Quaternion.identity;
-        loadedModel.AddComponent<Saveable>();
+      //  loadedModel.AddComponent<Saveable>();
         loadedModel.GetComponent<Saveable>().data.model = modelObject.GetComponent<Saveable>().data.model;
         loadedModel.name = modelObject.GetComponent<Saveable>().data.model;
+        loadedModel.GetComponent<Saveable>().shouldSave = true;
         loadedModel.GetComponent<Saveable>().GenerateUniqueId();
         PlatformLoader.instance.platform.SetupEditorObject(loadedModel, new ObjectData());
 

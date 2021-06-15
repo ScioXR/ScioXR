@@ -110,57 +110,21 @@ public class ScioXRSceneManager : MonoBehaviour
                 ObjectData currentData = dataJson.saveData[i];
                 StartCoroutine(AssetsLoader.ImportModel(dataJson.saveData[i].model, loadedObject =>
                 {
-                    loadedObject.name = currentData.name;
-                    loadedObject.transform.position = currentData.position;
-                    loadedObject.transform.rotation = currentData.rotation;
-                    loadedObject.transform.localScale = currentData.scale;
-                    loadedObject.SetActive(currentData.isVisible == 1);
-
-                    if (editor)
-                    {
-                        loadedObject.AddComponent<Saveable>().data = currentData;
-                        PlatformLoader.instance.platform.SetupEditorObject(loadedObject, currentData);
-
-                        
-                    } else
-                    {
-                        loadedObject.AddComponent<Saveable>().data = currentData;
-                        PlatformLoader.instance.platform.SetupPlayerObject(loadedObject, currentData);
-
-                        loadedObject.AddComponent<CodeController>();
-                        loadedObject.GetComponent<CodeController>().id = currentData.id;
-                        loadedObject.GetComponent<CodeController>().LoadCode(currentData.code);
-                    }
-
-                    //link parent
-                    if (currentData.parent > 0)
-                    {
-                        bool parentFound = false;
-                        Saveable[] allObjects = GameObject.FindObjectsOfType<Saveable>();
-                        foreach (var sceneObjects in allObjects)
-                        {
-                            if (sceneObjects.data.id == currentData.parent)
-                            {
-                                parentFound = true;
-                                loadedObject.transform.SetParent(sceneObjects.gameObject.transform);
-                                loadedObject.transform.localScale = currentData.scale;
-                                break;
-                            }
-                        }
-                        if (!parentFound)
-                        {
-                            Debug.LogError("Cannot find parent for " + currentData.id);
-                        }
-                    }
-
-                    objectToLoad--;
-                    if (objectToLoad == 0)
-                    {
-                        AppManager.instance.loaded = true;
-                        //LoadCode();
-                    }
-                }));                
-            } else
+                    CreateLoadedObject(loadedObject, currentData, editor, objectToLoad);
+                }));
+            }
+            else if (AssetsLoader.CheckIfModelExistinResources(dataJson.saveData[i].model))
+            {
+                Debug.Log("Model Basic: " + dataJson.saveData[i].model + ", name " + dataJson.saveData[i].name + ", position " + dataJson.saveData[i].position + ", roation " + dataJson.saveData[i].rotation + ", scale " + dataJson.saveData[i].scale);
+                //string modelPath = AssetsLoader.CheckIfModelExist(dataJson.saveData[i].model);
+                ObjectData currentData = dataJson.saveData[i];
+                StartCoroutine(AssetsLoader.ImportBasicModel(dataJson.saveData[i].model, loadedObject =>
+                {
+                    loadedObject = Instantiate(loadedObject, loadedObject.transform.parent, true) as GameObject;
+                    CreateLoadedObject(loadedObject, currentData, editor, objectToLoad);
+                }));
+            }           
+            else
             {
                 objectToLoad--;
                 if (objectToLoad == 0)
@@ -169,6 +133,60 @@ public class ScioXRSceneManager : MonoBehaviour
                     //PlayerManager.instance.started = true;
                 }
             }
+        }
+    }
+
+    public void CreateLoadedObject(GameObject loadedObject, ObjectData currentData, bool editor, int objectToLoad)
+    {
+        loadedObject.name = currentData.name;
+        loadedObject.transform.position = currentData.position;
+        loadedObject.transform.rotation = currentData.rotation;
+        loadedObject.transform.localScale = currentData.scale;
+        loadedObject.SetActive(currentData.isVisible == 1);
+
+        if (editor)
+        {
+            loadedObject.AddComponent<Saveable>().data = currentData;
+            PlatformLoader.instance.platform.SetupEditorObject(loadedObject, currentData);
+
+
+        }
+        else
+        {
+            loadedObject.AddComponent<Saveable>().data = currentData;
+            PlatformLoader.instance.platform.SetupPlayerObject(loadedObject, currentData);
+
+            loadedObject.AddComponent<CodeController>();
+            loadedObject.GetComponent<CodeController>().id = currentData.id;
+            loadedObject.GetComponent<CodeController>().LoadCode(currentData.code);
+        }
+
+        //link parent
+        if (currentData.parent > 0)
+        {
+            bool parentFound = false;
+            Saveable[] allObjects = GameObject.FindObjectsOfType<Saveable>();
+            foreach (var sceneObjects in allObjects)
+            {
+                if (sceneObjects.data.id == currentData.parent)
+                {
+                    parentFound = true;
+                    loadedObject.transform.SetParent(sceneObjects.gameObject.transform);
+                    loadedObject.transform.localScale = currentData.scale;
+                    break;
+                }
+            }
+            if (!parentFound)
+            {
+                Debug.LogError("Cannot find parent for " + currentData.id);
+            }
+        }
+
+        objectToLoad--;
+        if (objectToLoad == 0)
+        {
+            AppManager.instance.loaded = true;
+            //LoadCode();
         }
     }
 
@@ -214,6 +232,7 @@ public class ScioXRSceneManager : MonoBehaviour
         {
             if (saveableObjects[i].shouldSave)
             {
+                Debug.Log("GetSaveData " + saveableObjects[i].name);
                 saveDataList.Add(saveableObjects[i].GetSavableData());
             }
 
