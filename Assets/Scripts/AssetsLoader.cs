@@ -109,17 +109,12 @@ public class AssetsLoader
         UnityEngine.Object[] models = Resources.LoadAll("Models", typeof(GameObject));
         foreach (var name in models)
         {
-            modelEntries.Add(name.ToString());
-           
-        }
-    
+            modelEntries.Add(name.ToString());           
+        }   
         for (int i = 0; i < modelEntries.Count; i++)
-        {
-   
+        {  
           // Debug.Log("GetModelsList " + modelEntries[i]);
-
-            string fileName = modelEntries[i];
-   
+            string fileName = modelEntries[i];  
             int index = fileName.IndexOf(" ");
             string stringSufix = fileName.Remove(0, index);
             string name = fileName.Replace(stringSufix, ".");
@@ -310,7 +305,7 @@ public class AssetsLoader
         }
 #else
         loadedObject = (GameObject)Resources.Load(modelPath);
-        Debug.Log("loadedObject " + modelPath);
+        //Debug.Log("loadedObject " + modelPath);
 #endif
         callback(loadedObject);
         yield return null;

@@ -114,7 +114,7 @@ public class ImportModelMenu : XRPanel
             for (int i = 0; i < result.Count; i++)
             {
                 string modelName = result[i];
-                Debug.Log("Card: " + modelName);
+               // Debug.Log("Card: " + modelName);
                 int gridX = models.Count % modelsInRow;
                 int gridY = (models.Count % modelsPerPage) / modelsInRow;
 
