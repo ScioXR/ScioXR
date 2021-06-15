@@ -61,7 +61,7 @@ public class AssetsLoader
 #elif UNITY_ANDROID
       //  yield return GetModelsFromUrl(Application.streamingAssetsPath + modelsFolder + "files.txt", callback);
 #else
-        callback(GetBasicModelsList());
+        callback(GetFilesInResources());
         yield return null;
 #endif
     }
@@ -99,6 +99,37 @@ public class AssetsLoader
             }
         }
         callback(modelNames);
+    }
+    protected static List<string> GetFilesInResources()
+    {
+        List<string> modelNames = new List<string>();
+        // string assetsPath = Application.dataPath + "/StreamingAssets" + folder;
+
+        List<string> modelEntries = new List<string>();
+        UnityEngine.Object[] models = Resources.LoadAll("Models", typeof(GameObject));
+        foreach (var name in models)
+        {
+            modelEntries.Add(name.ToString());
+           
+        }
+    
+        for (int i = 0; i < modelEntries.Count; i++)
+        {
+   
+          // Debug.Log("GetModelsList " + modelEntries[i]);
+
+            string fileName = modelEntries[i];
+   
+            int index = fileName.IndexOf(" ");
+            string stringSufix = fileName.Remove(0, index);
+            string name = fileName.Replace(stringSufix, ".");
+            int sufix = name.LastIndexOf(".");
+            string cleanName = name.Remove(sufix);
+           // Debug.Log("cleanName " + cleanName);
+            modelNames.Add(cleanName);
+        }
+
+        return modelNames;
     }
 
     protected static List<string> GetFilesInDir(string folder, string sufix)
@@ -221,9 +252,9 @@ public class AssetsLoader
 #elif UNITY_ANDROID
      //   string modelPath = Application.streamingAssetsPath + modelsFolder + modelName + modelsSuffix;
 #else
-      //  string modelPath = Application.dataPath + "/StreamingAssets" + modelsFolder + modelName + modelsSuffix;
+        string modelPath =  "Models/"  + modelName;
 #endif
-        yield return LoadModelFromResources(modelName, callback);
+        yield return LoadModelFromResources(modelPath, callback);
     }
 
     public static IEnumerator ImportEnvironment(string environmentName, Action<GameObject> callback)
@@ -261,7 +292,7 @@ public class AssetsLoader
         yield return null;
     }
 
-    private static IEnumerator LoadModelFromResources(string modelName, Action<GameObject> callback)
+    private static IEnumerator LoadModelFromResources(string modelPath, Action<GameObject> callback)
     {
         GameObject loadedObject = null;
 #if UNITY_WEBGL || UNITY_ANDROID //&& !UNITY_EDITOR
@@ -278,8 +309,8 @@ public class AssetsLoader
             loadedObject = Importer.LoadFromString(www.downloadHandler.text);
         }
 #else
-        loadedObject = (GameObject)Resources.Load(modelName);
-        Debug.Log("loadedObject " + loadedObject);
+        loadedObject = (GameObject)Resources.Load(modelPath);
+        Debug.Log("loadedObject " + modelPath);
 #endif
         callback(loadedObject);
         yield return null;

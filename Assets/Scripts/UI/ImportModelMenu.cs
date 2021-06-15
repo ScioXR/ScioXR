@@ -23,6 +23,7 @@ public class ImportModelMenu : XRPanel
     public int modelsPerPage = 12;
     int currentPage = 0;
     List<GameObject> models = new List<GameObject>();
+    List<string> basicModels = new List<string>();
     public override void Show()
     {
         base.Show();
@@ -36,54 +37,67 @@ public class ImportModelMenu : XRPanel
             {
                 CreateBasicModelCards();
             }
-      
+
+
         }
     }
-
 
     public void CreateModelCards()
     {
         isListCreated = true;
         Vector3 position = cardStartPosition.transform.localPosition;
 
+        StartCoroutine(AssetsLoader.GetBasicModelsList(result => {
+           
+            for (int i = 0; i < result.Count; i++)
+            {
+                basicModels.Add(result[i]);
+            }
+            SetPage(0);
+        }));
+
         StartCoroutine(AssetsLoader.GetModelsList(result => {
             loadingText.gameObject.SetActive(false);
 
             for (int i = 0; i < result.Count; i++)
             {
-                string modelName = result[i];
-                int gridX = models.Count % modelsInRow;
-                int gridY = (models.Count % modelsPerPage) / modelsInRow;
+                if (!basicModels.Contains(result[i]))
+                {
+                    string modelName = result[i];
+                    int gridX = models.Count % modelsInRow;
+                    int gridY = (models.Count % modelsPerPage) / modelsInRow;
 
-                GameObject modelCard = Instantiate(modelCardPrefab, transform);
-                modelCard.name = modelName;
-                modelCard.GetComponentInChildren<TextMeshProUGUI>().text = modelName;
-                modelCard.transform.localPosition = new Vector3(cardStartPosition.transform.localPosition.x + gridX * spaceBetweenCardsX, cardStartPosition.transform.localPosition.y - gridY * spaceBetweenCardsY, cardStartPosition.transform.localPosition.z);
-                models.Add(modelCard);
+                    GameObject modelCard = Instantiate(modelCardPrefab, transform);
+                    modelCard.name = modelName;
+                    modelCard.GetComponentInChildren<TextMeshProUGUI>().text = modelName;
+                    modelCard.transform.localPosition = new Vector3(cardStartPosition.transform.localPosition.x + gridX * spaceBetweenCardsX, cardStartPosition.transform.localPosition.y - gridY * spaceBetweenCardsY, cardStartPosition.transform.localPosition.z);
+                    models.Add(modelCard);
 
                 //Debug.Log("Card: " + modelName + ", " + gridX + ", " + gridY);
-
-                StartCoroutine(AssetsLoader.ImportModel(modelName, importedObject =>
-                {
-                    GameObject model = importedObject;
-                    model.transform.parent = modelCard.transform;
-                    PrepareModel(model, modelName);
-
-                    ModelSelecter modelSelecter = modelCard.AddComponent<ModelSelecter>();
-                    modelSelecter.modelObject = model;
-
-                    modelCard.GetComponent<Button>().onClick.AddListener(modelSelecter.CreateModel);
-
-                    Vector3 size = Vector3.Scale(model.transform.localScale, model.GetComponentInChildren<MeshFilter>().mesh.bounds.size);
-                    float modelSize = Math.Max(size.x, Math.Max(size.y, size.z));
-
-                    if (modelSize > modelsMaxSize)
+              
+                    StartCoroutine(AssetsLoader.ImportModel(modelName, importedObject =>
                     {
-                        model.transform.localScale /= (modelSize / modelsMaxSize);
-                    }
+                        GameObject model = importedObject;
+                        model.transform.parent = modelCard.transform;
+                        PrepareModel(model, modelName);
 
-                    model.transform.localPosition = modelOffset;
-                }));
+                        ModelSelecter modelSelecter = modelCard.AddComponent<ModelSelecter>();
+                        modelSelecter.modelObject = model;
+
+                        modelCard.GetComponent<Button>().onClick.AddListener(modelSelecter.CreateModel);
+
+                        Vector3 size = Vector3.Scale(model.transform.localScale, model.GetComponentInChildren<MeshFilter>().mesh.bounds.size);
+                        float modelSize = Math.Max(size.x, Math.Max(size.y, size.z));
+
+                        if (modelSize > modelsMaxSize)
+                        {
+                            model.transform.localScale /= (modelSize / modelsMaxSize);
+                        }
+
+                        model.transform.localPosition = modelOffset;
+                    }));
+                } 
+              
             }
             SetPage(0);
         }));
@@ -100,7 +114,7 @@ public class ImportModelMenu : XRPanel
             for (int i = 0; i < result.Count; i++)
             {
                 string modelName = result[i];
-               // Debug.Log("Card: " + modelName);
+                Debug.Log("Card: " + modelName);
                 int gridX = models.Count % modelsInRow;
                 int gridY = (models.Count % modelsPerPage) / modelsInRow;
 
@@ -109,8 +123,6 @@ public class ImportModelMenu : XRPanel
                 modelCard.GetComponentInChildren<TextMeshProUGUI>().text = modelName;
                 modelCard.transform.localPosition = new Vector3(cardStartPosition.transform.localPosition.x + gridX * spaceBetweenCardsX, cardStartPosition.transform.localPosition.y - gridY * spaceBetweenCardsY, cardStartPosition.transform.localPosition.z);
                 models.Add(modelCard);
-
-
                 StartCoroutine(AssetsLoader.ImportBasicModel(modelName, importedObject =>
                 {
                     GameObject importedModel = importedObject;
@@ -136,6 +148,7 @@ public class ImportModelMenu : XRPanel
                         model.transform.localPosition = modelOffset;
                     }
                 }));
+
             }
             SetPage(0);
         }));

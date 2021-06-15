@@ -1,3 +1,8 @@
 Box
+Capsule
+Cilinder
+Cone
+Plane
+Pyramid
 Sphere
-Box
+Torus
