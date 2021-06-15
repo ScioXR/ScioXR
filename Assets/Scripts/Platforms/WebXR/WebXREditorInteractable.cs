@@ -94,14 +94,39 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
             }
 
             //transform.rotation = currentGrabInteractor.transform.rotation * Quaternion.Inverse(grabRotationOffset);
-            transform.rotation = currentGrabInteractor.attachTransform.rotation;
+            Vector3 currentEulerRotation = transform.rotation.eulerAngles;
+           
             if (EditorSettings.instance.enableSnap)
             {
-                if (EditorSettings.instance.snapRotateStep != 0)
+                if (EditorSettings.instance.snapRotateStepX != 0)
                 {
-                    transform.position = new Vector3(transform.position.x - (transform.position.x % EditorSettings.instance.snapMoveStep), transform.position.y - (transform.position.y % EditorSettings.instance.snapMoveStep), transform.position.z - (transform.position.z % EditorSettings.instance.snapMoveStep));
+                    transform.eulerAngles = new Vector3(
+                           currentGrabInteractor.attachTransform.rotation.eulerAngles.x - (currentGrabInteractor.attachTransform.rotation.eulerAngles.x % EditorSettings.instance.snapRotateStepX),
+                            transform.eulerAngles.y,
+                           transform.eulerAngles.z
+                            );
+                }
+                if (EditorSettings.instance.snapRotateStepY != 0)
+                {
+                    transform.eulerAngles = new Vector3(
+                           transform.eulerAngles.x,
+                            currentGrabInteractor.attachTransform.rotation.eulerAngles.y - (currentGrabInteractor.attachTransform.rotation.eulerAngles.y % EditorSettings.instance.snapRotateStepY),
+                           transform.eulerAngles.z
+                            );
+                }
+                if (EditorSettings.instance.snapRotateStepZ != 0)
+                {
+                    transform.eulerAngles = new Vector3(
+                           transform.eulerAngles.x,
+                            transform.eulerAngles.x,
+                           currentGrabInteractor.attachTransform.rotation.eulerAngles.z - (currentGrabInteractor.attachTransform.rotation.eulerAngles.z % EditorSettings.instance.snapRotateStepZ)
+                            );
                 }
             }
+            else
+            {
+                transform.rotation = currentGrabInteractor.attachTransform.rotation;
+            }                  
         }
     }
 
@@ -111,23 +136,27 @@ public class WebXREditorInteractable : MonoBehaviour, IWebXRInteractable
         {
             case TransformMode.SCALE:
                 Vector3 newScale = startScale;
-                float scaleFactor = ((transform.position - currentSecondaryGrabInteractor.transform.position).magnitude / startDistanceFromCenter);
-                if (!currentPivot || currentPivot.scaleMode == WebXREditorPivot.ScaleMode.ALL)
+                if (!EditorSettings.instance.enableSnap)
                 {
-                    newScale *= scaleFactor;
-                } else if (currentPivot.scaleMode == WebXREditorPivot.ScaleMode.X)
-                {
-                    newScale.x *= scaleFactor;
+                    float scaleFactor = ((transform.position - currentSecondaryGrabInteractor.transform.position).magnitude / startDistanceFromCenter);
+                    if (!currentPivot || currentPivot.scaleMode == WebXREditorPivot.ScaleMode.ALL)
+                    {
+                        newScale *= scaleFactor;
+                    }
+                    else if (currentPivot.scaleMode == WebXREditorPivot.ScaleMode.X)
+                    {
+                        newScale.x *= scaleFactor;
+                    }
+                    else if (currentPivot.scaleMode == WebXREditorPivot.ScaleMode.Y)
+                    {
+                        newScale.y *= scaleFactor;
+                    }
+                    else if (currentPivot.scaleMode == WebXREditorPivot.ScaleMode.Z)
+                    {
+                        newScale.z *= scaleFactor;
+                    }
+                    transform.localScale = newScale;
                 }
-                else if (currentPivot.scaleMode == WebXREditorPivot.ScaleMode.Y)
-                {
-                    newScale.y *= scaleFactor;
-                }
-                else if (currentPivot.scaleMode == WebXREditorPivot.ScaleMode.Z)
-                {
-                    newScale.z *= scaleFactor;
-                }
-                transform.localScale = newScale;
                 break;
         }
     }

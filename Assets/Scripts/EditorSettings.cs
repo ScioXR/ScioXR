@@ -6,7 +6,9 @@ public class EditorSettings : MonoBehaviour
 {
     public bool enableSnap;
     public float snapMoveStep;
-    public float snapRotateStep;
+    public float snapRotateStepY;
+    public float snapRotateStepX;
+    public float snapRotateStepZ;
     public float snapScaleStep;
 
     public static EditorSettings instance;

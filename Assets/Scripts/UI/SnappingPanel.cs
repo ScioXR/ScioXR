@@ -7,7 +7,9 @@ public class SnappingPanel : XRPanel
 {
     public Toggle enableSnap;
     public InputField moveStep;
-    public InputField rotateStep;
+    public InputField rotateStepY;
+    public InputField rotateStepX;
+    public InputField rotateStepZ;
     public InputField scaleStep;
 
     public override void Show()
@@ -16,7 +18,9 @@ public class SnappingPanel : XRPanel
 
         enableSnap.isOn = EditorSettings.instance.enableSnap;
         moveStep.text = "" + EditorSettings.instance.snapMoveStep;
-        rotateStep.text = "" + EditorSettings.instance.snapRotateStep;
+        rotateStepY.text = "" + EditorSettings.instance.snapRotateStepY;
+        rotateStepX.text = "" + EditorSettings.instance.snapRotateStepX;
+        rotateStepZ.text = "" + EditorSettings.instance.snapRotateStepZ;
         scaleStep.text = "" + EditorSettings.instance.snapScaleStep;
     }
 
@@ -30,13 +34,29 @@ public class SnappingPanel : XRPanel
         {
             moveStep.text = "" + EditorSettings.instance.snapMoveStep;
         }
-        if (float.TryParse(rotateStep.text, out parseValue))
+        if (float.TryParse(rotateStepY.text, out parseValue))
         {
-            EditorSettings.instance.snapRotateStep = parseValue;
+            EditorSettings.instance.snapRotateStepY = parseValue;
         }
         else
         {
-            rotateStep.text = "" + EditorSettings.instance.snapRotateStep;
+            rotateStepY.text = "" + EditorSettings.instance.snapRotateStepY;
+        }
+        if (float.TryParse(rotateStepX.text, out parseValue))
+        {
+            EditorSettings.instance.snapRotateStepX = parseValue;
+        }
+        else
+        {
+            rotateStepX.text = "" + EditorSettings.instance.snapRotateStepX;
+        }
+        if (float.TryParse(rotateStepZ.text, out parseValue))
+        {
+            EditorSettings.instance.snapRotateStepZ = parseValue;
+        }
+        else
+        {
+            rotateStepZ.text = "" + EditorSettings.instance.snapRotateStepZ;
         }
         if (float.TryParse(scaleStep.text, out parseValue))
         {

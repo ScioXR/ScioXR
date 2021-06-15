@@ -22,14 +22,17 @@ public class PlatformLoader : MonoBehaviour
 
     public Platform platform;
 
+    public GameObject controllerLeft;
+    public GameObject controllerRight;
+
     void Awake()
-    {
+    {     
         if (!instance)
         {
             DontDestroyOnLoad(this.gameObject);
             instance = this;
 
-            Init();
+            Init();          
         }
         else
         {
@@ -37,12 +40,14 @@ public class PlatformLoader : MonoBehaviour
         }
     }
 
+
     // Start is called before the first frame update
     void Init()
-    {
+    {       
         platform = platforms[(int)currentPlatfrom].GetComponent<Platform>();
         platforms[(int)currentPlatfrom].SetActive(true);
         platform.Init();
+      
 
 #if UNITY_WEBGL
         //platform = gameObject.AddComponent<Scio3DPlatform>();
@@ -78,5 +83,19 @@ public class PlatformLoader : MonoBehaviour
             }
         }*/
 #endif
+    }
+
+    public void HideHands(bool enable)
+    {
+        SkinnedMeshRenderer[] hands = GetComponentsInChildren<SkinnedMeshRenderer>();
+
+        foreach (var hand in hands)
+        {
+            hand.enabled = !enable;
+           // Debug.Log("HideHands111111 " + hand);
+        }
+        controllerLeft.SetActive(enable);
+        controllerRight.SetActive(enable);
+       // Debug.Log("HideHands " + enable);
     }
 }

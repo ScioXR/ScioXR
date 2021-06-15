@@ -34,12 +34,13 @@ public class EditorManager : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(this.gameObject);          
         }
     }
 
     private void OnDestroy()
     {
+        PlatformLoader.instance.HideHands(false);
         if (instance == this)
         {
             instance = null;
@@ -49,6 +50,7 @@ public class EditorManager : MonoBehaviour
     private void Start()
     {
         SetTransformMode(mode);
+        PlatformLoader.instance.HideHands(true);
 
         if (AppManager.instance.currentSceneName != "")
         {
@@ -58,6 +60,7 @@ public class EditorManager : MonoBehaviour
             ScioXRSceneManager.instance.CreateLoadedObjects(dataJson, true);
         }
     }
+ 
 
     public void NextTransformMode(InputAction.CallbackContext context)
     {

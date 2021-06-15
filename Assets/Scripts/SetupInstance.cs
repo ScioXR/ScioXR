@@ -9,9 +9,9 @@ public class SetupInstance : MonoBehaviour
     private void Awake()
     {
         if (!instance)
-        {
-            instance = this;
+        {          
             DontDestroyOnLoad(this.gameObject);
+            instance = this;
         }
         else
         {

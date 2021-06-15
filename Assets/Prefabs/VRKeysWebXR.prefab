@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ee13b2528177748a8c7c17b956ff22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionRelativeToUser: {x: 0, y: 0, z: 1.4}
+  positionRelativeToUser: {x: 0, y: -0.2, z: 0.7}
   keyboardLayout: 0
   placeholder: {fileID: 108792951016851235}
   placeholderMessage: 
@@ -56,6 +56,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   textInput: {fileID: 0}
+  textInputTMP: {fileID: 0}
 --- !u!1001 &6615711058407693
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65,7 +66,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1000010614386324, guid: f28287b1c722ebd4aa4f4d8547ed7fa8, type: 3}
       propertyPath: m_Name
-      value: VRKeys
+      value: VRKeysWebXR
       objectReference: {fileID: 0}
     - target: {fileID: 1000010921968412, guid: f28287b1c722ebd4aa4f4d8547ed7fa8, type: 3}
       propertyPath: m_IsActive
@@ -101,15 +102,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013025176432, guid: f28287b1c722ebd4aa4f4d8547ed7fa8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4000013025176432, guid: f28287b1c722ebd4aa4f4d8547ed7fa8, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4000013025176432, guid: f28287b1c722ebd4aa4f4d8547ed7fa8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4000013025176432, guid: f28287b1c722ebd4aa4f4d8547ed7fa8, type: 3}
       propertyPath: m_LocalPosition.x

@@ -54,6 +54,32 @@ public class AssetsLoader
 #endif
     }
 
+    public static IEnumerator GetBasicModelsList(Action<List<string>> callback)
+    {
+#if UNITY_WEBGL //&& !UNITY_EDITOR
+       // yield return GetModelsFromUrl(Application.streamingAssetsPath + modelsFolder + "files.txt", callback);
+#elif UNITY_ANDROID
+      //  yield return GetModelsFromUrl(Application.streamingAssetsPath + modelsFolder + "files.txt", callback);
+#else
+        callback(GetFilesInResources());
+        yield return null;
+#endif
+    }
+
+    public static List<string> GetBasicModelsList()
+    {
+        List<string> modelNames = new List<string>();
+        TextAsset mytxtData = (TextAsset)Resources.Load("files");
+        string txt = mytxtData.text;
+ 
+        string[] lines = txt.Replace("\r", "").Split('\n');
+        foreach (var line in lines)
+        {
+            modelNames.Add(line);
+        }
+        return modelNames;
+    }
+
     public static IEnumerator GetModelsFromUrl(string filesList, Action<List<string>> callback)
     {
         List<string> modelNames = new List<string>();
@@ -73,6 +99,32 @@ public class AssetsLoader
             }
         }
         callback(modelNames);
+    }
+    protected static List<string> GetFilesInResources()
+    {
+        List<string> modelNames = new List<string>();
+        // string assetsPath = Application.dataPath + "/StreamingAssets" + folder;
+
+        List<string> modelEntries = new List<string>();
+        UnityEngine.Object[] models = Resources.LoadAll("Models", typeof(GameObject));
+        foreach (var name in models)
+        {
+            modelEntries.Add(name.ToString());           
+        }   
+        for (int i = 0; i < modelEntries.Count; i++)
+        {  
+          // Debug.Log("GetModelsList " + modelEntries[i]);
+            string fileName = modelEntries[i];  
+            int index = fileName.IndexOf(" ");
+            string stringSufix = fileName.Remove(0, index);
+            string name = fileName.Replace(stringSufix, ".");
+            int sufix = name.LastIndexOf(".");
+            string cleanName = name.Remove(sufix);
+           // Debug.Log("cleanName " + cleanName);
+            modelNames.Add(cleanName);
+        }
+
+        return modelNames;
     }
 
     protected static List<string> GetFilesInDir(string folder, string sufix)
@@ -102,6 +154,7 @@ public class AssetsLoader
         return modelNames;
     }
 
+
     public static bool CheckIfModelExist(string modelName)
     {
 #if UNITY_WEBGL || UNITY_ANDROID
@@ -109,9 +162,9 @@ public class AssetsLoader
         return true;
 #else
         string modelPath = Path.Combine(Application.dataPath + "/StreamingAssets" + modelsFolder, modelName);
-
         string filePath = modelPath + modelsSuffix;
-        //  Debug.Log("CheckIfModelExist " + filePath);
+
+         // Debug.Log("CheckIfModelExist " + resFilePath);
         if (File.Exists(filePath))
         {
             return true;
@@ -119,6 +172,25 @@ public class AssetsLoader
         else
         {
             return File.Exists(modelPath);
+        }
+#endif
+    }
+    public static bool CheckIfModelExistinResources(string modelName)
+    {
+#if UNITY_WEBGL || UNITY_ANDROID
+        //TODO: implement
+        return true;
+#else
+        string resourcesPath = Path.Combine(Application.dataPath + "/Resources" + modelsFolder, modelName);
+        string resFilePath = resourcesPath + modelsSuffix;
+        Debug.Log("CheckIfModelExist " + resFilePath);
+        if (File.Exists(resFilePath))
+        {
+            return true;
+        }
+        else
+        {
+            return File.Exists(resFilePath);
         }
 #endif
     }
@@ -187,6 +259,18 @@ public class AssetsLoader
         yield return LoadGLTF(modelPath, callback);
     }
 
+    public static IEnumerator ImportBasicModel(string modelName, Action<GameObject> callback)
+    {
+#if UNITY_WEBGL //&& !UNITY_EDITOR
+      //  string modelPath = appUrl + "StreamingAssets/" + modelName + modelsSuffix;
+#elif UNITY_ANDROID
+     //   string modelPath = Application.streamingAssetsPath + modelsFolder + modelName + modelsSuffix;
+#else
+        string modelPath =  "Models/"  + modelName;
+#endif
+        yield return LoadModelFromResources(modelPath, callback);
+    }
+
     public static IEnumerator ImportEnvironment(string environmentName, Action<GameObject> callback)
     {
 #if UNITY_WEBGL //&& !UNITY_EDITOR
@@ -217,6 +301,30 @@ public class AssetsLoader
         }
 #else
         loadedObject = Importer.LoadFromFile(modelPath);
+#endif
+        callback(loadedObject);
+        yield return null;
+    }
+
+    private static IEnumerator LoadModelFromResources(string modelPath, Action<GameObject> callback)
+    {
+        GameObject loadedObject = null;
+#if UNITY_WEBGL || UNITY_ANDROID //&& !UNITY_EDITOR
+        Debug.Log("ImportGLTF: " + modelPath);
+        UnityWebRequest www = UnityWebRequest.Get(modelPath);
+
+        yield return www.SendWebRequest();
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            loadedObject = Importer.LoadFromString(www.downloadHandler.text);
+        }
+#else
+        loadedObject = (GameObject)Resources.Load(modelPath);
+        //Debug.Log("loadedObject " + modelPath);
 #endif
         callback(loadedObject);
         yield return null;
