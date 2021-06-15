@@ -43,6 +43,31 @@ public class ModelSelecter : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }));
     }
 
+    public void CreateBasicModel()
+    {
+        GameObject loadedModel = Instantiate(modelObject.gameObject, modelObject.transform.position, modelObject.transform.rotation);
+   
+        loadedModel.transform.position = new Vector3(modelObject.transform.position.x, modelObject.transform.position.y, modelObject.transform.position.z + 1f);
+        loadedModel.transform.localScale = loadedModel.transform.localScale * 10;
+        loadedModel.transform.localRotation = Quaternion.identity;
+        loadedModel.AddComponent<Saveable>();
+        loadedModel.GetComponent<Saveable>().data.model = modelObject.GetComponent<Saveable>().data.model;
+        loadedModel.name = modelObject.GetComponent<Saveable>().data.model;
+        loadedModel.GetComponent<Saveable>().GenerateUniqueId();
+        PlatformLoader.instance.platform.SetupEditorObject(loadedModel, new ObjectData());
+
+        WebXRInteractor[] interactors = FindObjectsOfType<WebXRInteractor>();
+        foreach (var interactor in interactors)
+        {
+            if (interactor.controller.trigger.IsPressed())
+            {
+                loadedModel.transform.position = interactor.transform.position;
+                break;
+            }
+        }
+        EditorManager.instance.mainMenu.Toggle();
+    }
+
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
         hovered = true;

@@ -135,7 +135,7 @@ public class ImportModelMenu : XRPanel
                         ModelSelecter modelSelecter = modelCard.AddComponent<ModelSelecter>();
                         modelSelecter.modelObject = model;
 
-                        modelCard.GetComponent<Button>().onClick.AddListener(modelSelecter.CreateModel);
+                        modelCard.GetComponent<Button>().onClick.AddListener(modelSelecter.CreateBasicModel);
 
                         Vector3 size = Vector3.Scale(model.transform.localScale, model.GetComponentInChildren<MeshFilter>().mesh.bounds.size);
                         float modelSize = Math.Max(size.x, Math.Max(size.y, size.z));
