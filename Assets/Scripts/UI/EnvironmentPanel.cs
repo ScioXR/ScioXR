@@ -18,7 +18,7 @@ public class EnvironmentPanel : XRPanel
         }
     }
 
-
+    public Sprite defaultImage;
     public GameObject environmentCardPrefab;
 
     public TextMeshProUGUI loadingText;
@@ -63,6 +63,7 @@ public class EnvironmentPanel : XRPanel
             GameObject environmentCard = Instantiate(environmentCardPrefab, transform);
             environmentCard.name = "Default";
             environmentCard.GetComponentInChildren<TextMeshProUGUI>().text = "Default";
+            environmentCard.GetComponent<Image>().sprite = defaultImage;
             environmentCard.transform.localPosition = new Vector3(cardStartPosition.transform.localPosition.x, cardStartPosition.transform.localPosition.y, cardStartPosition.transform.localPosition.z);
             environmentCard.GetComponent<Button>().onClick.AddListener(delegate { SelectEnvironment(""); });
             environments.Add(environmentCard);

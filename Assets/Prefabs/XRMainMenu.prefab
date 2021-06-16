@@ -7342,6 +7342,7 @@ MonoBehaviour:
   materials:
   - {fileID: 2100000, guid: c7c1b9c2650bdc3428b2fe189df01e57, type: 2}
   - {fileID: 2100000, guid: 9f0c64188322cda47bc0580c65dd286a, type: 2}
+  defaultImage: {fileID: 21300000, guid: 3cad12d38093d9147a0d5acaead54325, type: 3}
   environmentCardPrefab: {fileID: 5270428453026287687, guid: 4ba7867b41a1abf439eac699b665ee14, type: 3}
   loadingText: {fileID: 6613010598293091532}
   pageText: {fileID: 6644858209987268382}
