@@ -22,6 +22,7 @@ public class CodeBlockEditor : BlockEditor
     public TMP_Dropdown objectReferenceDropDown;
     public TMP_Dropdown variableReferenceDropDown;
     public TMP_Dropdown messageReferenceDropDown;
+    public TMP_Dropdown tagReferenceDropDown;
     public TMP_Dropdown selectionDropDown;
 
     public Image colorVariable;
@@ -57,6 +58,10 @@ public class CodeBlockEditor : BlockEditor
         if (messageReferenceDropDown && messageReferenceDropDown.options.Count == 0)
         {
             messageReferenceDropDown.AddOptions(codePanel.blockBoard.GetMessages());
+        }
+        if (tagReferenceDropDown && tagReferenceDropDown.options.Count == 0)
+        {
+            tagReferenceDropDown.AddOptions(codePanel.blockBoard.GetTags());
         }
     }
 
@@ -119,6 +124,23 @@ public class CodeBlockEditor : BlockEditor
                 messageReferenceDropDown.AddOptions(codePanel.blockBoard.GetMessages());
             }            
         }
+        if (tagReferenceDropDown)
+        {
+            if (tagReferenceDropDown.options.Count > 0)
+            {
+                string selectedText = tagReferenceDropDown.options[tagReferenceDropDown.value].text;
+
+                tagReferenceDropDown.ClearOptions();
+                tagReferenceDropDown.AddOptions(codePanel.blockBoard.GetTags());
+
+                TMP_Dropdown.OptionData selected = tagReferenceDropDown.options.Find(it => it.text == selectedText);
+                tagReferenceDropDown.value = tagReferenceDropDown.options.IndexOf(selected);
+            }
+            else
+            {
+                tagReferenceDropDown.AddOptions(codePanel.blockBoard.GetTags());
+            }
+        }
     }
 
     public override void ImportData(BlockData blockData)
@@ -154,6 +176,11 @@ public class CodeBlockEditor : BlockEditor
         {
             TMP_Dropdown.OptionData selected = messageReferenceDropDown.options.Find(it => it.text == blockData.paramString);
             messageReferenceDropDown.value = messageReferenceDropDown.options.IndexOf(selected);
+        }
+        if (tagReferenceDropDown)
+        {
+            TMP_Dropdown.OptionData selected = tagReferenceDropDown.options.Find(it => it.text == blockData.paramString);
+            tagReferenceDropDown.value = tagReferenceDropDown.options.IndexOf(selected);
         }
         if (selectionDropDown)
         {
@@ -218,6 +245,10 @@ public class CodeBlockEditor : BlockEditor
         if (messageReferenceDropDown)
         {
             blockData.paramString = messageReferenceDropDown.options[messageReferenceDropDown.value].text;
+        }
+        if (tagReferenceDropDown)
+        {
+            blockData.paramString = tagReferenceDropDown.options[tagReferenceDropDown.value].text;
         }
         if (selectionDropDown)
         {

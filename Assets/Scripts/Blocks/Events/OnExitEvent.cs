@@ -8,9 +8,14 @@ public class OnExitEvent : Block
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == validTag)
+        if (other.gameObject.GetComponent<Saveable>() && other.gameObject.GetComponent<Saveable>().data.tag == validTag)
         {
             Do();
         }
+    }
+
+    public override void Resolve(BlockData blockData)
+    {
+        validTag = blockData.paramString;
     }
 }
