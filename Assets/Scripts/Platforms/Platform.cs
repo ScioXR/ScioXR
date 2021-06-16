@@ -21,6 +21,17 @@ public class Platform : MonoBehaviour
 
         SetInteractable(loadedModel, data.isInteractable);
 
+        bool hasTouchEvent = true;
+        if (!data.isInteractable && hasTouchEvent)
+        {
+            Rigidbody rb = loadedModel.GetComponent<Rigidbody>();
+            if (!rb)
+            {
+                rb = loadedModel.AddComponent<Rigidbody>();
+            }
+            rb.isKinematic = true;
+        }
+
         SetupGraphics(loadedModel, data);
     }
 

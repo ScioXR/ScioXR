@@ -101,7 +101,7 @@ public class WebXRInteractor : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<IWebXRInteractable>() == null)
+        if (other.gameObject.GetComponent<IWebXRInteractable>() == null || other.gameObject.GetComponent<Rigidbody>() == null)
             return;
 
         contactRigidBodies.Add(other.gameObject.GetComponent<Rigidbody>());
@@ -113,6 +113,9 @@ public class WebXRInteractor : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.GetComponent<IWebXRInteractable>() == null)
+            return;
+
+        if (other.gameObject.GetComponent<Rigidbody>() == null)
             return;
 
         contactRigidBodies.Remove(other.gameObject.GetComponent<Rigidbody>());
