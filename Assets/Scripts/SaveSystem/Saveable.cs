@@ -66,7 +66,11 @@ public class Saveable : MonoBehaviour
                 textObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, bounds.size.x);
             }
             textModel.text = data.text.text;
-            textModel.fontSize = data.text.size / fontScaleFactor;
+           // textModel.fontSize = data.text.size / fontScaleFactor;
+            //auto size text
+            textModel.enableAutoSizing = true;
+            textModel.fontSizeMin = 0.2f;
+            textModel.fontSizeMax = data.text.size / fontScaleFactor;
             Color textColor = Color.white;
             ColorUtility.TryParseHtmlString("#" + data.text.color, out textColor);
             textModel.color = textColor;
