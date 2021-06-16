@@ -56,12 +56,14 @@ public class AssetsLoader
 
     public static IEnumerator GetBasicModelsList(Action<List<string>> callback)
     {
+        Debug.Log("GetBasicModelsList");
         callback(GetFilesInResources());
         yield return null;
     }
 
     public static List<string> GetBasicModelsList()
     {
+        Debug.Log("GetBasicModelsList List");
         List<string> modelNames = new List<string>();
         TextAsset mytxtData = (TextAsset)Resources.Load("files");
         string txt = mytxtData.text;
@@ -298,18 +300,10 @@ public class AssetsLoader
     {
         GameObject loadedObject = null;
 #if UNITY_WEBGL || UNITY_ANDROID //&& !UNITY_EDITOR
-        Debug.Log("ImportGLTF: " + modelPath);
-        UnityWebRequest www = UnityWebRequest.Get(modelPath);
 
-        yield return www.SendWebRequest();
-        if (www.isNetworkError || www.isHttpError)
-        {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            loadedObject = Importer.LoadFromString(www.downloadHandler.text);
-        }
+        //Debug.Log("LoadModelFromResources: " + modelPath);
+        loadedObject = (GameObject)Resources.Load(modelPath);
+
 #else
         loadedObject = (GameObject)Resources.Load(modelPath);
         //Debug.Log("loadedObject " + modelPath);
