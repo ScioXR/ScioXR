@@ -56,14 +56,8 @@ public class AssetsLoader
 
     public static IEnumerator GetBasicModelsList(Action<List<string>> callback)
     {
-#if UNITY_WEBGL //&& !UNITY_EDITOR
-       // yield return GetModelsFromUrl(Application.streamingAssetsPath + modelsFolder + "files.txt", callback);
-#elif UNITY_ANDROID
-      //  yield return GetModelsFromUrl(Application.streamingAssetsPath + modelsFolder + "files.txt", callback);
-#else
         callback(GetFilesInResources());
         yield return null;
-#endif
     }
 
     public static List<string> GetBasicModelsList()
@@ -261,13 +255,7 @@ public class AssetsLoader
 
     public static IEnumerator ImportBasicModel(string modelName, Action<GameObject> callback)
     {
-#if UNITY_WEBGL //&& !UNITY_EDITOR
-      //  string modelPath = appUrl + "StreamingAssets/" + modelName + modelsSuffix;
-#elif UNITY_ANDROID
-     //   string modelPath = Application.streamingAssetsPath + modelsFolder + modelName + modelsSuffix;
-#else
-        string modelPath =  "Models/"  + modelName;
-#endif
+        string modelPath = "Models/" + modelName;
         yield return LoadModelFromResources(modelPath, callback);
     }
 
