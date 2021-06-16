@@ -103,22 +103,7 @@ public class ScioXRSceneManager : MonoBehaviour
 
         for (int i = 0; i < dataJson.saveData.Length; i++)
         {
-            if (AssetsLoader.CheckIfModelExist(dataJson.saveData[i].model))
-            {
-                Debug.Log("Model: " + dataJson.saveData[i].model + ", name " + dataJson.saveData[i].name + ", position " + dataJson.saveData[i].position + ", roation " + dataJson.saveData[i].rotation + ", scale " + dataJson.saveData[i].scale);
-                //string modelPath = AssetsLoader.CheckIfModelExist(dataJson.saveData[i].model);
-                ObjectData currentData = dataJson.saveData[i];
-                StartCoroutine(AssetsLoader.ImportModel(dataJson.saveData[i].model, loadedObject =>
-                {
-                    CreateLoadedObject(loadedObject, currentData, editor);
-                    objectToLoad--;
-                    if (objectToLoad == 0)
-                    {
-                        AppManager.instance.loaded = true;
-                    }
-                }));
-            }
-            else if (AssetsLoader.CheckIfModelExistinResources(dataJson.saveData[i].model))
+            if (AssetsLoader.CheckIfModelExistinResources(dataJson.saveData[i].model))
             {
                 Debug.Log("Model Basic: " + dataJson.saveData[i].model + ", name " + dataJson.saveData[i].name + ", position " + dataJson.saveData[i].position + ", roation " + dataJson.saveData[i].rotation + ", scale " + dataJson.saveData[i].scale);
                 //string modelPath = AssetsLoader.CheckIfModelExist(dataJson.saveData[i].model);
@@ -133,7 +118,22 @@ public class ScioXRSceneManager : MonoBehaviour
                         AppManager.instance.loaded = true;
                     }
                 }));
-            }           
+            }
+            else if (AssetsLoader.CheckIfModelExist(dataJson.saveData[i].model))
+            {
+                Debug.Log("Model: " + dataJson.saveData[i].model + ", name " + dataJson.saveData[i].name + ", position " + dataJson.saveData[i].position + ", roation " + dataJson.saveData[i].rotation + ", scale " + dataJson.saveData[i].scale);
+                //string modelPath = AssetsLoader.CheckIfModelExist(dataJson.saveData[i].model);
+                ObjectData currentData = dataJson.saveData[i];
+                StartCoroutine(AssetsLoader.ImportModel(dataJson.saveData[i].model, loadedObject =>
+                {
+                    CreateLoadedObject(loadedObject, currentData, editor);
+                    objectToLoad--;
+                    if (objectToLoad == 0)
+                    {
+                        AppManager.instance.loaded = true;
+                    }
+                }));
+            }  
             else
             {
                 objectToLoad--;

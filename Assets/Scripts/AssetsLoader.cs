@@ -173,7 +173,10 @@ public class AssetsLoader
     }
     public static bool CheckIfModelExistinResources(string modelName)
     {
-#if UNITY_WEBGL || UNITY_ANDROID
+#if UNITY_ANDROID
+        List<string> resourceModels = GetFilesInResources();
+        return resourceModels.Contains(modelName);
+#elif UNITY_WEBGL
         //TODO: implement
         return true;
 #else
