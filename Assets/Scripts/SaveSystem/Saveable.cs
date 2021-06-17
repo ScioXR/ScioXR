@@ -55,8 +55,8 @@ public class Saveable : MonoBehaviour
                 //Create text object
                 GameObject textObject = new GameObject("Text");
                 textObject.transform.parent = gameObject.transform;
-              //  textObject.transform.localPosition = new Vector3(0, 0.1f, 0);
-                textObject.transform.localPosition = new Vector3(0, textObject.transform.parent.localScale.y * textObject.transform.localScale.y, 0);
+                textObject.transform.localPosition = new Vector3(0, 0.1f, 0);
+               // textObject.transform.localPosition = new Vector3(0, textObject.transform.parent.localScale.y * textObject.transform.localScale.y, 0);
                 textObject.transform.localEulerAngles = new Vector3(90, 0, 0);
                 textModel = textObject.AddComponent<TextMeshPro>();
                 textModel.horizontalAlignment = HorizontalAlignmentOptions.Center;
