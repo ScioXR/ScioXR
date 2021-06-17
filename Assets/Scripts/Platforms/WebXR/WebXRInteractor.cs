@@ -10,7 +10,7 @@ public class WebXRInteractor : MonoBehaviour
 {
     public FixedJoint attachJoint = null;
     public Transform attachTransform;
-    private List<Rigidbody> contactRigidBodies = new List<Rigidbody>();
+    public List<Rigidbody> contactRigidBodies = new List<Rigidbody>();
 
     private Animator anim;
     public WebXRControllerDevice controller;
