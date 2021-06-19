@@ -10,9 +10,9 @@ public class AppManager : MonoBehaviour
 
     public string currentSceneName;
     public bool loaded = true;
-
     private string dataPath;
     public string saveDirectory = "Experiences";
+    private List<GameObject> hands;
 
     void Awake()
     {
@@ -20,19 +20,22 @@ public class AppManager : MonoBehaviour
         {
             DontDestroyOnLoad(this.gameObject);
             instance = this;
-
-            dataPath = Path.Combine(Application.persistentDataPath, saveDirectory);
+            dataPath = Path.Combine(Application.persistentDataPath, saveDirectory);          
             if (!Directory.Exists(dataPath))
             {
-                Directory.CreateDirectory(dataPath);
+                Directory.CreateDirectory(dataPath);               
             }
         }
         else
         {
-            Destroy(this.gameObject);
+            WebXRInteractor[] hands = UnityEngine.Object.FindObjectsOfType<WebXRInteractor>();
+            for (int i = 0; i < hands.Length; i++)
+            {
+                hands[i].GetComponent<WebXRInteractor>().contactRigidBodies.Clear();
+            }
+            Destroy(this.gameObject);           
         }
     }
-
     public string GetScenesFolder()
     {
         return dataPath;

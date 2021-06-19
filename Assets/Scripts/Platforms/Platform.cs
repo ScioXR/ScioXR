@@ -17,9 +17,26 @@ public class Platform : MonoBehaviour
 
     public virtual void SetupPlayerObject(GameObject loadedModel, ObjectData data)
     {
-        loadedModel.AddComponent<BoxCollider>();
+        BoxCollider collider = loadedModel.AddComponent<BoxCollider>();
 
         SetInteractable(loadedModel, data.isInteractable);
+
+        bool hasTouchEvent = true;
+        if (!data.isInteractable && hasTouchEvent)
+        {
+            Rigidbody rb = loadedModel.GetComponent<Rigidbody>();
+            if (!rb)
+            {
+                rb = loadedModel.AddComponent<Rigidbody>();
+            }
+            rb.isKinematic = true;
+        }
+
+        if (loadedModel.GetComponent<Saveable>().data.model == "Empty")
+        {
+            loadedModel.GetComponent<MeshRenderer>().enabled = false;
+            collider.isTrigger = true;
+        }
 
         SetupGraphics(loadedModel, data);
     }

@@ -12,10 +12,17 @@ public class CodeController : MonoBehaviour
     {
         foreach (var blockData in codeData.blocks)
         {
-            Block block = Resolve(blockData);
-            if (block is Event)
+            blockData.ImportBlockReferences(codeData.blocks);
+        }
+        foreach (var blockData in codeData.blocks)
+        {
+            if (blockData.rootObject)
             {
-                blocks.Add(block);
+                Block block = Resolve(blockData);
+                if (block is Event)
+                {
+                    blocks.Add(block);
+                }
             }
         }
     }
@@ -134,6 +141,14 @@ public class CodeController : MonoBehaviour
         {
             result = gameObject.AddComponent<InteractEvent>();
         }
+        else if (blockData.blockType == "OnEnterEvent")
+        {
+            result = gameObject.AddComponent<OnEnterEvent>();
+        }
+        else if (blockData.blockType == "OnExitEvent")
+        {
+            result = gameObject.AddComponent<OnExitEvent>();
+        }
         else if (blockData.blockType == "SetInteractableSensing")
         {
             //result = gameObject.AddComponent<InteractEvent>();
@@ -142,12 +157,15 @@ public class CodeController : MonoBehaviour
         result.Resolve(blockData);
 
         //resolve childs
-        Block lastBlock = result;
-        foreach (var childBlockData in blockData.blocks)
+        if (blockData.blocks != null)
         {
-            Block childBlock = Resolve(childBlockData);
-            lastBlock.AddBlock(childBlock);
-            lastBlock = childBlock;
+            Block lastBlock = result;
+            foreach (var childBlockData in blockData.blocks)
+            {
+                Block childBlock = Resolve(childBlockData);
+                lastBlock.AddBlock(childBlock);
+                lastBlock = childBlock;
+            }
         }
 
         return result;

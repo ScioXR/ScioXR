@@ -103,17 +103,7 @@ public class ScioXRSceneManager : MonoBehaviour
 
         for (int i = 0; i < dataJson.saveData.Length; i++)
         {
-            if (AssetsLoader.CheckIfModelExist(dataJson.saveData[i].model))
-            {
-                Debug.Log("Model: " + dataJson.saveData[i].model + ", name " + dataJson.saveData[i].name + ", position " + dataJson.saveData[i].position + ", roation " + dataJson.saveData[i].rotation + ", scale " + dataJson.saveData[i].scale);
-                //string modelPath = AssetsLoader.CheckIfModelExist(dataJson.saveData[i].model);
-                ObjectData currentData = dataJson.saveData[i];
-                StartCoroutine(AssetsLoader.ImportModel(dataJson.saveData[i].model, loadedObject =>
-                {
-                    CreateLoadedObject(loadedObject, currentData, editor, objectToLoad);
-                }));
-            }
-            else if (AssetsLoader.CheckIfModelExistinResources(dataJson.saveData[i].model))
+            if (AssetsLoader.CheckIfModelExistinResources(dataJson.saveData[i].model))
             {
                 Debug.Log("Model Basic: " + dataJson.saveData[i].model + ", name " + dataJson.saveData[i].name + ", position " + dataJson.saveData[i].position + ", roation " + dataJson.saveData[i].rotation + ", scale " + dataJson.saveData[i].scale);
                 //string modelPath = AssetsLoader.CheckIfModelExist(dataJson.saveData[i].model);
@@ -121,9 +111,29 @@ public class ScioXRSceneManager : MonoBehaviour
                 StartCoroutine(AssetsLoader.ImportBasicModel(dataJson.saveData[i].model, loadedObject =>
                 {
                     loadedObject = Instantiate(loadedObject, loadedObject.transform.parent, true) as GameObject;
-                    CreateLoadedObject(loadedObject, currentData, editor, objectToLoad);
+                    CreateLoadedObject(loadedObject, currentData, editor);
+                    objectToLoad--;
+                    if (objectToLoad == 0)
+                    {
+                        AppManager.instance.loaded = true;
+                    }
                 }));
-            }           
+            }
+            else if (AssetsLoader.CheckIfModelExist(dataJson.saveData[i].model))
+            {
+                Debug.Log("Model: " + dataJson.saveData[i].model + ", name " + dataJson.saveData[i].name + ", position " + dataJson.saveData[i].position + ", roation " + dataJson.saveData[i].rotation + ", scale " + dataJson.saveData[i].scale);
+                //string modelPath = AssetsLoader.CheckIfModelExist(dataJson.saveData[i].model);
+                ObjectData currentData = dataJson.saveData[i];
+                StartCoroutine(AssetsLoader.ImportModel(dataJson.saveData[i].model, loadedObject =>
+                {
+                    CreateLoadedObject(loadedObject, currentData, editor);
+                    objectToLoad--;
+                    if (objectToLoad == 0)
+                    {
+                        AppManager.instance.loaded = true;
+                    }
+                }));
+            }  
             else
             {
                 objectToLoad--;
@@ -136,7 +146,7 @@ public class ScioXRSceneManager : MonoBehaviour
         }
     }
 
-    public void CreateLoadedObject(GameObject loadedObject, ObjectData currentData, bool editor, int objectToLoad)
+    public void CreateLoadedObject(GameObject loadedObject, ObjectData currentData, bool editor)
     {
         loadedObject.name = currentData.name;
         loadedObject.transform.position = currentData.position;
@@ -180,13 +190,6 @@ public class ScioXRSceneManager : MonoBehaviour
             {
                 Debug.LogError("Cannot find parent for " + currentData.id);
             }
-        }
-
-        objectToLoad--;
-        if (objectToLoad == 0)
-        {
-            AppManager.instance.loaded = true;
-            //LoadCode();
         }
     }
 

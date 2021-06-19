@@ -56,18 +56,14 @@ public class AssetsLoader
 
     public static IEnumerator GetBasicModelsList(Action<List<string>> callback)
     {
-#if UNITY_WEBGL //&& !UNITY_EDITOR
-       // yield return GetModelsFromUrl(Application.streamingAssetsPath + modelsFolder + "files.txt", callback);
-#elif UNITY_ANDROID
-      //  yield return GetModelsFromUrl(Application.streamingAssetsPath + modelsFolder + "files.txt", callback);
-#else
+        Debug.Log("GetBasicModelsList");
         callback(GetFilesInResources());
         yield return null;
-#endif
     }
 
     public static List<string> GetBasicModelsList()
     {
+        Debug.Log("GetBasicModelsList List");
         List<string> modelNames = new List<string>();
         TextAsset mytxtData = (TextAsset)Resources.Load("files");
         string txt = mytxtData.text;
@@ -177,7 +173,10 @@ public class AssetsLoader
     }
     public static bool CheckIfModelExistinResources(string modelName)
     {
-#if UNITY_WEBGL || UNITY_ANDROID
+#if UNITY_ANDROID
+        List<string> resourceModels = GetFilesInResources();
+        return resourceModels.Contains(modelName);
+#elif UNITY_WEBGL
         //TODO: implement
         return true;
 #else
@@ -261,13 +260,7 @@ public class AssetsLoader
 
     public static IEnumerator ImportBasicModel(string modelName, Action<GameObject> callback)
     {
-#if UNITY_WEBGL //&& !UNITY_EDITOR
-      //  string modelPath = appUrl + "StreamingAssets/" + modelName + modelsSuffix;
-#elif UNITY_ANDROID
-     //   string modelPath = Application.streamingAssetsPath + modelsFolder + modelName + modelsSuffix;
-#else
-        string modelPath =  "Models/"  + modelName;
-#endif
+        string modelPath = "Models/" + modelName;
         yield return LoadModelFromResources(modelPath, callback);
     }
 
@@ -310,18 +303,10 @@ public class AssetsLoader
     {
         GameObject loadedObject = null;
 #if UNITY_WEBGL || UNITY_ANDROID //&& !UNITY_EDITOR
-        Debug.Log("ImportGLTF: " + modelPath);
-        UnityWebRequest www = UnityWebRequest.Get(modelPath);
 
-        yield return www.SendWebRequest();
-        if (www.isNetworkError || www.isHttpError)
-        {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            loadedObject = Importer.LoadFromString(www.downloadHandler.text);
-        }
+        //Debug.Log("LoadModelFromResources: " + modelPath);
+        loadedObject = (GameObject)Resources.Load(modelPath);
+
 #else
         loadedObject = (GameObject)Resources.Load(modelPath);
         //Debug.Log("loadedObject " + modelPath);

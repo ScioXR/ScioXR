@@ -19,9 +19,9 @@ public class ArrowButton : MonoBehaviour
         {
             newValue = minValue;
         }
-        if (newValue < minValue)
-        {
-            newValue = maxValue - increment;
+        if (newValue <= minValue)
+        {            
+            newValue = maxValue + increment;
         }
         numberText.text = "" + newValue;
     }

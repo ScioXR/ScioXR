@@ -147,6 +147,21 @@ public class BlocksBoard : MonoBehaviour
         codeBoard.RefreshBlockReferences();
     }
 
+    public List<string> GetTags()
+    {
+        List<string> result = new List<string>();
+
+        Saveable[] allObjects = GameObject.FindObjectsOfType<Saveable>();
+        foreach (Saveable saveable in allObjects)
+        {
+            if (saveable.data.tag != "" && !result.Contains(saveable.data.tag))
+            {
+                result.Add(saveable.data.tag);
+            }
+        }
+        return result;
+    }
+
     public List<string> GetMessages()
     {
         List<string> result = new List<string>();

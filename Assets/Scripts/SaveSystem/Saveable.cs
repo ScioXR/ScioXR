@@ -56,6 +56,7 @@ public class Saveable : MonoBehaviour
                 GameObject textObject = new GameObject("Text");
                 textObject.transform.parent = gameObject.transform;
                 textObject.transform.localPosition = new Vector3(0, 0.1f, 0);
+               // textObject.transform.localPosition = new Vector3(0, textObject.transform.parent.localScale.y * textObject.transform.localScale.y, 0);
                 textObject.transform.localEulerAngles = new Vector3(90, 0, 0);
                 textModel = textObject.AddComponent<TextMeshPro>();
                 textModel.horizontalAlignment = HorizontalAlignmentOptions.Center;
@@ -66,7 +67,11 @@ public class Saveable : MonoBehaviour
                 textObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, bounds.size.x);
             }
             textModel.text = data.text.text;
-            textModel.fontSize = data.text.size / fontScaleFactor;
+           // textModel.fontSize = data.text.size / fontScaleFactor;
+            //auto size text
+            textModel.enableAutoSizing = true;
+            textModel.fontSizeMin = 0.2f;
+            textModel.fontSizeMax = data.text.size / fontScaleFactor;
             Color textColor = Color.white;
             ColorUtility.TryParseHtmlString("#" + data.text.color, out textColor);
             textModel.color = textColor;

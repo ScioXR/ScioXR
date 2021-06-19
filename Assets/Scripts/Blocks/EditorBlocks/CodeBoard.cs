@@ -180,9 +180,10 @@ public class CodeBoard : MonoBehaviour, IPointerClickHandler
     public CodeData SaveCode()
     {
         CodeData codeData = new CodeData();
-        List<BlockData> blocksList = new List<BlockData>();
+        //List<BlockData> blocksList = new List<BlockData>();
 
         //Debug.Log("Exporting to JSON");
+        BlockData.allBlocks.Clear();
         BlockEditor[] blocks = GetComponentsInChildren<BlockEditor>();
         foreach (BlockEditor block in blocks)
         {
@@ -191,10 +192,16 @@ public class CodeBoard : MonoBehaviour, IPointerClickHandler
                 BlockData blockData = new BlockData();
                 blockData.editorPosition = new Vector2(block.transform.localPosition.x, block.transform.localPosition.y);
                 block.ExportData(ref blockData);
-                blocksList.Add(blockData);
+                blockData.rootObject = true;
+                //blocksList.Add(blockData);
             }
         }
-        codeData.blocks = blocksList.ToArray();
+        codeData.blocks = BlockData.allBlocks.ToArray();
+
+        foreach (BlockData blockData in codeData.blocks)
+        {
+            blockData.ExportBlockReferences();
+        }
 
         return codeData;
     }
@@ -221,6 +228,11 @@ public class CodeBoard : MonoBehaviour, IPointerClickHandler
             }
         }
 
+        foreach (BlockData blockData in data.blocks)
+        {
+            blockData.ImportBlockReferences(data.blocks);
+        }
+
         foreach (var variableString in EditorManager.instance.globalData.variables)
         {
             blockBoard.variableName.text = variableString;
@@ -237,7 +249,10 @@ public class CodeBoard : MonoBehaviour, IPointerClickHandler
         {
             foreach (var rootBlockData in data.blocks)
             {
-                ParseBlock(rootBlockData);
+                if (rootBlockData.rootObject)
+                {
+                    ParseBlock(rootBlockData);
+                }
                 /*GameObject rootBlock = blockBoard.CreateBlock(rootBlockData);
                 rootBlock.transform.localPosition = rootBlockData.editorPosition;
                 rootBlock.transform.localRotation = Quaternion.identity;
