@@ -12,3 +12,10 @@ jobs:
        - run:
            name: "Building App"
            command: xvfb-run -a /opt/unity/Editor/Unity -batchmode -quit -executeMethod CIBuildScript.PerformBuildWebXR -quit -logfile -
+       - run:
+           name: "Testing App"
+           command: xvfb-run -a /opt/unity/Editor/Unity -projectPath . -batchmode -testPlatform PlayMode -runTests -enableCodeCoverage -coverageOptions generateHtmlReport;assemblyFilters:+ScioXR -testResults results.xml -logFile -
+       - store_test_results:
+          path: ~/CodeCoverage/Report
+       - store_artifacts:
+          path: ~/CodeCoverage/Report
