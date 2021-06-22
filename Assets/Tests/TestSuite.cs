@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
@@ -22,7 +23,7 @@ namespace Tests
             return null;
         }*/
 
-        private static string jsonScene = @"{""environment"":"""",""saveData"":[{""id"":9,""parent"":0,""name"":""Plate"",""model"":""Plate"",""texture"":""marble_01"",""color"":""FFFFFDFF"",""position"":{""x"":0.9507091641426086,""y"":0.8754031658172607,""z"":1.6107635498046875},""rotation"":{""x"":0.02444225363433361,""y"":0.16621994972229004,""z"":-0.013855468481779099,""w"":0.9856884479522705},""scale"":{""x"":0.05267365276813507,""y"":0.03610977903008461,""z"":0.03610977903008461},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":10,""parent"":0,""name"":""Plate"",""model"":""Plate"",""texture"":""marble_02"",""color"":""FFFFFF"",""position"":{""x"":0.3216511011123657,""y"":0.8629510402679443,""z"":1.7758440971374512},""rotation"":{""x"":0.0033311813604086637,""y"":-0.5696257948875427,""z"":-0.006555702071636915,""w"":0.8218713402748108},""scale"":{""x"":0.0328846201300621,""y"":0.04921933263540268,""z"":0.05799652636051178},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":15,""parent"":0,""name"":""Triangle"",""model"":""Triangle"",""texture"":""tiles_02"",""color"":""FFE400FF"",""position"":{""x"":0.21211868524551392,""y"":0.8829270005226135,""z"":1.8020204305648804},""rotation"":{""x"":-0.03753991797566414,""y"":0.6685855388641357,""z"":0.013544832356274128,""w"":-0.7425636649131775},""scale"":{""x"":0.0009999999310821295,""y"":0.0009999999310821295,""z"":0.0009999999310821295},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":16,""parent"":0,""name"":""Plate"",""model"":""Plate"",""texture"":""tiles_02"",""color"":""FFF3F3FF"",""position"":{""x"":-0.29458820819854736,""y"":0.8643428683280945,""z"":1.9410245418548584},""rotation"":{""x"":-0.02218695729970932,""y"":0.10207946598529816,""z"":0.026977024972438812,""w"":0.9941628575325012},""scale"":{""x"":0.042359914630651474,""y"":0.10699083656072617,""z"":0.02997143566608429},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":18,""parent"":0,""name"":""Banana_pill"",""model"":""Banana_pill"",""texture"":"""",""color"":""FFE600FF"",""position"":{""x"":-0.3275540769100189,""y"":0.9513686299324036,""z"":1.9952579736709595},""rotation"":{""x"":-0.4614984095096588,""y"":0.5159963369369507,""z"":0.4763113856315613,""w"":0.5421204566955566},""scale"":{""x"":0.03178251162171364,""y"":0.03178251162171364,""z"":0.03178251162171364},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":19,""parent"":0,""name"":""Banana"",""model"":""Banana"",""texture"":"""",""color"":""EAFF00FF"",""position"":{""x"":-0.32282885909080505,""y"":0.9722450375556946,""z"":1.9150383472442627},""rotation"":{""x"":0.011211585253477097,""y"":-0.7015367746353149,""z"":0.04493645206093788,""w"":0.7111266851425171},""scale"":{""x"":0.03754916042089462,""y"":0.034757036715745926,""z"":0.03754916042089462},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":7,""parent"":0,""name"":""Stand"",""model"":""Stand"",""texture"":"""",""color"":""FFFFFF"",""position"":{""x"":0.5786664485931396,""y"":-0.0007871687412261963,""z"":2.140251636505127},""rotation"":{""x"":-0.0013787312200292945,""y"":0.14196588099002838,""z"":-0.0020633365493267775,""w"":0.9898684620857239},""scale"":{""x"":0.10493365675210953,""y"":0.03530970588326454,""z"":0.04485420137643814},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[{""blockType"":""StartEvent"",""editorPosition"":{""x"":-212.40200805664062,""y"":196.26898193359375},""paramInt"":0,""paramString"":"""",""objectReference"":0,""blocks"":[{""blockType"":""ShowLook"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":0,""blocks"":[]}]}]}},{""id"":2,""parent"":0,""name"":""Cube"",""model"":""Box"",""texture"":""textile_01"",""color"":""FFFFFF"",""position"":{""x"":1.6610822677612305,""y"":0.8724631667137146,""z"":0.29539984464645386},""rotation"":{""x"":-0.539347231388092,""y"":-0.43004536628723145,""z"":-0.42609331011772156,""w"":0.5853290557861328},""scale"":{""x"":0.09819819778203964,""y"":0.03857402503490448,""z"":0.010009923949837685},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":3,""parent"":0,""name"":""Cube"",""model"":""Box"",""texture"":""textile_01"",""color"":""FFFFFF"",""position"":{""x"":1.722938895225525,""y"":0.8756575584411621,""z"":-0.14084449410438538},""rotation"":{""x"":-0.5596387386322021,""y"":-0.4322177469730377,""z"":-0.4287594258785248,""w"":0.5622790455818176},""scale"":{""x"":0.5202077031135559,""y"":0.04649493470788002,""z"":0.009192513301968575},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":5,""parent"":0,""name"":""Cylinder"",""model"":""Cilinder"",""texture"":"""",""color"":""091798FF"",""position"":{""x"":-1.475953459739685,""y"":0.6393968462944031,""z"":1.282645583152771},""rotation"":{""x"":-0.007796456106007099,""y"":0.11983022093772888,""z"":0.026310939341783524,""w"":0.9924150705337524},""scale"":{""x"":0.03805795684456825,""y"":0.6376686692237854,""z"":0.03805795684456825},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":1,""parent"":5,""name"":""Cube"",""model"":""Box"",""texture"":""wall_04"",""color"":""FFFEFEFF"",""position"":{""x"":-1.4412119388580322,""y"":1.2510769367218018,""z"":1.3213562965393066},""rotation"":{""x"":-0.06459812074899673,""y"":-0.7027919888496399,""z"":-0.695894718170166,""w"":0.13282008469104767},""scale"":{""x"":0.3125687539577484,""y"":19.223709106445312,""z"":0.7492404580116272},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":1,""parent"":0,""name"":""Cube"",""model"":""Box"",""texture"":""wood_white"",""color"":""FFFFFF"",""position"":{""x"":1.918060541152954,""y"":0.41328078508377075,""z"":0.6075196266174316},""rotation"":{""x"":0.02833094447851181,""y"":-0.6151087880134583,""z"":0.019094860181212425,""w"":0.7877017855644226},""scale"":{""x"":0.025917984545230865,""y"":0.41137802600860596,""z"":0.0789908692240715},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":2,""parent"":0,""name"":""Cube"",""model"":""Box"",""texture"":""wood_white"",""color"":""FFFFFF"",""position"":{""x"":1.505534291267395,""y"":0.4401441812515259,""z"":-0.8611299991607666},""rotation"":{""x"":-0.009278940036892891,""y"":-0.12716121971607208,""z"":-0.03318219259381294,""w"":-0.9912834763526917},""scale"":{""x"":0.09196656197309494,""y"":0.39387375116348267,""z"":0.03264658525586128},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":6,""parent"":0,""name"":""Cube"",""model"":""Box"",""texture"":""tiles_02"",""color"":""FFFFFF"",""position"":{""x"":1.732779622077942,""y"":0.8265252113342285,""z"":-0.13717642426490784},""rotation"":{""x"":0.010773404501378536,""y"":0.1373453289270401,""z"":0.005366884637624025,""w"":0.9904501438140869},""scale"":{""x"":0.3901248276233673,""y"":0.028455466032028198,""z"":0.7882717847824097},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":1,""parent"":0,""name"":""Apple"",""model"":""Apple"",""texture"":""textile_01"",""color"":""FFFFFF"",""position"":{""x"":-0.3006021976470947,""y"":0.9779179096221924,""z"":1.8103914260864258},""rotation"":{""x"":0.056144677102565765,""y"":-0.1297179013490677,""z"":-0.07492660731077194,""w"":0.9871205687522888},""scale"":{""x"":0.02626265026628971,""y"":0.02626265026628971,""z"":0.02626265026628971},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":3,""parent"":0,""name"":""Box_blue"",""model"":""Box_yellow"",""texture"":"""",""color"":""F3FF00FF"",""position"":{""x"":-0.1006530225276947,""y"":0.8774397373199463,""z"":2.50211763381958},""rotation"":{""x"":0.008260254748165607,""y"":-0.6118207573890686,""z"":-0.0072739277966320515,""w"":0.7909198999404907},""scale"":{""x"":0.021648820489645004,""y"":0.02165343053638935,""z"":0.021648820489645004},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":1,""parent"":0,""name"":""Box_blue"",""model"":""Box_blue"",""texture"":"""",""color"":""00AFFFFF"",""position"":{""x"":0.5128641724586487,""y"":0.8766258358955383,""z"":2.3512845039367676},""rotation"":{""x"":0.004331698175519705,""y"":-0.6176424622535706,""z"":-0.00881058070808649,""w"":0.7863977551460266},""scale"":{""x"":0.022393491119146347,""y"":0.018134092912077904,""z"":0.022424079477787018},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":2,""parent"":0,""name"":""Box_red"",""model"":""Box_red"",""texture"":"""",""color"":""EE0000FF"",""position"":{""x"":1.246321678161621,""y"":0.8697901964187622,""z"":2.1288585662841797},""rotation"":{""x"":-0.009305654093623161,""y"":-0.5869897603988647,""z"":-0.002645318629220128,""w"":0.8095366358757019},""scale"":{""x"":0.018056074157357216,""y"":0.014736533164978027,""z"":0.025326216593384743},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":3,""parent"":0,""name"":""Chicken_meat"",""model"":""Chicken_meat"",""texture"":"""",""color"":""6C3A00FF"",""position"":{""x"":0.8217520117759705,""y"":0.9442562460899353,""z"":1.6818065643310547},""rotation"":{""x"":0.028398755937814713,""y"":-0.013208531774580479,""z"":0.036139488220214844,""w"":0.9988558888435364},""scale"":{""x"":0.030375873669981956,""y"":0.030375873669981956,""z"":0.030375873669981956},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":4,""parent"":0,""name"":""Fish"",""model"":""Fish"",""texture"":"""",""color"":""CC6E00FF"",""position"":{""x"":0.9613312482833862,""y"":0.9162052273750305,""z"":1.5682334899902344},""rotation"":{""x"":-0.14243881404399872,""y"":0.2092008888721466,""z"":0.014790571294724941,""w"":0.9673300385475159},""scale"":{""x"":0.014886901713907719,""y"":0.012162280268967152,""z"":0.014886901713907719},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":5,""parent"":0,""name"":""Chicken_meat"",""model"":""Chicken_meat"",""texture"":"""",""color"":""D87706FF"",""position"":{""x"":1.0563533306121826,""y"":0.9419412016868591,""z"":1.6389824151992798},""rotation"":{""x"":-0.24952971935272217,""y"":-0.6105957627296448,""z"":-0.7121024131774902,""w"":0.2404535561800003},""scale"":{""x"":0.030591128394007683,""y"":0.030591128394007683,""z"":0.030591128394007683},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[{""blockType"":""StartEvent"",""editorPosition"":{""x"":-243.97071838378906,""y"":160.85855102539062},""paramInt"":0,""paramString"":"""",""objectReference"":0,""blocks"":[{""blockType"":""ShowLook"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":0,""blocks"":[]},{""blockType"":""MoveMotion"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":1,""paramString"":"""",""objectReference"":8,""blocks"":[]},{""blockType"":""PointsTowardMotion"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":1,""paramString"":"""",""objectReference"":8,""blocks"":[]},{""blockType"":""WaitControl"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":1,""paramString"":"""",""objectReference"":0,""blocks"":[]},{""blockType"":""BroadcastEvent"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":""test"",""objectReference"":0,""blocks"":[]}]},{""blockType"":""ReceiveEvent"",""editorPosition"":{""x"":23.025360107421875,""y"":158.5536346435547},""paramInt"":0,""paramString"":""test"",""objectReference"":0,""blocks"":[{""blockType"":""HideLook"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":0,""blocks"":[]},{""blockType"":""DestroyControl"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":0,""blocks"":[]}]}]}},{""id"":6,""parent"":0,""name"":""Milk_cart"",""model"":""Milk_cart"",""texture"":""wall_04"",""color"":""FFFFFFFF"",""position"":{""x"":0.4719296097755432,""y"":0.9015804529190063,""z"":1.7959798574447632},""rotation"":{""x"":0.077435202896595,""y"":0.12446704506874084,""z"":0.0039857798255980015,""w"":0.9891895055770874},""scale"":{""x"":0.009417548775672913,""y"":0.009417548775672913,""z"":0.007467465475201607},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":7,""parent"":0,""name"":""Yogurt cup"",""model"":""Yogurt_cup"",""texture"":""wall_04"",""color"":""FFFFFF"",""position"":{""x"":0.37835443019866943,""y"":0.8907849788665771,""z"":1.7299760580062866},""rotation"":{""x"":0.012383056804537773,""y"":-0.16790790855884552,""z"":-0.0021844888105988503,""w"":0.9857224822044373},""scale"":{""x"":0.030957801267504692,""y"":0.030957801267504692,""z"":0.030957801267504692},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}},{""id"":8,""parent"":0,""name"":""Apple"",""model"":""Apple"",""texture"":""textile_01"",""color"":""FFFFFF"",""position"":{""x"":-0.21702107787132263,""y"":0.9937160611152649,""z"":1.9917008876800537},""rotation"":{""x"":-0.1770499348640442,""y"":-0.41105934977531433,""z"":0.1493024230003357,""w"":0.8816986083984375},""scale"":{""x"":0.019531534984707832,""y"":0.019531534984707832,""z"":0.019531534984707832},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]}}],""globalData"":{""variables"":[""test""],""messages"":[""test""]}}";
+        private static string jsonScene = @"{""environment"":""Classroom"",""saveData"":[{""id"":1,""parent"":0,""name"":""Box"",""model"":""Box"",""texture"":""bricks"",""color"":""BE00FFFF"",""position"":{""x"":-1.2934155464172363,""y"":1.686502456665039,""z"":1.5952855348587036},""rotation"":{""x"":0,""y"":0,""z"":0,""w"":1},""scale"":{""x"":0.19999998807907104,""y"":0.19999998807907104,""z"":0.19999998807907104},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[{""id"":168,""rootObject"":true,""blockType"":""ReceiveEvent"",""editorPosition"":{""x"":32.69476318359375,""y"":216.674072265625},""paramInt"":0,""paramString"":""m"",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[169,171,172,173]},{""id"":169,""rootObject"":false,""blockType"":""SetTextLook"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[170],""blocksIds"":[]},{""id"":170,""rootObject"":false,""blockType"":""StringVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":""u"",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":171,""rootObject"":false,""blockType"":""SetColorLook"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":""FFFFFFFF"",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":172,""rootObject"":false,""blockType"":""HideLook"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":173,""rootObject"":false,""blockType"":""DestroyControl"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":174,""rootObject"":true,""blockType"":""StartEvent"",""editorPosition"":{""x"":-248.08938598632812,""y"":236.2161865234375},""paramInt"":0,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[175,176,178,180,182,188,196,202]},{""id"":175,""rootObject"":false,""blockType"":""ShowLook"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":176,""rootObject"":false,""blockType"":""PointsTowardMotion"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":2,""childBlocksIds"":[],""attachedBlocksIds"":[177],""blocksIds"":[]},{""id"":177,""rootObject"":false,""blockType"":""IntVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":1,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":178,""rootObject"":false,""blockType"":""WaitControl"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[179],""blocksIds"":[]},{""id"":179,""rootObject"":false,""blockType"":""IntVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":1,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":180,""rootObject"":false,""blockType"":""MoveMotion"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":2,""childBlocksIds"":[],""attachedBlocksIds"":[181],""blocksIds"":[]},{""id"":181,""rootObject"":false,""blockType"":""IntVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":1,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":182,""rootObject"":false,""blockType"":""SetVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":""n"",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[183],""blocksIds"":[]},{""id"":183,""rootObject"":false,""blockType"":""AddVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[184,185],""blocksIds"":[]},{""id"":184,""rootObject"":false,""blockType"":""IntVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":2,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":185,""rootObject"":false,""blockType"":""SubtractVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[186,187],""blocksIds"":[]},{""id"":186,""rootObject"":false,""blockType"":""IntVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":1,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":187,""rootObject"":false,""blockType"":""IntVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":1,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":188,""rootObject"":false,""blockType"":""IfControl"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[194],""attachedBlocksIds"":[189],""blocksIds"":[]},{""id"":189,""rootObject"":false,""blockType"":""EqualsCondition"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[190,191],""blocksIds"":[]},{""id"":190,""rootObject"":false,""blockType"":""Variable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":""n"",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":191,""rootObject"":false,""blockType"":""MultiplyVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[192,193],""blocksIds"":[]},{""id"":192,""rootObject"":false,""blockType"":""IntVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":2,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":193,""rootObject"":false,""blockType"":""IntVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":1,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":194,""rootObject"":false,""blockType"":""SetVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":""n"",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[195],""blocksIds"":[]},{""id"":195,""rootObject"":false,""blockType"":""IntVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":1,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":196,""rootObject"":false,""blockType"":""SetVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":""n"",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[197],""blocksIds"":[]},{""id"":197,""rootObject"":false,""blockType"":""MultiplyVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[198,199],""blocksIds"":[]},{""id"":198,""rootObject"":false,""blockType"":""Variable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":""n"",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":199,""rootObject"":false,""blockType"":""DivideVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[200,201],""blocksIds"":[]},{""id"":200,""rootObject"":false,""blockType"":""IntVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":1,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":201,""rootObject"":false,""blockType"":""IntVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":1,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":202,""rootObject"":false,""blockType"":""BroadcastEvent"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":""m"",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":203,""rootObject"":true,""blockType"":""OnEnterEvent"",""editorPosition"":{""x"":35.50836181640625,""y"":-24.58392906188965},""paramInt"":0,""paramString"":""trigger"",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[204]},{""id"":204,""rootObject"":false,""blockType"":""SetVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":""n"",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[205],""blocksIds"":[]},{""id"":205,""rootObject"":false,""blockType"":""IntVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":1,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]},{""id"":206,""rootObject"":true,""blockType"":""OnExitEvent"",""editorPosition"":{""x"":79.71929931640625,""y"":-243.4313201904297},""paramInt"":0,""paramString"":""trigger"",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[207]},{""id"":207,""rootObject"":false,""blockType"":""SetVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":0,""paramString"":""n"",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[208],""blocksIds"":[]},{""id"":208,""rootObject"":false,""blockType"":""IntVariable"",""editorPosition"":{""x"":0,""y"":0},""paramInt"":1,""paramString"":"""",""objectReference"":0,""childBlocksIds"":[],""attachedBlocksIds"":[],""blocksIds"":[]}]},""tag"":""a""},{""id"":3,""parent"":1,""name"":""Sphere"",""model"":""Sphere"",""texture"":"""",""color"":"""",""position"":{""x"":-1.3174158334732056,""y"":2.1405038833618164,""z"":1.5952856540679932},""rotation"":{""x"":0,""y"":0,""z"":0,""w"":1},""scale"":{""x"":0.9999998807907104,""y"":0.9999998807907104,""z"":0.9999998807907104},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]},""tag"":""""},{""id"":2,""parent"":0,""name"":""Banana_pill"",""model"":""Banana_pill"",""texture"":"""",""color"":"""",""position"":{""x"":0.9476202130317688,""y"":1.5817348957061768,""z"":1.600000023841858},""rotation"":{""x"":-0.7071068286895752,""y"":0,""z"":0,""w"":0.7071067094802856},""scale"":{""x"":0.13386249542236328,""y"":0.13386249542236328,""z"":0.13386249542236328},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]},""tag"":""""},{""id"":1,""parent"":0,""name"":""Empty"",""model"":""Empty"",""texture"":"""",""color"":"""",""position"":{""x"":-0.24140864610671997,""y"":1.5781581401824951,""z"":1.5725278854370117},""rotation"":{""x"":0,""y"":0,""z"":0,""w"":1},""scale"":{""x"":0.037275705486536026,""y"":0.037275709211826324,""z"":0.037275705486536026},""isVisible"":1,""isInteractable"":false,""physics"":{""mass"":1,""drag"":0,""angularDrag"":0.05000000074505806},""text"":{""text"":"""",""size"":20,""color"":"""",""horizontalAligment"":0,""verticalAligment"":0},""code"":{""blocks"":[]},""tag"":""trigger""}],""globalData"":{""variables"":[""n""],""messages"":[""m""]}}";
 
         [UnityTest]
         public IEnumerator SaveLoadScene()
@@ -48,6 +49,189 @@ namespace Tests
 
             yield return new WaitForSeconds(1.0f);
 
+            EditorButtonsListener buttonListener = GameObject.FindObjectOfType<EditorButtonsListener>();
+            buttonListener.toggleCanvas.Toggle();
+
+            yield return new WaitForSeconds(0.2f);
+            XRTabGroup mainMenuTabs = buttonListener.toggleCanvas.panel as XRTabGroup;
+            mainMenuTabs.SelectTab(0);
+
+            yield return new WaitForSeconds(0.5f);
+
+            mainMenuTabs.SelectTab(1);
+
+            yield return new WaitForSeconds(0.5f);
+
+            mainMenuTabs.SelectTab(2);
+
+            yield return new WaitForSeconds(0.1f);
+
+            //Select environment tab
+            mainMenuTabs.tabs[2].GetComponentInChildren<XRTabGroup>().SelectTab(0);
+
+            //EditorManager.instance.NextTransformMode();
+
+            yield return new WaitForSeconds(0.5f);
+
+            buttonListener.toggleCanvas.Toggle();
+
+            GameObject firstObject = GameObject.Find("Box");
+
+            //Open properties with controller
+            WebXRInteractor controller = GameObject.FindObjectOfType<WebXRInteractor>();
+            EditorManager.instance.NextTransformMode();
+            IWebXRInteractable editorInteractable = firstObject.GetComponent<IWebXRInteractable>();
+            editorInteractable.OnSecondaryGrab(controller);
+            yield return new WaitForSeconds(0.1f);
+            editorInteractable.OnSecondaryUngrab(controller);
+
+
+            //EditorManager.instance.ToggleProperties(firstObject);
+
+            EditorManager.instance.selectedObject = firstObject;
+
+            yield return new WaitForSeconds(0.5f);
+
+            XRTabGroup propertiesTabs = EditorManager.instance.propertiesMenu.panel as XRTabGroup;
+
+            propertiesTabs.SelectTab(1);
+
+            yield return new WaitForSeconds(0.5f);
+
+            propertiesTabs.SelectTab(2);
+
+            yield return new WaitForSeconds(0.5f);
+
+            //Test block drag
+            BlockEditor blockEditor = GameObject.FindObjectOfType<BlockEditor>();
+            PointerEventData eventData = new PointerEventData(EventSystem.current);
+            blockEditor.OnBeginDrag(eventData);
+            blockEditor.OnDrag(eventData);
+            blockEditor.OnEndDrag(eventData);
+
+            yield return new WaitForSeconds(0.1f);
+
+            BlockEditor[] allblocks = GameObject.FindObjectsOfType<BlockEditor>();
+            BlockEditor conditionBlock = null;
+            foreach (var item in allblocks)
+            {
+                if (item.blockGroup == BlockEditor.BlockGroup.CONDITION)
+                {
+                    conditionBlock = item;
+                    break;
+                }
+            }
+            conditionBlock.OnBeginDrag(eventData);
+            conditionBlock.OnDrag(eventData);
+            conditionBlock.OnEndDrag(eventData);
+
+            yield return new WaitForSeconds(0.1f);
+
+            VariableEditor variableEditor = GameObject.FindObjectOfType<VariableEditor>();
+            variableEditor.OnBeginDrag(eventData);
+            variableEditor.OnDrag(eventData);
+            variableEditor.OnEndDrag(eventData);
+
+            yield return new WaitForSeconds(0.1f);
+
+            //Test creating and deleting of variables
+            BlocksBoard blocksBoard = GameObject.FindObjectOfType<BlocksBoard>();
+            blocksBoard.variableName.text = "testVariable";
+            blocksBoard.CreateVariable();
+            blocksBoard.DeleteVariable("testVariable");
+
+            //Test creating and deleting of messages
+            blocksBoard.messageName.text = "testMessage";
+            blocksBoard.CreateMessage();
+            blocksBoard.DeleteMessage("testMessage");
+
+            //Test Json serialization
+            CodeBoard codeBoard = GameObject.FindObjectOfType<CodeBoard>();
+            codeBoard.SaveTest();
+            codeBoard.LoadTest();
+
+            EditorManager.instance.ToggleProperties(firstObject);
+
+            yield return new WaitForSeconds(0.2f);
+
+            //test WebXRInteractor
+
+
+            controller.gameObject.transform.position = firstObject.transform.position;
+            yield return new WaitForSeconds(0.2f);
+
+            //controller.controller.triggerPressed.wasPressedThisFrame = true;
+
+            controller.gameObject.transform.position = firstObject.transform.position + controller.gameObject.transform.forward;
+
+            yield return new WaitForSeconds(0.5f);
+
+            //Test controller in editor
+            EditorSettings.instance.enableSnap = true;
+            EditorSettings.instance.snapMoveStep = 0.1f;
+            EditorSettings.instance.snapRotateStepX = 90f;
+            EditorSettings.instance.snapRotateStepY = 90f;
+            EditorSettings.instance.snapRotateStepZ = 90f;
+            EditorSettings.instance.snapScaleStep = 0.1f;
+
+
+            EditorManager.instance.NextTransformMode();
+            EditorManager.instance.NextTransformMode();
+            EditorManager.instance.NextTransformMode();
+            EditorManager.instance.NextTransformMode();
+            EditorManager.instance.NextTransformMode();
+
+            editorInteractable.OnGrab(controller);
+            yield return new WaitForSeconds(0.1f);
+            EditorSettings.instance.enableSnap = false;
+            yield return new WaitForSeconds(0.1f);
+            editorInteractable.OnUngrab(controller);
+
+            editorInteractable.OnSecondaryGrab(controller);
+            EditorSettings.instance.enableSnap = true;
+
+            yield return new WaitForSeconds(0.1f);
+
+            WebXREditorInteractable editorInteractableObject = editorInteractable as WebXREditorInteractable;
+            WebXREditorPivot[] gizmos = editorInteractableObject.gizmoScale.GetComponentsInChildren<WebXREditorPivot>();
+            foreach (var gizmo in gizmos)
+            {
+                editorInteractable.OnSecondaryUngrab(controller);
+                editorInteractableObject.SelectGizmo(gizmo);
+                editorInteractable.OnSecondaryGrab(controller);
+                editorInteractableObject.SelectGizmo(gizmo);
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            editorInteractable.OnSecondaryUngrab(controller);
+
+            editorInteractable.OnTouch(controller);
+            yield return new WaitForSeconds(0.5f);
+            editorInteractable.OnUntouch(controller);
+
+            //Clone test
+            EditorManager.instance.NextTransformMode();
+
+            editorInteractable.OnSecondaryGrab(controller);
+            yield return new WaitForSeconds(0.1f);
+            editorInteractable.OnSecondaryUngrab(controller);
+
+            //Set parent test
+            EditorManager.mode = TransformMode.SET_PARENT;
+
+            EditorManager.instance.selectedObject = GameObject.Find("Banana_pill");
+            editorInteractable.OnSecondaryGrab(controller);
+            yield return new WaitForSeconds(0.1f);
+            editorInteractable.OnSecondaryUngrab(controller);
+
+            yield return new WaitForSeconds(0.1f);
+
+            EditorManager.instance.selectedObject = firstObject;
+            editorInteractable.OnSecondaryGrab(controller);
+            yield return new WaitForSeconds(0.1f);
+            editorInteractable.OnSecondaryUngrab(controller);
+
+            //Test loading and play
             SceneManager.LoadScene("Player");
 
             yield return new WaitForSeconds(4.0f);
@@ -56,21 +240,14 @@ namespace Tests
         }
 
         [UnityTest]
-        public IEnumerator CodeLogicTest()
+        public IEnumerator AssetLoaderTest()
         {
-            //TEST CASE
-            StartEvent startEvent = new StartEvent();
-            MoveMotion moveMotion = new MoveMotion();
-            //moveMotion.moveStep = new IntVariable(1);
-            startEvent.AddBlock(moveMotion);
-
-            KeyPressedEvent keyPressedEvent = new KeyPressedEvent();
-            keyPressedEvent.key = KeyCode.Space;
-            MoveMotion moveMotion2 = new MoveMotion();
-            //moveMotion2.moveStep = new IntVariable(1);
-            keyPressedEvent.AddBlock(moveMotion2);
-
-            yield return null;
+            yield return AssetsLoader.GetEnvironmentList(result => { });
+            yield return AssetsLoader.GetBasicModelsList(result => { });
+            yield return AssetsLoader.GetBasicModelsList(result => { });
+            yield return AssetsLoader.GetModelsList(result => { });
+            yield return AssetsLoader.GetTexturesList(result => { });
+            yield return AssetsLoader.GetModelsFromUrl("https://app.scioxr.com/StreamingAssets/Models/files.txt", result => { });
         }
 
         [UnityTest]
