@@ -28,6 +28,7 @@ namespace Tests
         [UnityTest]
         public IEnumerator SaveLoadScene()
         {
+            AssetsLoader.appUrl = "https://app.scioxr.com/";
             SceneManager.LoadScene("Main");
 
             yield return new WaitForSeconds(1.0f);
@@ -84,7 +85,7 @@ namespace Tests
             //Select environment tab
             mainMenuTabs.tabs[2].GetComponentInChildren<XRTabGroup>().SelectTab(0);
 
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(4.0f);
 
             mainMenuTabs.tabs[2].GetComponentInChildren<XRTabGroup>().SelectTab(1);
 
@@ -282,7 +283,7 @@ namespace Tests
             //Test loading and play
             SceneManager.LoadScene("Player");
 
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(3.0f);
 
             GameObject.FindObjectOfType<InteractEvent>().Trigger();
 
