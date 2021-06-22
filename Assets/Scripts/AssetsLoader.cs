@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 
 public class AssetsLoader
 {
-    static string appUrl = Application.absoluteURL;
+    public static string appUrl = Application.absoluteURL;
     //static string appUrl = "http://localhost:8000/";
 
     static string modelsSuffix = ".gltf";
@@ -91,7 +91,10 @@ public class AssetsLoader
             string[] lines = www.downloadHandler.text.Replace("\r", "").Split('\n');
             foreach (var line in lines)
             {
-                modelNames.Add(line);
+                if (line != "")
+                {
+                    modelNames.Add(line);
+                }
             }
         }
         callback(modelNames);
@@ -178,7 +181,8 @@ public class AssetsLoader
         return resourceModels.Contains(modelName);
 #elif UNITY_WEBGL
         //TODO: implement
-        return true;
+        GameObject loadedObject = (GameObject)Resources.Load("Models/" + modelName);
+        return loadedObject != null;
 #else
         string resourcesPath = Path.Combine(Application.dataPath + "/Resources" + modelsFolder, modelName);
         string resFilePath = resourcesPath + modelsSuffix;
@@ -249,7 +253,7 @@ public class AssetsLoader
     public static IEnumerator ImportModel(string modelName, Action<GameObject> callback)
     {
 #if UNITY_WEBGL //&& !UNITY_EDITOR
-        string modelPath = appUrl + "StreamingAssets/" + modelName + modelsSuffix;
+        string modelPath = appUrl + "StreamingAssets" + modelsFolder + modelName + modelsSuffix;
 #elif UNITY_ANDROID
         string modelPath = Application.streamingAssetsPath + modelsFolder + modelName + modelsSuffix;
 #else
