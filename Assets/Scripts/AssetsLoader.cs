@@ -225,7 +225,7 @@ public class AssetsLoader
         yield return null;
     }
 
-    private static IEnumerator LoadTextureFromUrl(string fullPath, Action<Texture2D> callback)
+    public static IEnumerator LoadTextureFromUrl(string fullPath, Action<Texture2D> callback)
     {
         Debug.Log("Load texture URL: " + fullPath);
         UnityWebRequest www = UnityWebRequest.Get(fullPath);
