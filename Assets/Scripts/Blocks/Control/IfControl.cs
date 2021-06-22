@@ -24,17 +24,21 @@ public class IfControl : Block
         condition = codeController.Resolve(blockData.attachedBlocks[0]) as Condition;
 
         Block lastBlock = null;
-        foreach (var childBlockData in blockData.childBlocks)
+        if (blockData.childBlocks != null)
         {
-            Block childBlock = codeController.Resolve(childBlockData);
-            if (!lastBlock)
+            foreach (var childBlockData in blockData.childBlocks)
             {
-                insideBlock = childBlock;
-            } else
-            {
-                lastBlock.AddBlock(childBlock);
+                Block childBlock = codeController.Resolve(childBlockData);
+                if (!lastBlock)
+                {
+                    insideBlock = childBlock;
+                }
+                else
+                {
+                    lastBlock.AddBlock(childBlock);
+                }
+                lastBlock = childBlock;
             }
-            lastBlock = childBlock;
         }
     }
 }

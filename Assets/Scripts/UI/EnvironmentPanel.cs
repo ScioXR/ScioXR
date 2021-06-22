@@ -7,16 +7,7 @@ using UnityEngine.UI;
 
 public class EnvironmentPanel : XRPanel
 {
-    public Renderer[] rend;
     public Material[] materials;
-
-    public void ChangeEnvironmentColor (int index)
-    {
-        for (int i = 0; i < rend.Length; i++)
-        {
-            rend[i].GetComponent<MeshRenderer>().material = materials[index];
-        }
-    }
 
     public Sprite defaultImage;
     public GameObject environmentCardPrefab;
