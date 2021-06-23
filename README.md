@@ -1,5 +1,8 @@
 ![logo_horizontal](https://user-images.githubusercontent.com/75275242/100930530-821e9a00-34e9-11eb-8de7-7739bf4397cf.png)
 
+[![build_status](https://circleci.com/gh/ScioXR/ScioXR.svg?style=shield)](https://app.circleci.com/pipelines/github/ScioXR/ScioXR)
+[![build_coverage](https://90-211872240-gh.circle-artifacts.com/0/coverage/badge_shieldsio_linecoverage_green.svg)](https://90-211872240-gh.circle-artifacts.com/0/coverage/index.htm)
+
 ## Introduction
 
 ScioXR is a platform for created content in VR. The visual programming language is inspired by Scratch.
