@@ -15,7 +15,7 @@ public class VRKeyboardInput : MonoBehaviour, ISelectHandler, IDeselectHandler
         }
     }
 
-    void ISelectHandler.OnSelect(BaseEventData eventData)
+    public void OnSelect(BaseEventData eventData)
     {
         if (GetComponent<InputField>())
         {

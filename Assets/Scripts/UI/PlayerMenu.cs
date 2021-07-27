@@ -35,10 +35,4 @@ public class PlayerMenu : XRPanel
         //AppManager.instance.currentSceneName = selectedExperience;
         SceneManager.LoadScene("Player");
     }
-
-    public void PlayGame(string game)
-    {
-        //AppManager.instance.currentSceneName = selectedExperience;
-        SceneManager.LoadScene(game);
-    }
 }

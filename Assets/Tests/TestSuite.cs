@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using NUnit.Framework;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 
 namespace Tests
 {
@@ -29,6 +31,9 @@ namespace Tests
         public IEnumerator SaveLoadScene()
         {
             AssetsLoader.appUrl = "https://app.scioxr.com/";
+
+            yield return new WaitForSeconds(1.0f);
+
             SceneManager.LoadScene("Main");
 
             yield return new WaitForSeconds(1.0f);
@@ -39,8 +44,6 @@ namespace Tests
             {
                 writer.Write(jsonScene);
             }
-
-            yield return new WaitForSeconds(1.0f);
 
             SceneManager.LoadScene("Editor");
 
@@ -108,6 +111,7 @@ namespace Tests
             //Open properties with controller
             WebXRInteractor controller = GameObject.FindObjectOfType<WebXRInteractor>();
             EditorManager.instance.NextTransformMode();
+            EditorManager.instance.SetTransformMode(TransformMode.PROPERTIES);
             IWebXRInteractable editorInteractable = firstObject.GetComponent<IWebXRInteractable>();
             editorInteractable.OnSecondaryGrab(controller);
             yield return new WaitForSeconds(0.1f);
@@ -125,6 +129,10 @@ namespace Tests
             propertiesTabs.SelectTab(0);
 
             yield return new WaitForSeconds(0.2f);
+
+            VRKeyboardInput keyboardInput = GameObject.FindObjectOfType<VRKeyboardInput>();
+            keyboardInput.OnSelect(null);
+            keyboardInput.OnDeselect(null);
 
             propertiesTabs.tabs[0].GetComponentInChildren<XRTabGroup>().SelectTab(1);
 
@@ -193,6 +201,11 @@ namespace Tests
             blocksBoard.messageName.text = "testMessage";
             blocksBoard.CreateMessage();
             blocksBoard.DeleteMessage("testMessage");
+
+            keyboardInput = GameObject.FindObjectOfType<VRKeyboardInput>();
+            keyboardInput.OnSelect(null);
+            keyboardInput.OnDeselect(null);
+            keyboardInput.CloseKeybaord();
 
             //Test Json serialization
             CodeBoard codeBoard = GameObject.FindObjectOfType<CodeBoard>();
@@ -287,6 +300,35 @@ namespace Tests
 
             GameObject.FindObjectOfType<InteractEvent>().Trigger();
 
+            WebXRInteract interactObject = GameObject.FindObjectOfType<WebXRInteract>();
+            interactObject.OnGrab(null);
+            interactObject.OnUngrab(null);
+            interactObject.OnSecondaryGrab(null);
+            interactObject.OnSecondaryUngrab(null);
+            interactObject.OnTouch(null);
+            interactObject.OnUntouch(null);
+            interactObject.OnPointerClick(null);
+
+            PlayerMenu playerMenu = GameObject.FindObjectOfType<PlayerMenu>(true);
+            playerMenu.Show();
+            playerMenu.PlayExperience();
+
+            yield return new WaitForSeconds(0.5f);
+
+            playerMenu = GameObject.FindObjectOfType<PlayerMenu>(true);
+            playerMenu.Show();
+            playerMenu.EditExperience();
+
+            yield return new WaitForSeconds(0.5f);
+
+            SceneManager.LoadScene("Player");
+
+            yield return new WaitForSeconds(0.5f);
+
+            playerMenu = GameObject.FindObjectOfType<PlayerMenu>(true);
+            playerMenu.Show();
+            playerMenu.GoToMainMenu();
+
             yield return new WaitForSeconds(4.0f);
 
             yield return null;
@@ -305,6 +347,59 @@ namespace Tests
         }
 
         [UnityTest]
+        public IEnumerator MainMenuTest()
+        {
+            SceneManager.LoadScene("Main");
+
+            yield return new WaitForSeconds(0.5f);
+
+            ChooseExperienceMenu menu = GameObject.FindObjectOfType<ChooseExperienceMenu>();
+
+            menu.NewExperience();
+
+            yield return new WaitForSeconds(0.5f);
+
+            AppManager.instance.currentSceneName = "sceneToDelete";
+
+            ScioXRSceneManager.instance.SaveScene(AppManager.instance.GetScenePath());
+
+            SceneManager.LoadScene("Main");
+
+            yield return new WaitForSeconds(0.5f);
+
+            menu = GameObject.FindObjectOfType<ChooseExperienceMenu>();
+            menu.selectedExperience = "sceneToDelete";
+            menu.EditExperience();
+
+            yield return new WaitForSeconds(0.5f);
+
+            SceneManager.LoadScene("Main");
+
+            yield return new WaitForSeconds(0.5f);
+
+            menu = GameObject.FindObjectOfType<ChooseExperienceMenu>();
+            menu.selectedExperience = "sceneToDelete";
+            menu.PlayExperience();
+
+            yield return new WaitForSeconds(0.5f);
+
+            SceneManager.LoadScene("Main");
+
+            yield return new WaitForSeconds(0.5f);
+
+            menu = GameObject.FindObjectOfType<ChooseExperienceMenu>();
+            menu.selectedExperience = "sceneToDelete";
+            menu.ShowExperienceInfo("sceneToDelete");
+            menu.DeleteExperience();
+
+            menu.PlayGame("K8");
+
+            yield return new WaitForSeconds(0.5f);
+
+            yield return null;
+        }
+
+        [UnityTest]
         public IEnumerator RectExtensionTest()
         {
             SceneManager.LoadScene("Main");
@@ -318,6 +413,115 @@ namespace Tests
             t1.Overlaps(t2, true);
             t1.WorldRect();
             yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator SaveLoadSceneTest3D()
+        {
+            AssetsLoader.appUrl = "https://app.scioxr.com/";
+            SceneManager.LoadScene("Editor");
+
+            yield return new WaitForSeconds(1.0f);
+
+            PlatformLoader.instance.currentPlatfrom = PlatformLoader.ScioXRPlatforms.Flat3D;
+            PlatformLoader.instance.Init();
+
+            yield return new WaitForSeconds(1.0f);
+
+            //Open Main menu panel
+            EditorButtonsListener buttonListener = GameObject.FindObjectOfType<EditorButtonsListener>();
+            buttonListener.toggleCanvas.Toggle();
+
+            yield return new WaitForSeconds(0.2f);
+            XRTabGroup mainMenuTabs = buttonListener.toggleCanvas.panel as XRTabGroup;
+            mainMenuTabs.SelectTab(0);
+
+            yield return new WaitForSeconds(1.5f);
+
+            ModelSelecter basicModelSelector = GameObject.FindObjectOfType<ModelSelecter>();
+            basicModelSelector.CreateBasicModel();
+
+            yield return new WaitForSeconds(0.5f);
+
+            EditorTransform3D editorObject = GameObject.FindObjectOfType<EditorTransform3D>();
+            
+            IDragHandler editorDrag = editorObject.GetComponent<IDragHandler>();
+            PointerEventData poitnerData = new PointerEventData(EventSystem.current);
+            EditorManager.mode = TransformMode.MOVE_XY;
+            editorDrag.OnDrag(poitnerData);
+            EditorManager.mode = TransformMode.MOVE_XZ;
+            editorDrag.OnDrag(poitnerData);
+            EditorManager.mode = TransformMode.ROTATE_XY;
+            editorDrag.OnDrag(poitnerData);
+            EditorManager.mode = TransformMode.ROTATE_XZ;
+            editorDrag.OnDrag(poitnerData);
+            EditorManager.mode = TransformMode.SCALE;
+            editorDrag.OnDrag(poitnerData);
+
+            editorObject.OnPointerEnter(poitnerData);
+            editorObject.OnPointerExit(poitnerData);
+
+            editorObject.GetComponent<IBeginDragHandler>().OnBeginDrag(poitnerData);
+            editorObject.GetComponent<IEndDragHandler>().OnEndDrag(poitnerData);
+
+            EditorManager.mode = TransformMode.SET_PARENT;
+            EditorManager.instance.selectedObject = editorObject.gameObject;
+            editorObject.GetComponent<IPointerClickHandler>().OnPointerClick(poitnerData);
+            EditorManager.mode = TransformMode.PROPERTIES;
+            editorObject.GetComponent<IPointerClickHandler>().OnPointerClick(poitnerData);
+
+            yield return new WaitForSeconds(0.5f);
+
+            MouseLook mouseLook = GameObject.FindObjectOfType<MouseLook>();
+            mouseLook.DoMouseMove();
+            mouseLook.axes = MouseLook.RotationAxes.MouseX;
+            mouseLook.DoMouseMove();
+            mouseLook.axes = MouseLook.RotationAxes.MouseY;
+            mouseLook.DoMouseMove();
+
+            yield return new WaitForSeconds(0.5f);
+
+            //test properties
+            Saveable saveable = GameObject.FindObjectOfType<Saveable>();
+            PropertiesPanel properties = EditorManager.instance.propertiesMenu.GetComponentInChildren<PropertiesPanel>();
+            properties.SetObject(saveable.gameObject);
+
+            EditorManager.instance.keyboard.textInput = properties.tagInputField;
+            EditorManager.instance.keyboard.HandleUpdate("TestTag");
+            EditorManager.instance.keyboard.HandleSubmit("TestTag");
+            EditorManager.instance.keyboard.HandleCancel();
+
+            EditorManager.instance.keyboard.textInput = null;
+            EditorManager.instance.keyboard.textInputTMP = GameObject.FindObjectOfType<TMP_InputField>(true);
+            EditorManager.instance.keyboard.HandleUpdate("TestTag");
+            EditorManager.instance.keyboard.HandleSubmit("TestTag");
+            EditorManager.instance.keyboard.HandleCancel();
+
+            EditorManager.instance.keyboard.UpdatePosition();
+
+            properties.SetInteractable(false);
+            properties.SaveState();
+            properties.DuplicateButton(saveable.gameObject);
+
+            properties.tagInputField.GetComponentInChildren<Text>().text = "TestTag";
+            properties.AddTagToList();
+            properties.AddTagToList();
+            properties.EnterSetParentMode();
+
+            properties.DestroyButton();
+            properties.CloseButton();
+
+
+            AppManager.instance.currentSceneName = "unitTestScene3D";
+
+            ScioXRSceneManager.instance.SaveScene(AppManager.instance.GetScenePath());
+            
+            SceneManager.LoadScene("Player");
+
+            yield return new WaitForSeconds(1.0f);
+
+            InteractFlat3D interactObject = GameObject.FindObjectOfType<InteractFlat3D>();
+            interactObject.OnPointerClick(null);
         }
     }
 }

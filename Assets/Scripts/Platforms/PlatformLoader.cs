@@ -42,7 +42,7 @@ public class PlatformLoader : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Init()
+    public void Init()
     {       
         platform = platforms[(int)currentPlatfrom].GetComponent<Platform>();
         platforms[(int)currentPlatfrom].SetActive(true);

@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "ScioXR",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "VRKeys"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
