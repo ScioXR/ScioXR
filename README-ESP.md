@@ -41,7 +41,7 @@ ScioXR es una plataforma para contenido creado en VR. El lenguaje de programaci�
 
 ## Contribuyendo
 
-Para obtener detalles acerca de cómo colaborar en el proyecto, por favor lea la [Guía de Colaboración](CONTRIBUTING.md) 
+Para obtener detalles acerca de cómo colaborar en el proyecto, por favor lea la [Guía de Colaboración](CONTRIBUTING-ESP.md)
 
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
